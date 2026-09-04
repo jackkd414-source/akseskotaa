@@ -32,6 +32,8 @@ AksesKota dibuat untuk kategori Web Development SMA/MA/SMK ITechno Cup 2026 deng
 | Video demo (opsional) | `Tambahkan jika tersedia` |
 
 > Kedua tautan pertama wajib dilengkapi sebelum pengumpulan penyisihan karena guidebook meminta repository GitHub dan website yang sudah di-hosting (hlm. 9 dan 12).
+>
+> Langkah lengkap untuk push ke GitHub, deploy ke Netlify, dan mengaktifkan backend audit bersama tersedia pada [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
 ## Penjelasan Aplikasi
 
@@ -55,7 +57,16 @@ AksesKota mengurangi ketidakpastian tersebut melalui:
 
 ### Batasan Produk Saat Ini
 
-Versi kompetisi merupakan aplikasi web statis/proof of concept. Data admin, audit, foto, dan poin disimpan di browser yang sama menggunakan `localStorage`. Belum tersedia backend, akun pengguna, sinkronisasi lintas perangkat, atau autentikasi admin production.
+Versi kompetisi adalah aplikasi web statis tanpa proses build. Terdapat dua mode operasi:
+
+| Mode | Kondisi | Perilaku |
+|---|---|---|
+| Lokal | `js/backend-config.js` kosong (default) | Audit, foto, poin, dan override admin disimpan di `localStorage` perangkat pengirim. |
+| Bersama | `js/backend-config.js` diisi kredensial Supabase | Audit dikirim ke database bersama sehingga terlihat oleh semua pengunjung; keputusan moderasi disinkronkan. |
+
+Foto bukti **tidak pernah** diunggah ke server pada kedua mode — hanya fakta audit yang dibagikan. Ini keputusan privasi yang disengaja.
+
+Yang masih belum tersedia: autentikasi admin sisi server, akun pengguna tersinkron lintas perangkat, dan verifikasi resmi terhadap kondisi fisik lokasi. Langkah pengaktifan mode bersama didokumentasikan pada [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
 ---
 
