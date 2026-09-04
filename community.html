@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Papan kontribusi komunitas AksesKota.">
+  <title>Komunitas — AksesKota</title>
+  <link rel="stylesheet" href="css/modern.css">
+</head>
+<body>
+
+  <div id="shell"></div>
+
+  <main id="main" class="page">
+    <header class="page-header anim-hidden anim-stagger-1">
+      <span class="eyebrow">Pahlawan aksesibilitas</span>
+      <h1>Kota dipetakan bersama.</h1>
+      <p>Setiap audit menjaga informasi tetap relevan bagi warga yang membutuhkannya.</p>
+    </header>
+
+    <div class="content-grid">
+
+      <div>
+
+        <section class="panel anim-hidden anim-stagger-2">
+          <h2>Papan kontribusi</h2>
+          <div style="overflow:auto">
+            <table class="leader-table">
+              <thead>
+                <tr>
+                  <th>Peringkat</th>
+                  <th>Kontributor</th>
+                  <th>Audit</th>
+                  <th>Poin</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel anim-hidden anim-stagger-3" style="margin-top:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <div>
+              <h2 style="margin:0">Usaha Aksesibel</h2>
+              <small style="color:var(--muted)">Peringkat usaha dengan skor aksesibilitas terbaik</small>
+            </div>
+            <a class="btn btn-outline" href="business.html" style="font-size:.82rem;min-height:36px">Lihat semua </a>
+          </div>
+          <div id="business-mini-leaderboard"></div>
+        </section>
+
+      </div>
+
+      <aside class="panel anim-hidden anim-right anim-stagger-4">
+        <h2>Lencana Anda</h2>
+        <div class="status-box">
+          <strong id="your-score">0 poin</strong>
+          <small id="your-audits">0 audit selesai</small>
+        </div>
+        <div class="badges" id="badges"></div>
+        <a class="btn btn-primary" href="audit.html" style="margin-top:18px">Mulai audit</a>
+      </aside>
+
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script type="module" src="js/community-page.js?v=7"></script>
+
+</body>
+</html>

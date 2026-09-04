@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AksesKota membantu semua orang menemukan fasilitas kota yang aksesibel.">
+  <meta name="theme-color" content="#176b45">
+  <title>AksesKota — Kota yang bisa diakses semua orang</title>
+  <link rel="stylesheet" href="css/modern.css">
+</head>
+<body>
+
+  <div id="shell"></div>
+
+  <main id="main">
+    <div class="page">
+
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow hero-enter">Navigasi inklusif Jakarta</span>
+          <h1 class="hero-enter-delay">Kota untuk<br>semua orang.</h1>
+          <p class="hero-enter-delay">Temukan rampa, lift, toilet aksesibel, dan jalur taktil sebelum berangkat. Informasi nyata dari OpenStreetMap, diperbarui bersama komunitas.</p>
+          <div class="hero-actions hero-enter-delay2">
+            <a class="btn btn-primary" href="map.html">Buka peta aksesibilitas</a>
+            <a class="btn btn-outline" href="audit.html">Kontribusi audit</a>
+          </div>
+          <div class="trust-row hero-enter-delay3">
+            <span><i></i>Data OpenStreetMap terbuka</span>
+            <span><i></i>Rute khusus kursi roda</span>
+            <span><i></i>Audit tanpa akun</span>
+          </div>
+        </div>
+
+        <div class="hero-map hero-enter-delay2" role="img" aria-label="Ilustrasi rute kursi roda di peta kota menuju lokasi aksesibel">
+          <svg class="city" viewBox="0 0 560 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="560" height="560" fill="#eaf2ec"/>
+            <!-- blok kota -->
+            <g fill="#dde9e0">
+              <rect x="30" y="40" width="150" height="110" rx="10"/>
+              <rect x="215" y="30" width="130" height="90" rx="10"/>
+              <rect x="390" y="55" width="140" height="120" rx="10"/>
+              <rect x="40" y="200" width="120" height="140" rx="10"/>
+              <rect x="410" y="230" width="120" height="130" rx="10"/>
+              <rect x="60" y="400" width="170" height="120" rx="10"/>
+              <rect x="280" y="420" width="120" height="100" rx="10"/>
+              <rect x="440" y="410" width="90" height="110" rx="10"/>
+              <rect x="200" y="170" width="160" height="200" rx="12" fill="#cfe3d6"/>
+            </g>
+            <!-- jalan -->
+            <g stroke="#fff" stroke-width="18" stroke-linecap="round">
+              <path d="M10 175 H550" fill="none"/>
+              <path d="M10 370 H550" fill="none"/>
+              <path d="M190 10 V550" fill="none"/>
+              <path d="M375 10 V550" fill="none"/>
+            </g>
+            <!-- rute aksesibel -->
+            <path d="M95 130 H300 V300 H480 V470" fill="none" stroke="#176b45" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 16" opacity=".9"/>
+            <path d="M95 130 H300 V300 H480 V470" fill="none" stroke="#176b45" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- titik awal & tujuan -->
+            <circle cx="95" cy="130" r="13" fill="#fff" stroke="#2878b5" stroke-width="5"/>
+            <circle cx="480" cy="470" r="15" fill="#176b45" stroke="#fff" stroke-width="5"/>
+            <!-- marker fasilitas -->
+            <g font-family="DM Sans, sans-serif" font-size="15" font-weight="700" text-anchor="middle">
+              <circle cx="300" cy="300" r="17" fill="#2878b5" stroke="#fff" stroke-width="4"/><text x="300" y="306" fill="#fff">R</text>
+              <circle cx="215" cy="370" r="17" fill="#176b45" stroke="#fff" stroke-width="4"/><text x="215" y="376" fill="#fff">L</text>
+              <circle cx="375" cy="175" r="17" fill="#b26b1c" stroke="#fff" stroke-width="4"/><text x="375" y="181" fill="#fff">T</text>
+              <circle cx="120" cy="370" r="17" fill="#795597" stroke="#fff" stroke-width="4"/><text x="120" y="376" fill="#fff">J</text>
+            </g>
+            <!-- ikon kursi roda di tujuan -->
+            <g transform="translate(462 440)" fill="#fff">
+              <circle cx="9" cy="6" r="3.4"/>
+              <path d="M7 11h4v7h6l2 8h-4l-1.4-5H9a2 2 0 0 1-2-2z" transform="scale(1.15)"/>
+            </g>
+          </svg>
+          <div class="map-card one">
+            <strong>Stasiun MRT Senayan</strong>
+            <small>Lift · Toilet · Jalur taktil</small>
+          </div>
+          <div class="map-card two">
+            <span class="route-badge"><i></i>Rute kursi roda</span>
+            <strong>1,2 km · tanpa tangga</strong>
+            <small>Menghindari kemiringan &gt; 8%</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cara kerja -->
+      <section class="section">
+        <div class="section-head anim-hidden">
+          <span class="eyebrow">Cara kerja</span>
+          <h2>Rencanakan perjalanan tanpa kejutan.</h2>
+          <p>AksesKota menggabungkan data terbuka dan audit singkat dari warga.</p>
+        </div>
+        <div class="steps">
+          <article class="step anim-hidden anim-stagger-1">
+            <div class="step-num">01</div>
+            <h3>Cari tujuan</h3>
+            <p>Cari venue atau jelajahi fasilitas aksesibel di sekitar posisi Anda.</p>
+          </article>
+          <article class="step anim-hidden anim-stagger-2">
+            <div class="step-num">02</div>
+            <h3>Periksa akses</h3>
+            <p>Lihat rampa, lift, toilet, jalur taktil, rating, dan audit terakhir.</p>
+          </article>
+          <article class="step anim-hidden anim-stagger-3">
+            <div class="step-num">03</div>
+            <h3>Bagikan kondisi</h3>
+            <p>Audit lokasi dalam 30 detik agar informasi tetap akurat.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Usaha Aksesibel -->
+      <section class="section">
+        <div class="section-head text-right anim-hidden">
+          <span class="eyebrow">Usaha kecil aksesibel</span>
+          <h2>Tumbuh bersama aksesibilitas.</h2>
+          <p>Usaha kecil bisa mendaftar, mendapat review dari komunitas, dan naik peringkat di leaderboard kota.</p>
+        </div>
+        <div class="steps">
+          <article class="step anim-hidden anim-stagger-1">
+            <div class="step-num">01</div>
+            <h3>Daftarkan usaha</h3>
+            <p>Daftarkan usaha Anda di peta dan dapatkan tanda "Usaha Aksesibel".</p>
+          </article>
+          <article class="step anim-hidden anim-stagger-2">
+            <div class="step-num">02</div>
+            <h3>Dapat review</h3>
+            <p>Komunitas memberikan review aksesibilitas pada lokasi usaha Anda.</p>
+          </article>
+          <article class="step anim-hidden anim-stagger-3">
+            <div class="step-num">03</div>
+            <h3>Naik peringkat</h3>
+            <p>Skor aksesibilitas menentukan badge dan posisi di leaderboard.</p>
+          </article>
+        </div>
+        <div style="margin-top:30px" class="anim-hidden anim-stagger-4">
+          <a class="btn btn-primary" href="business.html">Lihat leaderboard usaha</a>
+        </div>
+      </section>
+
+      <!-- Dampak -->
+      <section class="section impact">
+        <div class="anim-hidden">
+          <span class="eyebrow">Dampak nyata</span>
+          <h2>Informasi kecil.<br>Perbedaan besar.</h2>
+          <p>Ketidakpastian adalah hambatan. Satu audit dapat membantu pengguna kursi roda, lansia, orang tua dengan stroller, dan siapa pun dengan kebutuhan mobilitas.</p>
+          <a href="about.html" class="btn btn-outline">Pelajari misi kami</a>
+        </div>
+        <div class="impact-list">
+          <div class="impact-item sdg-8 anim-hidden anim-stagger-1">
+            <b>8</b>
+            <div>
+              <strong>Pekerjaan layak</strong>
+              <p>Mendorong partisipasi mikro komunitas.</p>
+            </div>
+          </div>
+          <div class="impact-item sdg-9 anim-hidden anim-stagger-2">
+            <b>9</b>
+            <div>
+              <strong>Infrastruktur inklusif</strong>
+              <p>Data terbuka untuk keputusan kota yang lebih baik.</p>
+            </div>
+          </div>
+          <div class="impact-item sdg-11 anim-hidden anim-stagger-3">
+            <b>11</b>
+            <div>
+              <strong>Kota berkelanjutan</strong>
+              <p>Navigasi yang aman dan setara untuk semua warga.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script type="module">
+    import { shell, footer, initShell, initLogout, initAnimations } from './js/core.js';
+    document.querySelector('#shell').innerHTML = shell('home');
+    document.querySelector('#footer').innerHTML = footer();
+    initShell();
+    initLogout();
+    initAnimations();
+  </script>
+
+</body>
+</html>

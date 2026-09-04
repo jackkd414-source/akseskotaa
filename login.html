@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Masuk ke AksesKota — akun pengguna atau administrator.">
+  <meta name="theme-color" content="#176b45">
+  <title>Masuk — AksesKota</title>
+  <link rel="stylesheet" href="css/modern.css">
+  <!-- Google Identity Services — replace YOUR_CLIENT_ID with your Google Cloud OAuth client ID -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <div id="shell"></div>
+
+  <main id="main" class="login-page">
+    <div class="login-card anim-hidden anim-scale">
+
+      <!-- ===== LOGIN VIEW ===== -->
+      <div id="login-view">
+        <div class="login-header">
+          <a class="brand login-brand" href="index.html">
+            <span class="brand-mark">A</span>AksesKota
+          </a>
+          <span class="eyebrow">Autentikasi</span>
+          <h1>Masuk ke akun Anda</h1>
+          <p>Pilih tipe akun dan masukkan kredensial Anda.</p>
+        </div>
+
+        <!-- Role Tabs -->
+        <div class="login-tabs" role="tablist">
+          <button class="login-tab active" role="tab" aria-selected="true" data-role="user" id="tab-user" onclick="switchTab('user')">
+            Pengguna
+          </button>
+          <button class="login-tab" role="tab" aria-selected="false" data-role="admin" id="tab-admin" onclick="switchTab('admin')">
+            Administrator
+          </button>
+        </div>
+
+        <!-- User Login Form -->
+        <form class="login-form" id="login-user-form" role="tabpanel" aria-labelledby="tab-user" novalidate>
+          <div class="field">
+            <label for="user-email">Email</label>
+            <input type="email" id="user-email" placeholder="nama@contoh.com" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="user-password">Kata sandi</label>
+            <input type="password" id="user-password" placeholder="Masukkan kata sandi" required autocomplete="current-password">
+          </div>
+          <div class="login-remember">
+            <label class="checkbox-label">
+              <input type="checkbox" id="user-remember"> Ingat saya
+            </label>
+            <a href="#" class="login-forgot" id="forgot-password-link">Lupa kata sandi?</a>
+          </div>
+          <button type="submit" class="btn btn-primary login-submit">Masuk sebagai Pengguna</button>
+          <div class="login-divider"><span>atau</span></div>
+          <!-- Google Sign-In -->
+          <button type="button" class="btn btn-google" id="google-signin-btn">
+            Masuk dengan Google
+          </button>
+          <p class="login-hint">Belum punya akun? <a href="#" id="show-register-link">Daftar sekarang</a></p>
+        </form>
+
+        <!-- Admin Login Form -->
+        <form class="login-form" id="login-admin-form" role="tabpanel" aria-labelledby="tab-admin" style="display:none" novalidate>
+          <div class="field">
+            <label for="admin-email">Email admin</label>
+            <input type="email" id="admin-email" placeholder="admin@akseskota.id" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="admin-password">Kata sandi</label>
+            <input type="password" id="admin-password" placeholder="Masukkan kata sandi admin" required autocomplete="current-password">
+          </div>
+          <div class="field">
+            <label for="admin-code">Kode akses</label>
+            <input type="text" id="admin-code" placeholder="Masukkan kode admin" required autocomplete="one-time-code">
+          </div>
+          <button type="submit" class="btn btn-primary login-submit">Masuk sebagai Admin</button>
+        </form>
+
+        <!-- Already logged in hint -->
+        <div class="login-hint" id="logout-hint" hidden>
+          Anda sudah masuk sebagai <strong id="current-role"></strong>.
+          <a href="#" id="logout-link">Keluar</a> untuk akun lain.
+        </div>
+      </div>
+
+      <!-- ===== REGISTER VIEW ===== -->
+      <div id="register-view" hidden>
+        <div class="login-header">
+          <a class="brand login-brand" href="index.html">
+            <span class="brand-mark">A</span>AksesKota
+          </a>
+          <span class="eyebrow">Buat Akun</span>
+          <h1>Daftar sekarang</h1>
+          <p>Buat akun untuk mulai melakukan audit aksesibilitas.</p>
+        </div>
+
+        <form class="login-form" id="register-form" novalidate>
+          <div class="field">
+            <label for="reg-name">Nama lengkap</label>
+            <input type="text" id="reg-name" placeholder="Nama Anda" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="reg-email">Email</label>
+            <input type="email" id="reg-email" placeholder="nama@contoh.com" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="reg-password">Kata sandi</label>
+            <input type="password" id="reg-password" placeholder="Minimal 6 karakter" required autocomplete="new-password">
+          </div>
+          <div class="field">
+            <label for="reg-password-confirm">Konfirmasi kata sandi</label>
+            <input type="password" id="reg-password-confirm" placeholder="Ulangi kata sandi" required autocomplete="new-password">
+          </div>
+          <button type="submit" class="btn btn-primary login-submit">Buat Akun</button>
+          <div class="login-divider"><span>atau</span></div>
+          <button type="button" class="btn btn-google" id="google-register-btn">
+            Daftar dengan Google
+          </button>
+          <p class="login-hint">Sudah punya akun? <a href="#" id="show-login-link">Masuk</a></p>
+        </form>
+      </div>
+
+      <!-- ===== FORGOT PASSWORD VIEW ===== -->
+      <div id="forgot-view" hidden>
+        <div class="login-header">
+          <a class="brand login-brand" href="index.html">
+            <span class="brand-mark">A</span>AksesKota
+          </a>
+          <span class="eyebrow">Reset Password</span>
+          <h1>Lupa kata sandi?</h1>
+          <p>Masukkan email Anda dan kami akan cek apakah akun ada.</p>
+        </div>
+
+        <form class="login-form" id="forgot-form" novalidate>
+          <div class="field">
+            <label for="forgot-email">Email</label>
+            <input type="email" id="forgot-email" placeholder="nama@contoh.com" required autocomplete="email">
+          </div>
+          <button type="submit" class="btn btn-primary login-submit">Cek Akun</button>
+          <p class="login-hint" id="forgot-result"></p>
+          <p class="login-hint"><a href="#" id="forgot-back-link"> Kembali ke masuk</a></p>
+        </form>
+      </div>
+
+      <!-- Error message (shared across views) -->
+      <div class="login-error" id="login-error" role="alert" hidden></div>
+
+      <!-- Success redirect -->
+      <div class="login-success" id="login-success" hidden>
+        <div class="login-spinner"></div>
+        <p id="login-success-text">Mengalihkan...</p>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <!-- Inline script for tabs — runs immediately, no module loading issues -->
+  <script>
+    function switchTab(role) {
+      var tabs = document.querySelectorAll('.login-tab');
+      var userForm = document.getElementById('login-user-form');
+      var adminForm = document.getElementById('login-admin-form');
+
+      tabs.forEach(function(t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+
+      var activeTab = document.getElementById('tab-' + role);
+      activeTab.classList.add('active');
+      activeTab.setAttribute('aria-selected', 'true');
+
+      if (role === 'user') {
+        userForm.style.display = '';
+        adminForm.style.display = 'none';
+      } else {
+        userForm.style.display = 'none';
+        adminForm.style.display = '';
+      }
+
+      // Clear error
+      var err = document.getElementById('login-error');
+      if (err) err.hidden = true;
+    }
+
+    /* --- View switching --- */
+    function showView(view) {
+      var loginView = document.getElementById('login-view');
+      var registerView = document.getElementById('register-view');
+      var forgotView = document.getElementById('forgot-view');
+      var err = document.getElementById('login-error');
+      var success = document.getElementById('login-success');
+
+      loginView.hidden = (view !== 'login');
+      registerView.hidden = (view !== 'register');
+      forgotView.hidden = (view !== 'forgot');
+      if (err) err.hidden = true;
+      if (success) success.hidden = true;
+    }
+
+    document.getElementById('show-register-link')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      showView('register');
+    });
+
+    document.getElementById('show-login-link')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      showView('login');
+    });
+
+    document.getElementById('forgot-password-link')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      showView('forgot');
+    });
+
+    document.getElementById('forgot-back-link')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      showView('login');
+    });
+  </script>
+
+  <script type="module" src="js/login.js?v=7"></script>
+</body>
+</html>

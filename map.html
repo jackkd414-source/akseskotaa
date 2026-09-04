@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Peta fasilitas aksesibilitas Jakarta.">
+  <title>Peta Aksesibel — AksesKota</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="css/modern.css">
+</head>
+<body>
+
+  <div id="shell"></div>
+
+  <main id="main" class="map-page">
+
+    <!-- Sidebar -->
+    <aside class="map-sidebar" id="map-sidebar" aria-label="Pencarian dan hasil lokasi">
+      <form class="map-search" id="search-form">
+        <input id="search" type="search" autocomplete="off" placeholder="Cari lokasi atau alamat" aria-label="Cari lokasi">
+        <button class="search-btn" aria-label="Cari">Cari</button>
+      </form>
+
+      <div class="map-tabs" id="category-chips">
+        <button class="chip active" data-category="all">Semua</button>
+        <button class="chip" data-category="business">Usaha</button>
+        <button class="chip" data-category="wheelchair_ramp">Rampa</button>
+        <button class="chip" data-category="elevator">Lift</button>
+        <button class="chip" data-category="accessible_restroom">Toilet</button>
+        <button class="chip" data-category="tactile_paving">Taktil</button>
+      </div>
+
+      <div class="sidebar-meta" id="result-meta">Memuat lokasi…</div>
+
+      <div class="data-warning" role="status" id="data-status">
+        <strong>Mengambil data OpenStreetMap…</strong>
+        <span>Data atribut berasal langsung dari tag OSM; kondisi fisik tetap dapat berubah.</span>
+        <button class="data-refresh" id="refresh-data" type="button">Perbarui data</button>
+      </div>
+
+      <div class="result-list" id="results" aria-live="polite"></div>
+    </aside>
+
+    <!-- Map -->
+    <section class="map-canvas" aria-label="Peta interaktif">
+      <div id="map"></div>
+
+      <!-- Floating buttons -->
+      <div class="map-fab-group">
+        <button class="map-fab" id="location-btn" title="Lokasi saya" aria-label="Tampilkan lokasi saya">Lokasi saya</button>
+        <button class="map-fab" id="expand-search" title="Buka hasil pencarian" aria-label="Buka hasil pencarian">Cari</button>
+      </div>
+
+      <!-- Route panel -->
+      <section class="route-panel" id="route-panel" aria-label="Rute aksesibilitas">
+        <div class="route-head">
+          <div>
+            <span class="eyebrow">Navigasi aksesibel</span>
+            <strong id="route-destination">Tujuan</strong>
+          </div>
+          <button class="detail-close" id="route-close" aria-label="Tutup rute">×</button>
+        </div>
+
+        <div class="route-mode" role="radiogroup" aria-label="Pilih profil rute">
+          <button class="active" data-route-profile="wheelchair" role="radio" aria-checked="true">Kursi roda</button>
+          <button data-route-profile="walking" role="radio" aria-checked="false">Jalan kaki</button>
+        </div>
+
+        <div class="route-row">
+          <span class="route-dot start"></span>
+          <input id="route-from" readonly placeholder="Lokasi saya">
+          <span class="route-dot end"></span>
+        </div>
+
+        <div class="route-loading" id="route-loading" hidden>Mencari jalur yang sesuai…</div>
+
+        <div class="route-summary" id="route-summary">
+          <div><strong>—</strong><small>Jarak</small></div>
+          <div><strong>—</strong><small>Estimasi</small></div>
+        </div>
+
+        <div class="route-quality" id="route-quality"></div>
+
+        <ol class="route-steps" id="route-steps"></ol>
+      </section>
+
+      <!-- Detail sheet -->
+      <article class="detail-sheet" id="detail" aria-live="polite"></article>
+    </section>
+
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>    <script type="module" src="js/map-page.js?v=7"></script>
+
+</body>
+</html>

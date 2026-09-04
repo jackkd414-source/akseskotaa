@@ -1,0 +1,18 @@
+const KEYS={overrides:'akseskota_admin_overrides',custom:'akseskota_admin_custom',audits:'akseskota_audits',log:'akseskota_admin_log'};
+const get=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch{return fallback}};
+const set=(key,value)=>localStorage.setItem(key,JSON.stringify(value));
+const uid=prefix=>`${prefix}-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
+export const getOverrides=()=>get(KEYS.overrides,{});
+export const getCustomLocations=()=>get(KEYS.custom,[]);
+export const getAudits=()=>{const rows=get(KEYS.audits,[]);let changed=false;const migrated=rows.map((a,i)=>{if(a.id&&a.status)return a;changed=true;return{...a,id:a.id||`audit-legacy-${i}-${new Date(a.timestamp||0).getTime()}`,status:a.status||'pending'}});if(changed)set(KEYS.audits,migrated);return migrated};
+export function applyAdminState(base){const overrides=getOverrides(),custom=getCustomLocations();return[...custom,...base.map(v=>({...v,...(overrides[v.id]||{}),attributes:{...v.attributes,...(overrides[v.id]?.attributes||{})}}))].filter(v=>!v.deleted)}
+function log(action,target,detail=''){const rows=get(KEYS.log,[]);rows.unshift({id:uid('log'),action,target,detail,timestamp:new Date().toISOString()});set(KEYS.log,rows.slice(0,200))}
+export const getAdminLog=()=>get(KEYS.log,[]);
+export function saveLocation(location){if(location.id?.startsWith('custom-')){const rows=getCustomLocations(),i=rows.findIndex(x=>x.id===location.id);if(i>=0)rows[i]={...rows[i],...location,updatedAt:new Date().toISOString()};else rows.push({...location,id:location.id||uid('custom'),source:'Admin lokal',createdAt:new Date().toISOString()});set(KEYS.custom,rows);log(i>=0?'edit_location':'add_location',location.name);return rows[i>=0?i:rows.length-1]}const rows=getOverrides();rows[location.id]={...(rows[location.id]||{}),...location,updatedAt:new Date().toISOString()};delete rows[location.id].id;set(KEYS.overrides,rows);log('edit_location',location.name||location.id);return rows[location.id]}
+export function addLocation(data){return saveLocation({...data,id:uid('custom'),source:'Admin lokal',attributes:data.attributes||{}})}
+export function deleteLocation(location){if(location.id.startsWith('custom-'))set(KEYS.custom,getCustomLocations().map(x=>x.id===location.id?{...x,deleted:true}:x));else{const rows=getOverrides();rows[location.id]={...(rows[location.id]||{}),deleted:true,updatedAt:new Date().toISOString()};set(KEYS.overrides,rows)}log('delete_location',location.name||location.id)}
+export function restoreLocation(location){if(location.id.startsWith('custom-'))set(KEYS.custom,getCustomLocations().map(x=>x.id===location.id?{...x,deleted:false}:x));else{const rows=getOverrides();if(rows[location.id])rows[location.id].deleted=false;set(KEYS.overrides,rows)}log('restore_location',location.name||location.id)}
+export function moderateAudit(id,status,note=''){const rows=getAudits(),i=rows.findIndex(a=>a.id===id);if(i<0)return null;rows[i]={...rows[i],status,moderationNote:note,moderatedAt:new Date().toISOString()};set(KEYS.audits,rows);log(`${status}_audit`,rows[i].locationName,id);return rows[i]}
+export function exportAdminData(){return{version:1,exportedAt:new Date().toISOString(),overrides:getOverrides(),custom:getCustomLocations(),audits:getAudits(),log:getAdminLog()}}
+export function importAdminData(data){if(!data||data.version!==1)throw new Error('Format backup tidak didukung');set(KEYS.overrides,data.overrides||{});set(KEYS.custom,data.custom||[]);set(KEYS.audits,data.audits||[]);set(KEYS.log,data.log||[])}
+export function resetAdminData(){Object.values(KEYS).forEach(k=>localStorage.removeItem(k))}

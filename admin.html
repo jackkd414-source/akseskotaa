@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Admin Lokal — AksesKota</title>
+  <link rel="stylesheet" href="css/modern.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+  <script>
+    (function(){
+      try {
+        var auth = JSON.parse(localStorage.getItem('akseskota_auth') || 'null');
+        if (!auth || auth.loggedIn !== true || auth.role !== 'admin') {
+          window.location.href = 'login.html?return=admin.html';
+        }
+      } catch(e) {
+        window.location.href = 'login.html?return=admin.html';
+      }
+    })();
+  </script>
+
+  <!-- Top bar -->
+  <header class="admin-top">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">A</span>AksesKota
+    </a>
+    <span class="admin-local">ADMIN LOKAL</span>
+    <div class="admin-top-actions">
+      <button class="btn btn-outline" id="export-btn">Export backup</button>
+      <label class="btn btn-outline">
+        Import
+        <input type="file" id="import-file" accept="application/json" hidden>
+      </label>
+      <a class="btn btn-primary" href="map.html">Buka peta</a>
+      <button class="icon-btn" id="a11y-btn" aria-label="Ubah warna" aria-expanded="false">Aa</button>
+    </div>
+  </header>
+
+  <main id="main" class="admin-shell">
+
+    <!-- Sidebar nav -->
+    <aside class="admin-nav">
+      <button class="admin-nav-item active" data-view="overview">Ringkasan</button>
+      <button class="admin-nav-item" data-view="locations">Lokasi</button>
+      <button class="admin-nav-item" data-view="audits">Moderasi audit <span id="pending-badge"></span></button>
+      <button class="admin-nav-item" data-view="businesses">Usaha terdaftar</button>
+      <button class="admin-nav-item" data-view="activity">Aktivitas</button>
+      <div class="admin-warning">
+        <strong>Bukan admin production</strong>
+        <span>Perubahan tersimpan hanya di browser ini. Belum ada login atau server.</span>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <section class="admin-main">
+      <div id="toast" role="status"></div>
+
+      <!-- View: Ringkasan -->
+      <section class="admin-view active" id="view-overview">
+        <div class="admin-heading">
+          <div>
+            <span class="eyebrow">Console operasional</span>
+            <h1>Ringkasan</h1>
+          </div>
+          <button class="btn btn-primary" data-open-location>Tambah lokasi</button>
+        </div>
+        <div class="admin-stats">
+          <article><span>Lokasi aktif</span><strong id="stat-locations">—</strong></article>
+          <article><span>Lokasi custom</span><strong id="stat-custom">—</strong></article>
+          <article><span>Audit menunggu</span><strong id="stat-pending">—</strong></article>
+          <article><span>Audit disetujui</span><strong id="stat-approved">—</strong></article>
+        </div>
+        <div class="admin-grid">
+          <div class="admin-card">
+            <h2>Audit terbaru</h2>
+            <div id="recent-audits"></div>
+          </div>
+          <div class="admin-card">
+            <h2>Aksi cepat</h2>
+            <button class="admin-action" data-open-location>Tambah lokasi manual <span></span></button>
+            <button class="admin-action" data-go="audits">Periksa audit tertunda <span></span></button>
+            <button class="admin-action" id="refresh-osm">Segarkan cache OSM <span></span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- View: Lokasi -->
+      <section class="admin-view" id="view-locations">
+        <div class="admin-heading">
+          <div>
+            <span class="eyebrow">Manajemen data</span>
+            <h1>Lokasi</h1>
+          </div>
+          <button class="btn btn-primary" data-open-location>Tambah lokasi</button>
+        </div>
+        <div class="admin-toolbar">
+          <input type="search" id="location-search" placeholder="Cari nama, alamat, atau ID">
+          <select id="location-category">
+            <option value="all">Semua kategori</option>
+            <option value="wheelchair_ramp">Rampa</option>
+            <option value="elevator">Lift</option>
+            <option value="accessible_restroom">Toilet</option>
+            <option value="tactile_paving">Taktil</option>
+          </select>
+        </div>
+        <div class="admin-card table-card">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Lokasi</th>
+                <th>Kategori</th>
+                <th>Sumber</th>
+                <th>Koordinat</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="locations-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- View: Audit Moderation -->
+      <section class="admin-view" id="view-audits">
+        <div class="admin-heading">
+          <div>
+            <span class="eyebrow">Quality control</span>
+            <h1>Moderasi audit</h1>
+          </div>
+        </div>
+        <div class="admin-tabs">
+          <button class="chip active" data-audit-filter="pending">Menunggu</button>
+          <button class="chip" data-audit-filter="approved">Disetujui</button>
+          <button class="chip" data-audit-filter="rejected">Ditolak</button>
+          <button class="chip" data-audit-filter="all">Semua</button>
+        </div>
+        <div id="audit-queue" class="audit-queue"></div>
+      </section>
+
+      <!-- View: Aktivitas -->
+      <section class="admin-view" id="view-activity">
+        <div class="admin-heading">
+          <div>
+            <span class="eyebrow">Audit trail lokal</span>
+            <h1>Aktivitas admin</h1>
+          </div>
+        </div>
+        <div class="admin-card" id="activity-list"></div>
+      </section>
+
+      <!-- View: Usaha Terdaftar -->
+      <section class="admin-view" id="view-businesses">
+        <div class="admin-heading">
+          <div>
+            <span class="eyebrow">Manajemen usaha</span>
+            <h1>Usaha terdaftar</h1>
+          </div>
+        </div>
+        <div id="businesses-list" class="admin-card"></div>
+      </section>
+
+    </section>
+  </main>
+
+  <!-- Location dialog -->
+  <dialog id="location-dialog" class="admin-dialog">
+    <form method="dialog" id="location-form">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow" id="dialog-eyebrow">Lokasi baru</span>
+          <h2 id="dialog-title">Tambah lokasi</h2>
+        </div>
+        <button class="detail-close" value="cancel" aria-label="Tutup">×</button>
+      </div>
+      <input type="hidden" id="loc-id">
+      <div class="field-grid">
+        <label class="field full">Nama lokasi<input id="loc-name" required maxlength="120"></label>
+        <label class="field full">Alamat<input id="loc-address" maxlength="200"></label>
+        <label class="field">Kategori<select id="loc-category">
+          <option value="wheelchair_ramp">Rampa</option>
+          <option value="elevator">Lift</option>
+          <option value="accessible_restroom">Toilet aksesibel</option>
+          <option value="tactile_paving">Jalur taktil</option>
+        </select></label>
+        <label class="field">Sumber<input id="loc-source" readonly></label>
+        <label class="field">Latitude<input id="loc-lat" type="number" step="any" min="-90" max="90" required></label>
+        <label class="field">Longitude<input id="loc-lng" type="number" step="any" min="-180" max="180" required></label>
+      </div>
+      <fieldset class="feature-field">
+        <legend>Kondisi fasilitas</legend>
+        <label><input type="checkbox" data-loc-feature="wheelchair_ramp"> Rampa tersedia</label>
+        <label><input type="checkbox" data-loc-feature="elevator"> Lift tersedia</label>
+        <label><input type="checkbox" data-loc-feature="accessible_restroom"> Toilet tersedia</label>
+        <label><input type="checkbox" data-loc-feature="tactile_paving"> Jalur taktil tersedia</label>
+      </fieldset>
+      <div class="dialog-actions">
+        <button class="btn btn-outline" value="cancel">Batal</button>
+        <button class="btn btn-primary" id="save-location" value="default">Simpan lokasi</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Confirm dialog -->
+  <dialog id="confirm-dialog" class="confirm-dialog">
+    <form method="dialog">
+      <h2>Hapus lokasi?</h2>
+      <p id="confirm-text"></p>
+      <div class="dialog-actions">
+        <button class="btn btn-outline" value="cancel">Batal</button>
+        <button class="btn danger-btn" value="confirm">Hapus</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Ubah warna panel -->
+  <aside class="a11y-panel" id="a11y-panel" aria-label="Ubah warna">
+    <h3>Ubah Warna</h3>
+    <div class="a11y-row"><label>Kontras tinggi</label><button class="switch" id="contrast-toggle" role="switch" aria-checked="false"></button></div>
+    <div class="a11y-row"><label for="text-size">Ukuran teks</label>
+      <select id="text-size">
+        <option value="medium">Normal</option>
+        <option value="large">Besar</option>
+        <option value="xlarge">Sangat besar</option>
+      </select>
+    </div>
+  </aside>
+
+  <script type="module" src="js/admin-page.js?v=7"></script>
+
+  <script>
+    (function() {
+      var root = document.documentElement;
+      var STORAGE_KEYS = { contrast: 'akseskota_contrast', textSize: 'akseskota_text_size' };
+
+      var sunSvg = '';
+      var moonSvg = '';
+
+      function updateIcon() {
+        var btn = document.getElementById('a11y-btn');
+        if (!btn) return;
+        btn.innerHTML = root.getAttribute('data-theme') === 'high-contrast' ? sunSvg : moonSvg;
+      }
+
+      var savedContrast = localStorage.getItem(STORAGE_KEYS.contrast);
+      var savedSize = localStorage.getItem(STORAGE_KEYS.textSize);
+
+      if (savedContrast === 'true') {
+        root.setAttribute('data-theme', 'high-contrast');
+        var toggle = document.getElementById('contrast-toggle');
+        if (toggle) toggle.setAttribute('aria-checked', 'true');
+      }
+      updateIcon();
+
+      if (savedSize) {
+        root.setAttribute('data-text-size', savedSize);
+        var select = document.getElementById('text-size');
+        if (select) select.value = savedSize;
+      }
+
+      document.addEventListener('click', function(e) {
+        var toggle = e.target.closest('#contrast-toggle');
+        if (toggle) {
+          var on = toggle.getAttribute('aria-checked') !== 'true';
+          toggle.setAttribute('aria-checked', String(on));
+          root.setAttribute('data-theme', on ? 'high-contrast' : '');
+          localStorage.setItem(STORAGE_KEYS.contrast, String(on));
+          updateIcon();
+        }
+      });
+
+      var textSelect = document.getElementById('text-size');
+      if (textSelect) {
+        textSelect.addEventListener('change', function() {
+          root.setAttribute('data-text-size', this.value);
+          localStorage.setItem(STORAGE_KEYS.textSize, this.value);
+        });
+      }
+
+      var a11yBtn = document.getElementById('a11y-btn');
+      var a11yPanel = document.getElementById('a11y-panel');
+      if (a11yBtn && a11yPanel) {
+        a11yBtn.addEventListener('click', function() {
+          var isOpen = a11yPanel.classList.toggle('open');
+          a11yBtn.setAttribute('aria-expanded', String(isOpen));
+        });
+        document.addEventListener('click', function(e) {
+          if (a11yPanel.classList.contains('open') && !a11yPanel.contains(e.target) && !a11yBtn.contains(e.target)) {
+            a11yPanel.classList.remove('open');
+            a11yBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

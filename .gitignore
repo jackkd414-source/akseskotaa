@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets
+.env
+.env.local
+*.key
+*.pem
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+NUL
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build output
+dist/
+.netlify/
+.vercel/
+
+# Legacy single-page prototype (kept locally for reference, not shipped)
+legacy/
