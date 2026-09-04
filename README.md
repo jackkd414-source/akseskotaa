@@ -25,15 +25,15 @@ AksesKota dibuat untuk kategori Web Development SMA/MA/SMK ITechno Cup 2026 deng
 
 ## Demo dan Repository
 
-| Item | Tautan |
+Aplikasi dijalankan secara lokal. Tidak ada deployment publik maupun layanan cloud yang digunakan pada versi ini.
+
+| Item | Keterangan |
 |---|---|
-| Live demo | `Tambahkan URL deployment HTTPS` |
-| GitHub repository | `Tambahkan URL repository publik` |
+| Cara menjalankan | `python -m http.server 8000 --bind 127.0.0.1`, lalu buka `http://127.0.0.1:8000` |
+| Basis data | Lokal di browser (`localStorage`) — lihat bagian Batasan Produk |
 | Video demo (opsional) | `Tambahkan jika tersedia` |
 
-> Kedua tautan pertama wajib dilengkapi sebelum pengumpulan penyisihan karena guidebook meminta repository GitHub dan website yang sudah di-hosting (hlm. 9 dan 12).
->
-> Langkah lengkap untuk push ke GitHub, deploy ke Netlify, dan mengaktifkan backend audit bersama tersedia pada [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+> Guidebook meminta repository dan website yang dapat diakses (hlm. 9 dan 12). Konfirmasikan ke panitia apakah demo lokal beserta rekaman video dapat diterima, atau lengkapi tautan sesuai kebijakan tim.
 
 ## Penjelasan Aplikasi
 
@@ -57,16 +57,22 @@ AksesKota mengurangi ketidakpastian tersebut melalui:
 
 ### Batasan Produk Saat Ini
 
-Versi kompetisi adalah aplikasi web statis tanpa proses build. Terdapat dua mode operasi:
+Versi kompetisi adalah aplikasi web statis tanpa proses build dan **tanpa backend**. Seluruh data yang dihasilkan pengguna disimpan di database lokal browser (`localStorage`) pada perangkat yang sama:
 
-| Mode | Kondisi | Perilaku |
-|---|---|---|
-| Lokal | `js/backend-config.js` kosong (default) | Audit, foto, poin, dan override admin disimpan di `localStorage` perangkat pengirim. |
-| Bersama | `js/backend-config.js` diisi kredensial Supabase | Audit dikirim ke database bersama sehingga terlihat oleh semua pengunjung; keputusan moderasi disinkronkan. |
+| Data | Kunci penyimpanan |
+|---|---|
+| Audit komunitas beserta foto dan penjelasan | `akseskota_audits` |
+| Poin kontribusi | `akseskota_score` |
+| Cache data OpenStreetMap | `akseskota_osm_real_v3` |
+| Override, lokasi tambahan, dan log admin | `akseskota_admin_*` |
+| Usaha terdaftar beserta review dan riwayat skor | `akseskota_business*` |
+| Akun dan sesi | `akseskota_users`, `akseskota_auth` |
 
-Foto bukti **tidak pernah** diunggah ke server pada kedua mode — hanya fakta audit yang dibagikan. Ini keputusan privasi yang disengaja.
+Konsekuensi yang perlu dipahami: audit hanya terlihat pada perangkat yang mengirimkannya, dan menghapus data browser akan menghapus kontribusi. Foto tidak pernah dikirim ke mana pun — tetap berada di perangkat pengguna.
 
-Yang masih belum tersedia: autentikasi admin sisi server, akun pengguna tersinkron lintas perangkat, dan verifikasi resmi terhadap kondisi fisik lokasi. Langkah pengaktifan mode bersama didokumentasikan pada [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+Belum tersedia: autentikasi admin sisi server, sinkronisasi lintas perangkat, dan verifikasi resmi terhadap kondisi fisik lokasi.
+
+Untuk memindahkan data antar perangkat, gunakan tombol **Export backup** dan **Import** pada halaman admin.
 
 ---
 
@@ -288,11 +294,15 @@ http://localhost:8000
 
 Tidak ada build step atau package installation untuk aplikasi.
 
-> Ganti `OWNER` dengan organisasi/akun GitHub tim sebelum pengumpulan.
+### Menjalankan di perangkat lain di jaringan yang sama (opsional)
 
-### Deploy Netlify/Vercel
+Ganti alamat bind agar dapat diakses dari ponsel pada Wi-Fi yang sama:
 
-Deploy folder proyek sebagai static site tanpa build command. Setelah deploy, uji seluruh URL dan layanan eksternal pada domain HTTPS.
+```bash
+python -m http.server 8000
+```
+
+Lalu buka `http://<IP-komputer>:8000` dari ponsel. Perhatikan: fitur geolokasi memerlukan HTTPS atau `localhost`, sehingga pada akses lewat IP tombol "Lokasi saya" akan menolak dengan pesan yang jelas. Semua fitur lain tetap berfungsi.
 
 ---
 

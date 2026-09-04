@@ -1,4 +1,4 @@
-const KEYS={overrides:'akseskota_admin_overrides',custom:'akseskota_admin_custom',audits:'akseskota_audits',log:'akseskota_admin_log'};
+const KEYS={overrides:'akseskota_admin_overrides',custom:'akseskota_admin_custom',audits:'akseskota_audits',log:'akseskota_admin_log',score:'akseskota_score'};
 const get=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch{return fallback}};
 const set=(key,value)=>localStorage.setItem(key,JSON.stringify(value));
 const uid=prefix=>`${prefix}-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
@@ -12,7 +12,7 @@ export function saveLocation(location){if(location.id?.startsWith('custom-')){co
 export function addLocation(data){return saveLocation({...data,id:uid('custom'),source:'Admin lokal',attributes:data.attributes||{}})}
 export function deleteLocation(location){if(location.id.startsWith('custom-'))set(KEYS.custom,getCustomLocations().map(x=>x.id===location.id?{...x,deleted:true}:x));else{const rows=getOverrides();rows[location.id]={...(rows[location.id]||{}),deleted:true,updatedAt:new Date().toISOString()};set(KEYS.overrides,rows)}log('delete_location',location.name||location.id)}
 export function restoreLocation(location){if(location.id.startsWith('custom-'))set(KEYS.custom,getCustomLocations().map(x=>x.id===location.id?{...x,deleted:false}:x));else{const rows=getOverrides();if(rows[location.id])rows[location.id].deleted=false;set(KEYS.overrides,rows)}log('restore_location',location.name||location.id)}
-export function moderateAudit(id,status,note=''){const rows=getAudits(),i=rows.findIndex(a=>a.id===id);if(i<0)return null;rows[i]={...rows[i],status,moderationNote:note,moderatedAt:new Date().toISOString()};set(KEYS.audits,rows);log(`${status}_audit`,rows[i].locationName,id);return rows[i]}
+export function moderateAudit(id,status,note=''){const rows=getAudits(),i=rows.findIndex(a=>a.id===id);if(i<0)return null;rows[i]={...rows[i],status,moderationNote:note,moderatedAt:new Date().toISOString()};set(KEYS.audits,rows);set(KEYS.score,rows.filter(a=>a.status==='approved').length*10);log(`${status}_audit`,rows[i].locationName,id);return rows[i]}
 export function exportAdminData(){return{version:1,exportedAt:new Date().toISOString(),overrides:getOverrides(),custom:getCustomLocations(),audits:getAudits(),log:getAdminLog()}}
 export function importAdminData(data){if(!data||data.version!==1)throw new Error('Format backup tidak didukung');set(KEYS.overrides,data.overrides||{});set(KEYS.custom,data.custom||[]);set(KEYS.audits,data.audits||[]);set(KEYS.log,data.log||[])}
 export function resetAdminData(){Object.values(KEYS).forEach(k=>localStorage.removeItem(k))}
