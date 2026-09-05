@@ -54,9 +54,19 @@ function getReturnUrl() {
   return params.get('return');
 }
 
+function safeReturnUrl(raw) {
+  // Hanya izinkan path relatif internal (bukan //, http:, dsb.) agar link
+  // login tidak bisa dipakai untuk open redirect ke situs luar.
+  if (!raw) return null;
+  if (typeof raw !== 'string') return null;
+  if (!/^[a-zA-Z0-9._-]+\.html(\?[^#]*)?(#.*)?$/.test(raw)) return null;
+  if (raw.includes('..')) return null;
+  return raw;
+}
+
 function redirectAfterLogin(role) {
   showRedirecting();
-  const returnUrl = getReturnUrl();
+  const returnUrl = safeReturnUrl(getReturnUrl());
   setTimeout(() => {
     if (returnUrl) {
       window.location.href = returnUrl;
@@ -71,7 +81,7 @@ function redirectAfterLogin(role) {
 /* ---------- Check if already logged in ---------- */
 const existingAuth = getAuth();
 if (existingAuth?.loggedIn) {
-  const returnUrl = getReturnUrl();
+  const returnUrl = safeReturnUrl(getReturnUrl());
   if (returnUrl) {
     if (returnUrl === 'admin.html' && existingAuth.role === 'admin') {
       window.location.href = returnUrl;

@@ -166,7 +166,8 @@ $('#business-register-form').addEventListener('submit', (e) => {
         category: $('#biz-category').value,
         ownerName: $('#biz-owner').value,
         ownerEmail: $('#biz-email').value,
-        description: $('#biz-desc').value
+        description: $('#biz-desc').value,
+        locationId: $('#biz-location')?.value || null
     });
 
     if (result.ok) {
@@ -206,3 +207,21 @@ function renderAll() {
 
 /* ---------- Init ---------- */
 renderAll();
+
+/* ---------- Isi dropdown lokasi peta ---------- */
+(async () => {
+    const sel = $('#biz-location');
+    if (!sel) return;
+    try {
+        const venues = await loadVenues();
+        const businesses = getBusinesses();
+        const taken = new Set(businesses.filter(b => b.locationId && !b.deleted).map(b => b.locationId));
+        sel.innerHTML = '<option value="">— Belum dikaitkan —</option>' +
+            venues
+                .filter(v => !taken.has(v.id))
+                .map(v => `<option value="${esc(v.id)}">${esc(v.name)}</option>`)
+                .join('');
+    } catch {
+        sel.innerHTML = '<option value="">Data lokasi gagal dimuat</option>';
+    }
+})();

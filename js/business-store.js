@@ -57,7 +57,7 @@ export function getBusiness(id) {
  * @param {Object} data - { name, address, ownerName, ownerEmail, category, description }
  * @returns {{ ok: boolean, business?: Object, error?: string }}
  */
-export function registerBusiness({ name, address, ownerName, ownerEmail, category, description }) {
+export function registerBusiness({ name, address, ownerName, ownerEmail, category, description, locationId }) {
     const businesses = getBusinesses();
 
     // Validate
@@ -71,6 +71,11 @@ export function registerBusiness({ name, address, ownerName, ownerEmail, categor
         return { ok: false, error: 'Email pemilik tidak valid.' };
     }
 
+    // Satu lokasi peta hanya boleh dikaitkan ke satu usaha.
+    if (locationId && businesses.some(b => b.locationId === locationId && !b.deleted)) {
+        return { ok: false, error: 'Lokasi peta ini sudah dikaitkan ke usaha lain.' };
+    }
+
     const business = {
         id: uid('business'),
         name: name.trim(),
@@ -79,6 +84,7 @@ export function registerBusiness({ name, address, ownerName, ownerEmail, categor
         ownerEmail: ownerEmail.trim().toLowerCase(),
         category: category || 'general',
         description: (description || '').trim(),
+        locationId: locationId || null,
         isBusiness: true,
         registeredAt: new Date().toISOString(),
         verified: false,
@@ -326,6 +332,7 @@ export function getMostImprovedBusinesses() {
                 locationId: b.locationId
             };
         })
+        .filter(b => b.improvement > 0)
         .sort((a, b) => b.improvement - a.improvement);
 
     return improvements;
