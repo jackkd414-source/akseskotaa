@@ -1,4 +1,4 @@
-import{loadVenues,categories,featureLabels}from'./core.js';
+import{loadVenues,categories,featureLabels,initA11y}from'./core.js?v=5';
 import{getAudits,getCustomLocations,getAdminLog,saveLocation,addLocation,deleteLocation,moderateAudit,exportAdminData,importAdminData}from'./admin-store.js';
 import{clearCache}from'./osm-api.js';
 import{getBusinesses,seedBusinessData,migrateSeedBusinessLocations,getBusinessForLocation,addBusinessReview}from'./business-store.js';
@@ -8,6 +8,8 @@ const esc=s=>{const d=document.createElement('div');d.textContent=s??'';return d
 const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)};
 function showView(name){$$('.admin-view').forEach(v=>v.classList.toggle('active',v.id===`view-${name}`));$$('.admin-nav-item').forEach(b=>b.classList.toggle('active',b.dataset.view===name));if(name==='locations')renderLocations();if(name==='audits')renderAudits();if(name==='businesses')renderBusinesses();if(name==='activity')renderActivity()}
 $$('.admin-nav-item').forEach(b=>b.onclick=()=>showView(b.dataset.view));$$('[data-go]').forEach(b=>b.onclick=()=>showView(b.dataset.go));
+initA11y();
+reload();
 async function reload(){try{venues=await loadVenues();renderAll()}catch(e){toast(e.message)}}
 function renderAll(){const audits=getAudits(),pending=audits.filter(a=>(a.status||'pending')==='pending').length;$('#stat-locations').textContent=venues.length;$('#stat-custom').textContent=getCustomLocations().filter(x=>!x.deleted).length;$('#stat-pending').textContent=pending;$('#stat-approved').textContent=audits.filter(a=>a.status==='approved').length;$('#pending-badge').textContent=pending||'';$('#recent-audits').innerHTML=audits.slice(-5).reverse().map(a=>auditMini(a)).join('')||'<p class="empty">Belum ada audit.</p>';renderLocations();renderAudits();renderActivity()}
 function auditMini(a){return`<div class="mini-row"><div><strong>${esc(a.locationName)}</strong><small>${new Date(a.timestamp).toLocaleString('id-ID')}</small></div><span class="status ${a.status||'pending'}">${statusLabel(a.status)}</span></div>`}

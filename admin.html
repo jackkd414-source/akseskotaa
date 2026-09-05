@@ -5,11 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>Admin Lokal — AksesKota</title>
-  <link rel="stylesheet" href="css/modern.css">
-  <link rel="stylesheet" href="css/accessibility.css">
-  <link rel="stylesheet" href="css/admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,650;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=1">
+  <link rel="stylesheet" href="css/base.css?v=1">
+  <link rel="stylesheet" href="css/shell.css?v=1">
+  <link rel="stylesheet" href="css/components.css?v=1">
+  <link rel="stylesheet" href="css/admin.css?v=1">
 </head>
 <body class="admin-body">
+
+  <a class="skip-link" href="#main">Lewati ke konten</a>
 
   <script>
     (function(){
@@ -37,11 +44,12 @@
         <input type="file" id="import-file" accept="application/json" hidden>
       </label>
       <a class="btn btn-primary" href="map.html">Buka peta</a>
-      <button class="icon-btn" id="a11y-btn" aria-label="Ubah warna" aria-expanded="false">Aa</button>
+      <button class="btn btn-outline" id="a11y-btn" aria-expanded="false" aria-controls="a11y-panel">Aksesibilitas</button>
     </div>
   </header>
 
   <main id="main" class="admin-shell">
+    <h1 class="sr-only">Konsol admin lokal AksesKota</h1>
 
     <!-- Sidebar nav -->
     <aside class="admin-nav">
@@ -65,7 +73,7 @@
         <div class="admin-heading">
           <div>
             <span class="eyebrow">Console operasional</span>
-            <h1>Ringkasan</h1>
+            <h2>Ringkasan</h2>
           </div>
           <button class="btn btn-primary" data-open-location>Tambah lokasi</button>
         </div>
@@ -94,12 +102,12 @@
         <div class="admin-heading">
           <div>
             <span class="eyebrow">Manajemen data</span>
-            <h1>Lokasi</h1>
+            <h2>Lokasi</h2>
           </div>
           <button class="btn btn-primary" data-open-location>Tambah lokasi</button>
         </div>
         <div class="admin-toolbar">
-          <input type="search" id="location-search" placeholder="Cari nama, alamat, atau ID">
+          <input type="search" id="location-search" placeholder="Cari nama, alamat, atau ID" aria-label="Cari lokasi">
           <select id="location-category">
             <option value="all">Semua kategori</option>
             <option value="wheelchair_ramp">Rampa</option>
@@ -129,7 +137,7 @@
         <div class="admin-heading">
           <div>
             <span class="eyebrow">Quality control</span>
-            <h1>Moderasi audit</h1>
+            <h2>Moderasi audit</h2>
           </div>
         </div>
         <div class="admin-tabs">
@@ -146,7 +154,7 @@
         <div class="admin-heading">
           <div>
             <span class="eyebrow">Audit trail lokal</span>
-            <h1>Aktivitas admin</h1>
+            <h2>Aktivitas admin</h2>
           </div>
         </div>
         <div class="admin-card" id="activity-list"></div>
@@ -157,7 +165,7 @@
         <div class="admin-heading">
           <div>
             <span class="eyebrow">Manajemen usaha</span>
-            <h1>Usaha terdaftar</h1>
+            <h2>Usaha terdaftar</h2>
           </div>
         </div>
         <div id="businesses-list" class="admin-card"></div>
@@ -216,86 +224,40 @@
     </form>
   </dialog>
 
-  <!-- Ubah warna panel -->
-  <aside class="a11y-panel" id="a11y-panel" aria-label="Ubah warna">
-    <h3>Ubah Warna</h3>
-    <div class="a11y-row"><label>Kontras tinggi</label><button class="switch" id="contrast-toggle" role="switch" aria-checked="false"></button></div>
-    <div class="a11y-row"><label for="text-size">Ukuran teks</label>
+  <!-- Pengaturan tampilan -->
+  <aside class="a11y-panel" id="a11y-panel" hidden>
+    <h2 class="a11y-title">Pengaturan tampilan</h2>
+
+    <div class="a11y-row">
+      <label class="check-row" for="contrast-toggle">
+        <input type="checkbox" id="contrast-toggle">
+        Kontras tinggi
+      </label>
+      <p class="a11y-hint">Latar gelap dengan teks putih untuk kontras maksimum.</p>
+    </div>
+
+    <div class="a11y-row">
+      <label for="text-size">Ukuran teks</label>
       <select id="text-size">
         <option value="medium">Normal</option>
         <option value="large">Besar</option>
         <option value="xlarge">Sangat besar</option>
       </select>
     </div>
+
+    <div class="a11y-row">
+      <label class="check-row" for="motion-toggle">
+        <input type="checkbox" id="motion-toggle">
+        Kurangi animasi
+      </label>
+      <p class="a11y-hint">Mematikan gerak dan transisi di seluruh halaman.</p>
+    </div>
+
+    <p class="a11y-note">Pengaturan tersimpan di perangkat ini.</p>
   </aside>
 
-  <script type="module" src="js/admin-page.js?v=7"></script>
+  <script type="module" src="js/admin-page.js?v=8"></script>
 
-  <script>
-    (function() {
-      var root = document.documentElement;
-      var STORAGE_KEYS = { contrast: 'akseskota_contrast', textSize: 'akseskota_text_size' };
-
-      var sunSvg = '';
-      var moonSvg = '';
-
-      function updateIcon() {
-        var btn = document.getElementById('a11y-btn');
-        if (!btn) return;
-        btn.innerHTML = root.getAttribute('data-theme') === 'high-contrast' ? sunSvg : moonSvg;
-      }
-
-      var savedContrast = localStorage.getItem(STORAGE_KEYS.contrast);
-      var savedSize = localStorage.getItem(STORAGE_KEYS.textSize);
-
-      if (savedContrast === 'true') {
-        root.setAttribute('data-theme', 'high-contrast');
-        var toggle = document.getElementById('contrast-toggle');
-        if (toggle) toggle.setAttribute('aria-checked', 'true');
-      }
-      updateIcon();
-
-      if (savedSize) {
-        root.setAttribute('data-text-size', savedSize);
-        var select = document.getElementById('text-size');
-        if (select) select.value = savedSize;
-      }
-
-      document.addEventListener('click', function(e) {
-        var toggle = e.target.closest('#contrast-toggle');
-        if (toggle) {
-          var on = toggle.getAttribute('aria-checked') !== 'true';
-          toggle.setAttribute('aria-checked', String(on));
-          root.setAttribute('data-theme', on ? 'high-contrast' : '');
-          localStorage.setItem(STORAGE_KEYS.contrast, String(on));
-          updateIcon();
-        }
-      });
-
-      var textSelect = document.getElementById('text-size');
-      if (textSelect) {
-        textSelect.addEventListener('change', function() {
-          root.setAttribute('data-text-size', this.value);
-          localStorage.setItem(STORAGE_KEYS.textSize, this.value);
-        });
-      }
-
-      var a11yBtn = document.getElementById('a11y-btn');
-      var a11yPanel = document.getElementById('a11y-panel');
-      if (a11yBtn && a11yPanel) {
-        a11yBtn.addEventListener('click', function() {
-          var isOpen = a11yPanel.classList.toggle('open');
-          a11yBtn.setAttribute('aria-expanded', String(isOpen));
-        });
-        document.addEventListener('click', function(e) {
-          if (a11yPanel.classList.contains('open') && !a11yPanel.contains(e.target) && !a11yBtn.contains(e.target)) {
-            a11yPanel.classList.remove('open');
-            a11yBtn.setAttribute('aria-expanded', 'false');
-          }
-        });
-      }
-    })();
-  </script>
 
 </body>
 </html>

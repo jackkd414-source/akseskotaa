@@ -1,0 +1,157 @@
+/* ==========================================================================
+   AksesKota — Design Tokens
+   Tema: "Kertas & Tinta"
+
+   Latar kertas hangat, bukan putih murni: mengurangi kelelahan visual pada
+   sesi panjang tanpa menurunkan kontras. Satu aksen hijau gelap, dipilih
+   supaya teks putih di atasnya tetap lulus WCAG AA (8.67:1).
+
+   Setiap pasangan warna teks/latar di file ini sudah dihitung terhadap
+   WCAG 2.1 AA (4.5:1 teks normal, 3:1 teks besar & elemen non-teks).
+   Angka pada komentar adalah rasio kontras aktual.
+   ========================================================================== */
+
+:root {
+  /* --- Permukaan --- */
+  --paper: #fbfaf7;          /* latar halaman, kertas hangat */
+  --surface: #ffffff;        /* kartu, panel, baris tabel */
+  --surface-sunken: #f4f2ec; /* area tertanam: input, kode, header tabel */
+  --line: #d9d5c9;           /* border 1px */
+  --line-strong: #b4afa0;    /* border yang perlu terlihat jelas (3.03:1) */
+
+  /* --- Tinta --- */
+  --ink: #141613;            /* teks utama          17.44:1 di paper */
+  --ink-soft: #3c4038;       /* subjudul            10.28:1 di paper */
+  --muted: #585c54;          /* teks sekunder        6.55:1 di paper */
+
+  /* --- Aksen --- */
+  --accent: #14563a;         /* hijau utama          8.31:1 di paper */
+  --accent-hover: #0e3f2a;   /* status hover        11.91:1 */
+  --accent-wash: #e8f0ea;    /* latar lembut aksen */
+  --accent-ink: #ffffff;     /* teks di atas aksen   8.67:1 */
+
+  /* --- Status --- */
+  --warn: #7a4a05;           /* peringatan           7.16:1 */
+  --warn-wash: #fbf1df;
+  --danger: #8c2018;         /* error                8.62:1 */
+  --danger-wash: #fbeceb;
+  --ok: #14563a;
+  --ok-wash: #e8f0ea;
+
+  /* --- Kategori peta ---
+     Dipakai ganda: huruf kecil di sidebar dan fill marker.
+     Keduanya lulus 4.5:1 pada kedua arah. */
+  --cat-ramp: #1b4f86;       /* 8.37:1 */
+  --cat-lift: #14563a;       /* 8.67:1 */
+  --cat-toilet: #8a4a0b;     /* 6.85:1 */
+  --cat-tactile: #5b3a82;    /* 8.85:1 */
+
+  /* --- Tipografi ---
+     Source Sans 3: dirancang untuk keterbacaan layar, x-height besar,
+     angka tabular untuk data koordinat dan skor. */
+  --font-sans: 'Source Sans 3', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+
+  /* Skala tipografi, rasio ~1.25. Ukuran dasar 17px agar nyaman dibaca
+     tanpa memaksa pengguna memperbesar. */
+  --step--1: 0.882rem;   /* 14.1px — metadata, caption */
+  --step-0: 1rem;        /* 17px   — body */
+  --step-1: 1.25rem;     /* 21px   — subjudul */
+  --step-2: 1.563rem;    /* 26.6px */
+  --step-3: 1.953rem;    /* 33.2px */
+  --step-4: 2.441rem;    /* 41.5px */
+  --step-5: 3.052rem;    /* 51.9px — judul halaman */
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-normal: 1.6;
+
+  /* --- Spasi, skala 4px --- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+
+  /* --- Bentuk --- */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-pill: 999px;
+
+  /* --- Elevasi: sistem 3 tingkat, bukan blur acak --- */
+  --e-1: 0 1px 2px rgba(20, 22, 19, 0.06);
+  --e-2: 0 2px 8px rgba(20, 22, 19, 0.08), 0 1px 2px rgba(20, 22, 19, 0.04);
+  --e-3: 0 8px 28px rgba(20, 22, 19, 0.12), 0 2px 6px rgba(20, 22, 19, 0.06);
+
+  /* --- Fokus: satu perlakuan, konsisten di seluruh aplikasi --- */
+  --focus-ring: 3px;
+  --focus-offset: 2px;
+  --focus-color: #14563a;
+
+  /* --- Ukuran sentuh minimum (WCAG 2.5.8 = 24px; kami pakai 44px) --- */
+  --target: 44px;
+
+  /* --- Layout --- */
+  --nav-h: 64px;
+  --measure: 68ch;           /* lebar baca maksimum */
+  --page-max: 1200px;
+
+  /* --- Motion: dinonaktifkan lewat prefers-reduced-motion di base.css --- */
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --ease: cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Mode kontras tinggi
+   Bukan tambalan di atas tema terang: palet gelap tersendiri.
+   Versi sebelumnya menghasilkan rasio 1.0 (teks tidak terlihat).
+   ========================================================================== */
+[data-theme='high-contrast'] {
+  --paper: #000000;
+  --surface: #111111;
+  --surface-sunken: #1c1c1c;
+  --line: #6a6a6a;           /* 3.88:1 terhadap latar */
+  --line-strong: #9a9a9a;
+
+  --ink: #ffffff;            /* 21.0:1  */
+  --ink-soft: #ebebeb;       /* 18.1:1  */
+  --muted: #d6d6d6;          /* 14.45:1 */
+
+  --accent: #7be3a8;         /* 13.4:1  */
+  --accent-hover: #a8f0c6;
+  --accent-wash: #0d2419;
+  --accent-ink: #000000;     /* hitam di atas aksen terang: 13.4:1 */
+
+  --warn: #ffc24d;           /* 13.08:1 */
+  --warn-wash: #2a1f05;
+  --danger: #ff8f80;         /* 9.49:1  */
+  --danger-wash: #2a0f0c;
+  --ok: #7be3a8;
+  --ok-wash: #0d2419;
+
+  --cat-ramp: #7ab8ff;
+  --cat-lift: #7be3a8;
+  --cat-toilet: #ffc24d;
+  --cat-tactile: #cfa8ff;
+
+  --focus-color: #ffc24d;    /* kuning agar terlihat di atas hitam */
+
+  /* Bayangan tidak berfungsi di latar hitam — ganti dengan border. */
+  --e-1: 0 0 0 1px #6a6a6a;
+  --e-2: 0 0 0 1px #6a6a6a;
+  --e-3: 0 0 0 2px #9a9a9a;
+}
+
+/* ==========================================================================
+   Skala ukuran teks — kontrol pengguna di panel aksesibilitas.
+   Menaikkan ukuran dasar, seluruh skala mengikuti karena memakai rem.
+   ========================================================================== */
+html { font-size: 17px; }
+html[data-text-size='large'] { font-size: 19px; }
+html[data-text-size='xlarge'] { font-size: 22px; }

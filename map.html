@@ -7,7 +7,13 @@
   <title>Peta Aksesibel — AksesKota</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
-  <link rel="stylesheet" href="css/modern.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,650;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=1">
+  <link rel="stylesheet" href="css/base.css?v=1">
+  <link rel="stylesheet" href="css/shell.css?v=1">
+  <link rel="stylesheet" href="css/components.css?v=1">
 </head>
 <body>
 
@@ -17,7 +23,8 @@
 
     <!-- Sidebar -->
     <aside class="map-sidebar" id="map-sidebar" aria-label="Pencarian dan hasil lokasi">
-      <form class="map-search" id="search-form">
+      <h1 class="sr-only">Peta aksesibilitas Jakarta</h1>
+      <form class="map-search" id="search-form" role="search">
         <input id="search" type="search" autocomplete="off" placeholder="Cari lokasi atau alamat" aria-label="Cari lokasi">
         <button class="search-btn" aria-label="Cari">Cari</button>
       </form>
@@ -92,7 +99,7 @@
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>    <script type="module" src="js/map-page.js?v=7"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>    <script type="module" src="js/map-page.js?v=8"></script>
 
 </body>
 </html>

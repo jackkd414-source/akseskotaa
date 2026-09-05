@@ -375,8 +375,11 @@ akseskota/
 ├── admin.html                 # Admin lokal
 ├── login.html                 # Login pengguna/admin
 ├── css/
-│   ├── modern.css             # UI publik
-│   └── admin.css              # UI admin
+│   ├── tokens.css             # Design tokens (warna, tipografi, spasi)
+│   ├── base.css               # Reset & primitif
+│   ├── shell.css              # Topbar, nav, panel aksesibilitas
+│   ├── components.css         # Komponen per surface
+│   └── admin.css              # Penyesuaian khusus admin
 ├── js/
 │   ├── core.js                # Shared shell dan venue loader
 │   ├── osm-api.js             # Overpass parser/cache/fallback

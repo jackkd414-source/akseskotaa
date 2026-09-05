@@ -1,4 +1,4 @@
-import { shell, footer, initShell, initLogout, loadVenues, categories, initAnimations } from './core.js';
+import { shell, footer, initShell, initLogout, loadVenues, categories, initAnimations } from './core.js?v=5';
 import {
     getBusinesses,
     getBusinessLeaderboard,

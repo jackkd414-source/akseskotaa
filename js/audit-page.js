@@ -1,4 +1,4 @@
-import{shell,footer,initShell,initLogout,loadVenues,initAnimations}from'./core.js?v=4';
+import{shell,footer,initShell,initLogout,loadVenues,initAnimations}from'./core.js?v=5';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];$('#shell').innerHTML=shell('audit');$('#footer').innerHTML=footer();initShell();initLogout();initAnimations();
 let rating=0,features=new Set(),venues=[],imageData=null;const select=$('#venue-select'),imageInput=$('#audit-image'),explanation=$('#audit-explanation');
 function stats(){let audits=[];try{audits=JSON.parse(localStorage.getItem('akseskota_audits')||'[]')}catch{}const approved=audits.filter(a=>a.status==='approved').length,pending=audits.filter(a=>(a.status||'pending')==='pending').length;$('#score').textContent=`${approved*10} poin`;$('#audit-count').textContent=audits.length?`${approved} disetujui · ${pending} menunggu`:'Belum ada audit'}

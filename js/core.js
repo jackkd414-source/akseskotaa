@@ -2,26 +2,127 @@ import{getAuth,logout}from'./user-store.js';
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];
 
-function closeMenu(){const m=$('#menu-btn'),l=$('#navlinks');if(l&&m){l.classList.remove('open');m.setAttribute('aria-expanded','false')}}
-export function initShell(){const menu=$('#menu-btn'),links=$('#navlinks');menu?.addEventListener('click',()=>{const open=links.classList.toggle('open');menu.setAttribute('aria-expanded',open)});links?.addEventListener('click',e=>{if(e.target===links)closeMenu()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});initA11y()}
+const KEY_CONTRAST = 'akseskota_contrast';
+const KEY_TEXT = 'akseskota_text_size';
+const KEY_MOTION = 'akseskota_motion';
 
-const sunSvg='Terang';
-const moonSvg='Gelap';
-function updateToggleIcon(){const btn=$('#a11y-btn');if(!btn)return;const isDark=document.documentElement.dataset.theme==='high-contrast';btn.innerHTML=isDark?sunSvg:moonSvg;}
-export function initA11y(){
- const a11yBtn=$('#a11y-btn'),panel=$('#a11y-panel');
- a11yBtn?.addEventListener('click',()=>{const open=panel.classList.toggle('open');a11yBtn.setAttribute('aria-expanded',open)});
- document.addEventListener('click',e=>{if(panel?.classList.contains('open')&&!panel.contains(e.target)&&!a11yBtn.contains(e.target))panel.classList.remove('open')});
- const contrast=$('#contrast-toggle');
- if(localStorage.getItem('akseskota_contrast')==='true'){document.documentElement.dataset.theme='high-contrast';contrast?.setAttribute('aria-checked','true')}
- updateToggleIcon();
- contrast?.addEventListener('click',()=>{const on=contrast.getAttribute('aria-checked')!=='true';contrast.setAttribute('aria-checked',on);document.documentElement.dataset.theme=on?'high-contrast':'';localStorage.setItem('akseskota_contrast',on);updateToggleIcon();});
- const size=$('#text-size');
- const saved=localStorage.getItem('akseskota_text_size')||'medium';document.documentElement.dataset.textSize=saved;if(size)size.value=saved;
- size?.addEventListener('change',()=>{document.documentElement.dataset.textSize=size.value;localStorage.setItem('akseskota_text_size',size.value)});
+function closeMenu() {
+  const btn = $('#menu-btn'), list = $('#navlinks');
+  if (!btn || !list) return;
+  list.classList.remove('open');
+  btn.setAttribute('aria-expanded', 'false');
 }
 
-import{fetchOSMLocations}from'./osm-api.js?v=4';
+function closePanel() {
+  const btn = $('#a11y-btn'), panel = $('#a11y-panel');
+  if (!btn || !panel) return;
+  panel.hidden = true;
+  btn.setAttribute('aria-expanded', 'false');
+}
+
+export function initShell() {
+  // Pastikan handler terpasang setelah DOM tersedia; modul ES dieksekusi
+  // sebelum parsing selesai sehingga querySelector masih kosong.
+  // Nama "runBootstrap" unik di sini: modul lain punya fungsi "boot" yang
+  // menimpa arrow-function bernama sama di scope ini.
+  const runBootstrap = () => {
+    const menu = $('#menu-btn'), links = $('#navlinks');
+
+    menu?.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      menu.setAttribute('aria-expanded', String(open));
+      if (open) links.querySelector('.navlink')?.focus();
+    });
+
+    // Escape menutup panel dan menu, lalu mengembalikan fokus ke pemicunya
+    // supaya pengguna keyboard tidak kehilangan posisi.
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      const panel = $('#a11y-panel'), panelBtn = $('#a11y-btn');
+      if (panel && !panel.hidden) {
+        closePanel();
+        panelBtn?.focus();
+        return;
+      }
+      if (links?.classList.contains('open')) {
+        closeMenu();
+        menu?.focus();
+      }
+    });
+
+    // Klik di luar menutup panel, tetapi tidak mencuri fokus.
+    document.addEventListener('click', e => {
+      const panel = $('#a11y-panel'), btn = $('#a11y-btn');
+      if (panel && !panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) closePanel();
+    });
+
+    initA11y();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runBootstrap, { once: true });
+  } else {
+    runBootstrap();
+  }
+}
+
+export function initA11y() {
+  const btn = $('#a11y-btn'), panel = $('#a11y-panel');
+
+  btn?.addEventListener('click', () => {
+    const open = panel.hidden;
+    panel.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+    // Fokus dipindah setelah panel benar-benar terlihat; elemen di dalam
+    // [hidden] tidak dapat menerima fokus.
+    if (open) {
+      const first = panel.querySelector('input, select, button');
+      if (first) first.focus();
+    }
+  });
+
+  // --- Kontras tinggi ---
+  const contrast = $('#contrast-toggle');
+  const contrastOn = localStorage.getItem(KEY_CONTRAST) === 'true';
+  if (contrastOn) document.documentElement.dataset.theme = 'high-contrast';
+  if (contrast) {
+    contrast.checked = contrastOn;
+    contrast.addEventListener('change', () => {
+      const on = contrast.checked;
+      if (on) document.documentElement.dataset.theme = 'high-contrast';
+      else delete document.documentElement.dataset.theme;
+      localStorage.setItem(KEY_CONTRAST, String(on));
+    });
+  }
+
+  // --- Ukuran teks ---
+  const size = $('#text-size');
+  const savedSize = localStorage.getItem(KEY_TEXT) || 'medium';
+  document.documentElement.dataset.textSize = savedSize;
+  if (size) {
+    size.value = savedSize;
+    size.addEventListener('change', () => {
+      document.documentElement.dataset.textSize = size.value;
+      localStorage.setItem(KEY_TEXT, size.value);
+    });
+  }
+
+  // --- Kurangi animasi ---
+  const motion = $('#motion-toggle');
+  const motionOff = localStorage.getItem(KEY_MOTION) === 'off';
+  if (motionOff) document.documentElement.dataset.motion = 'off';
+  if (motion) {
+    motion.checked = motionOff;
+    motion.addEventListener('change', () => {
+      const off = motion.checked;
+      if (off) document.documentElement.dataset.motion = 'off';
+      else delete document.documentElement.dataset.motion;
+      localStorage.setItem(KEY_MOTION, off ? 'off' : 'on');
+    });
+  }
+}
+
+import{fetchOSMLocations}from'./osm-api.js?v=5';
 import{applyAdminState}from'./admin-store.js';
 export function initLogout(){
  const btn=$('#btn-logout');
@@ -36,25 +137,123 @@ export async function loadVenues(options={}){
 }
 
 export const featureLabels={wheelchair_ramp:'Rampa',elevator:'Lift',accessible_restroom:'Toilet aksesibel',tactile_paving:'Jalur taktil',signage:'Rambu jelas'};
-export const categories={wheelchair_ramp:{label:'Rampa',color:'#2878b5',letter:'R'},elevator:{label:'Lift',color:'#176b45',letter:'L'},accessible_restroom:{label:'Toilet',color:'#b26b1c',letter:'T'},tactile_paving:{label:'Taktil',color:'#795597',letter:'J'}};
+export const categories={wheelchair_ramp:{label:'Rampa',color:'#1b4f86',letter:'R'},elevator:{label:'Lift',color:'#14563a',letter:'L'},accessible_restroom:{label:'Toilet',color:'#8a4a0b',letter:'T'},tactile_paving:{label:'Taktil',color:'#5b3a82',letter:'J'}};
 
-export function shell(active=''){
- const auth=getAuth();
- const loggedIn=auth&&auth.loggedIn;
- const roleLabel=loggedIn?(auth.role==='admin'?'Admin':'Kontributor'):'';
- const sanitize=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const userBadge=loggedIn?`<span class="nav-user"><span class="nav-user-dot"></span>${sanitize(roleLabel)}: ${sanitize(auth.name||auth.email)}</span>`:'';
- const logoutBtn=loggedIn?`<button class="navlink btn-logout" id="btn-logout">Keluar</button>`:'';
- const loginLink=!loggedIn?`<a class="navlink ${active==='login'?'active':''}" href="login.html">Masuk</a>`:'';
- const adminLink=loggedIn&&auth.role==='admin'?`<a class="navlink ${active==='admin'?'active':''}" href="admin.html">Admin</a>`:'';
- const isDark=localStorage.getItem('akseskota_contrast')==='true';
- const toggleIcon=isDark?sunSvg:moonSvg;
- return `<a class="skip-link" href="#main">Lewati ke konten</a><header class="topbar"><nav class="nav" aria-label="Navigasi utama"><a class="brand" href="index.html"><span class="brand-mark">A</span>AksesKota</a><div class="nav-spacer"></div><div class="nav-right"><button class="icon-btn theme-toggle" id="a11y-btn" aria-label="Ubah warna" aria-expanded="false">${toggleIcon}</button>${userBadge}</div><button class="menu-btn" id="menu-btn" aria-expanded="false" aria-label="Buka navigasi"><span></span><span></span><span></span></button></nav></header><div class="navlinks" id="navlinks"><a class="navlink ${active==='home'?'active':''}" href="index.html">Beranda</a><a class="navlink ${active==='map'?'active':''}" href="map.html">Peta</a><a class="navlink ${active==='audit'?'active':''}" href="audit.html">Audit</a><a class="navlink ${active==='community'?'active':''}" href="community.html">Komunitas</a><a class="navlink ${active==='business'?'active':''}" href="business.html">Usaha</a><a class="navlink ${active==='about'?'active':''}" href="about.html">Tentang</a>${adminLink}${loginLink}<div class="menu-divider"></div>${logoutBtn}</div><aside class="a11y-panel" id="a11y-panel" aria-label="Ubah warna"><h3>Ubah Warna</h3><div class="a11y-row"><label>Kontras tinggi</label><button class="switch" id="contrast-toggle" role="switch" aria-checked="false"></button></div><div class="a11y-row"><label for="text-size">Ukuran teks</label><select id="text-size"><option value="medium">Normal</option><option value="large">Besar</option><option value="xlarge">Sangat besar</option></select></div></aside>`;
+const NAV = [
+  ['home', 'index.html', 'Beranda'],
+  ['map', 'map.html', 'Peta'],
+  ['audit', 'audit.html', 'Audit'],
+  ['community', 'community.html', 'Komunitas'],
+  ['business', 'business.html', 'Usaha'],
+  ['about', 'about.html', 'Tentang'],
+];
+
+const escapeAttr = x => String(x).replace(/[&<>"']/g, c =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+export function shell(active = '') {
+  const auth = getAuth();
+  const loggedIn = auth && auth.loggedIn;
+  const roleLabel = loggedIn ? (auth.role === 'admin' ? 'Admin' : 'Kontributor') : '';
+
+  const items = [...NAV];
+  if (loggedIn && auth.role === 'admin') items.push(['admin', 'admin.html', 'Admin']);
+  if (!loggedIn) items.push(['login', 'login.html', 'Masuk']);
+
+  const links = items.map(([key, href, label]) => {
+    const current = active === key;
+    return `<li><a class="navlink${current ? ' active' : ''}" href="${href}"${
+      current ? ' aria-current="page"' : ''}>${label}</a></li>`;
+  }).join('');
+
+  const account = loggedIn
+    ? `<li class="nav-account"><span class="nav-user">${escapeAttr(roleLabel)}: ${
+        escapeAttr(auth.name || auth.email)}</span>
+       <button class="btn btn-quiet" id="btn-logout">Keluar</button></li>`
+    : '';
+
+  return `
+<a class="skip-link" href="#main">Lewati ke konten</a>
+<header class="topbar">
+  <nav class="nav page" aria-label="Navigasi utama">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">A</span>AksesKota
+    </a>
+
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="navlinks">
+      <span class="menu-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="menu-btn-text">Menu</span>
+    </button>
+
+    <ul class="navlinks" id="navlinks">${links}${account}</ul>
+
+    <button class="btn btn-outline a11y-btn" id="a11y-btn"
+            aria-expanded="false" aria-controls="a11y-panel">Aksesibilitas</button>
+  </nav>
+</header>
+
+<aside class="a11y-panel" id="a11y-panel" hidden>
+  <h2 class="a11y-title">Pengaturan tampilan</h2>
+
+  <div class="a11y-row">
+    <label class="check-row" for="contrast-toggle">
+      <input type="checkbox" id="contrast-toggle">
+      Kontras tinggi
+    </label>
+    <p class="a11y-hint">Latar gelap dengan teks putih untuk kontras maksimum.</p>
+  </div>
+
+  <div class="a11y-row">
+    <label for="text-size">Ukuran teks</label>
+    <select id="text-size">
+      <option value="medium">Normal</option>
+      <option value="large">Besar</option>
+      <option value="xlarge">Sangat besar</option>
+    </select>
+  </div>
+
+  <div class="a11y-row">
+    <label class="check-row" for="motion-toggle">
+      <input type="checkbox" id="motion-toggle">
+      Kurangi animasi
+    </label>
+    <p class="a11y-hint">Mematikan gerak dan transisi di seluruh halaman.</p>
+  </div>
+
+  <p class="a11y-note">Pengaturan tersimpan di perangkat ini.</p>
+</aside>`;
 }
 
-export function footer(){return `<footer class="footer"><div class="footer-in"><a class="brand" href="index.html"><span class="brand-mark">A</span>AksesKota</a><span>Data peta © OpenStreetMap · Mendukung SDG 8, 9, 11</span></div></footer>`}
+export function footer() {
+  return `<footer class="footer">
+  <div class="footer-in page">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">A</span>AksesKota
+    </a>
+    <p class="footer-note">Data peta &copy; OpenStreetMap &middot; kontributor. Mendukung SDG 8, 9, dan 11.</p>
+  </div>
+</footer>`;
+}
 
-export function initAnimations(){
- if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
- const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('anim-visible');observer.unobserve(e.target)}})},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
- document.querySelectorAll('.anim-hidden').forEach(el=>observer.observe(el));
+export function initAnimations() {
+  const systemReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const userReduced = localStorage.getItem(KEY_MOTION) === 'off';
+
+  // Ketika motion dinonaktifkan, konten harus tetap terlihat: tanpa ini
+  // elemen .anim-hidden akan tertinggal dalam keadaan transparan.
+  if (systemReduced || userReduced) {
+    document.querySelectorAll('.anim-hidden').forEach(el => el.classList.add('anim-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('anim-visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.anim-hidden').forEach(el => observer.observe(el));
 }

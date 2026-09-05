@@ -4,9 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="AksesKota membantu semua orang menemukan fasilitas kota yang aksesibel.">
-  <meta name="theme-color" content="#176b45">
+  <meta name="theme-color" content="#14563A">
   <title>AksesKota — Kota yang bisa diakses semua orang</title>
-  <link rel="stylesheet" href="css/modern.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,650;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=1">
+  <link rel="stylesheet" href="css/base.css?v=1">
+  <link rel="stylesheet" href="css/shell.css?v=1">
+  <link rel="stylesheet" href="css/components.css?v=1">
 </head>
 <body>
 
@@ -34,9 +40,9 @@
 
         <div class="hero-map hero-enter-delay2" role="img" aria-label="Ilustrasi rute kursi roda di peta kota menuju lokasi aksesibel">
           <svg class="city" viewBox="0 0 560 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <rect width="560" height="560" fill="#eaf2ec"/>
+            <rect width="560" height="560" fill="#E8F0EA"/>
             <!-- blok kota -->
-            <g fill="#dde9e0">
+            <g fill="#D9D5C9">
               <rect x="30" y="40" width="150" height="110" rx="10"/>
               <rect x="215" y="30" width="130" height="90" rx="10"/>
               <rect x="390" y="55" width="140" height="120" rx="10"/>
@@ -45,7 +51,7 @@
               <rect x="60" y="400" width="170" height="120" rx="10"/>
               <rect x="280" y="420" width="120" height="100" rx="10"/>
               <rect x="440" y="410" width="90" height="110" rx="10"/>
-              <rect x="200" y="170" width="160" height="200" rx="12" fill="#cfe3d6"/>
+              <rect x="200" y="170" width="160" height="200" rx="12" fill="#D9D5C9"/>
             </g>
             <!-- jalan -->
             <g stroke="#fff" stroke-width="18" stroke-linecap="round">
@@ -55,17 +61,17 @@
               <path d="M375 10 V550" fill="none"/>
             </g>
             <!-- rute aksesibel -->
-            <path d="M95 130 H300 V300 H480 V470" fill="none" stroke="#176b45" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 16" opacity=".9"/>
-            <path d="M95 130 H300 V300 H480 V470" fill="none" stroke="#176b45" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M95 130 H300 V300 H480 V470" fill="none" stroke="#14563A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 16" opacity=".9"/>
+            <path d="M95 130 H300 V300 H480 V470" fill="none" stroke="#14563A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
             <!-- titik awal & tujuan -->
-            <circle cx="95" cy="130" r="13" fill="#fff" stroke="#2878b5" stroke-width="5"/>
-            <circle cx="480" cy="470" r="15" fill="#176b45" stroke="#fff" stroke-width="5"/>
+            <circle cx="95" cy="130" r="13" fill="#fff" stroke="#1B4F86" stroke-width="5"/>
+            <circle cx="480" cy="470" r="15" fill="#14563A" stroke="#fff" stroke-width="5"/>
             <!-- marker fasilitas -->
-            <g font-family="DM Sans, sans-serif" font-size="15" font-weight="700" text-anchor="middle">
-              <circle cx="300" cy="300" r="17" fill="#2878b5" stroke="#fff" stroke-width="4"/><text x="300" y="306" fill="#fff">R</text>
-              <circle cx="215" cy="370" r="17" fill="#176b45" stroke="#fff" stroke-width="4"/><text x="215" y="376" fill="#fff">L</text>
-              <circle cx="375" cy="175" r="17" fill="#b26b1c" stroke="#fff" stroke-width="4"/><text x="375" y="181" fill="#fff">T</text>
-              <circle cx="120" cy="370" r="17" fill="#795597" stroke="#fff" stroke-width="4"/><text x="120" y="376" fill="#fff">J</text>
+            <g font-family="inherit" font-size="15" font-weight="700" text-anchor="middle">
+              <circle cx="300" cy="300" r="17" fill="#1B4F86" stroke="#fff" stroke-width="4"/><text x="300" y="306" fill="#fff">R</text>
+              <circle cx="215" cy="370" r="17" fill="#14563A" stroke="#fff" stroke-width="4"/><text x="215" y="376" fill="#fff">L</text>
+              <circle cx="375" cy="175" r="17" fill="#8A4A0B" stroke="#fff" stroke-width="4"/><text x="375" y="181" fill="#fff">T</text>
+              <circle cx="120" cy="370" r="17" fill="#5B3A82" stroke="#fff" stroke-width="4"/><text x="120" y="376" fill="#fff">J</text>
             </g>
             <!-- ikon kursi roda di tujuan -->
             <g transform="translate(462 440)" fill="#fff">

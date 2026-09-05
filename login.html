@@ -7,9 +7,15 @@
   <meta name="description" content="Masuk ke AksesKota — akun pengguna atau administrator.">
   <meta name="theme-color" content="#176b45">
   <title>Masuk — AksesKota</title>
-  <link rel="stylesheet" href="css/modern.css">
   <!-- Google Identity Services — replace YOUR_CLIENT_ID with your Google Cloud OAuth client ID -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,650;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=1">
+  <link rel="stylesheet" href="css/base.css?v=1">
+  <link rel="stylesheet" href="css/shell.css?v=1">
+  <link rel="stylesheet" href="css/components.css?v=1">
 </head>
 <body>
   <div id="shell"></div>
@@ -94,7 +100,7 @@
             <span class="brand-mark">A</span>AksesKota
           </a>
           <span class="eyebrow">Buat Akun</span>
-          <h1>Daftar sekarang</h1>
+          <h2>Daftar sekarang</h2>
           <p>Buat akun untuk mulai melakukan audit aksesibilitas.</p>
         </div>
 
@@ -131,7 +137,7 @@
             <span class="brand-mark">A</span>AksesKota
           </a>
           <span class="eyebrow">Reset Password</span>
-          <h1>Lupa kata sandi?</h1>
+          <h2>Lupa kata sandi?</h2>
           <p>Masukkan email Anda dan kami akan cek apakah akun ada.</p>
         </div>
 
@@ -225,6 +231,6 @@
     });
   </script>
 
-  <script type="module" src="js/login.js?v=7"></script>
+  <script type="module" src="js/login.js?v=8"></script>
 </body>
 </html>

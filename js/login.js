@@ -1,4 +1,4 @@
-import { shell, footer, initShell, initLogout, initAnimations } from './core.js';
+import { shell, footer, initShell, initLogout, initAnimations } from './core.js?v=5';
 import {
   registerUser,
   loginUser,
