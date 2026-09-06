@@ -733,7 +733,7 @@ function serveStatic(req, res, url) {
 
 /* ---------------- Server ---------------- */
 
-const server = http.createServer(async (req, res) => {
+const handler = async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   try {
     if (url.pathname.startsWith('/api/')) return await handleApi(req, res, url);
@@ -743,9 +743,15 @@ const server = http.createServer(async (req, res) => {
     console.error('[error]', req.method, url.pathname, e.message);
     if (!res.headersSent) return send(res, e.message === 'Payload too large' ? 413 : 500, { ok: false, error: e.message === 'Payload too large' ? 'Ukuran data terlalu besar.' : 'Kesalahan server.' });
   }
-});
+};
 
-server.listen(PORT, () => {
-  console.log(`AksesKota server berjalan di http://localhost:${PORT}`);
-  console.log(`Admin code: ${ADMIN_CODE} (set env ADMIN_CODE untuk mengubah)`);
-});
+module.exports = handler;
+
+// Local development: start HTTP server
+if (!process.env.VERCEL) {
+  const server = http.createServer(handler);
+  server.listen(PORT, () => {
+    console.log(`AksesKota server berjalan di http://localhost:${PORT}`);
+    console.log(`Admin code: ${ADMIN_CODE} (set env ADMIN_CODE untuk mengubah)`);
+  });
+}
