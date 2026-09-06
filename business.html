@@ -7,11 +7,11 @@
   <title>Usaha Aksesibel — AksesKota</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,650;0,700;1,400&display=swap">
-  <link rel="stylesheet" href="css/tokens.css?v=1">
-  <link rel="stylesheet" href="css/base.css?v=1">
-  <link rel="stylesheet" href="css/shell.css?v=1">
-  <link rel="stylesheet" href="css/components.css?v=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=2">
+  <link rel="stylesheet" href="css/base.css?v=3">
+  <link rel="stylesheet" href="css/shell.css?v=4">
+  <link rel="stylesheet" href="css/components.css?v=8">
 </head>
 <body>
 
@@ -19,17 +19,14 @@
 
   <main id="main" class="page">
     <header class="page-header anim-hidden anim-stagger-1">
-      <span class="eyebrow">Usaha kecil aksesibel</span>
       <h1>Tumbuh bersama aksesibilitas.</h1>
       <p>Daftarkan usaha Anda, dapatkan review aksesibilitas dari komunitas, dan naikkan peringkat di leaderboard kota.</p>
     </header>
 
     <div class="content-grid">
 
-      <!-- Main Content -->
       <div>
 
-        <!-- Tabs -->
         <div class="business-tabs anim-hidden anim-stagger-2" id="business-tabs">
           <button class="chip active" data-tab="leaderboard">Leaderboard Usaha</button>
           <button class="chip" data-tab="reviews">Review Terbaru</button>
@@ -39,7 +36,7 @@
         <!-- Tab: Leaderboard -->
         <section class="panel business-tab-content active anim-hidden anim-stagger-3" id="tab-leaderboard">
           <h2>Leaderboard Usaha Aksesibel</h2>
-          <p style="color:var(--muted);font-size:.92rem;margin-bottom:20px">Peringkat usaha berdasarkan skor aksesibilitas dari review komunitas.</p>
+          <p style="color:var(--muted);font-size:var(--step--1);margin-bottom:20px">Peringkat usaha berdasarkan skor aksesibilitas dari review komunitas.</p>
 
           <div class="business-leaderboard-tabs" id="leaderboard-type-tabs">
             <button class="chip active" data-type="best">Skor Tertinggi</button>
@@ -61,36 +58,37 @@
               <tbody id="business-leaderboard-body"></tbody>
             </table>
           </div>
-          <div id="no-business-message" style="display:none;text-align:center;padding:40px 20px;color:var(--muted)">
-            <p style="font-size:1.1rem;margin-bottom:12px">Belum ada usaha terdaftar.</p>
-            <p style="font-size:.92rem">Daftarkan usaha pertama Anda untuk memulai!</p>
+          <div id="no-business-message" class="empty" style="display:none">
+            <p style="font-size:var(--step-1);margin-bottom:12px;color:var(--ink)">Belum ada usaha terdaftar.</p>
+            <p>Leaderboard hanya berisi usaha nyata yang didaftarkan pemiliknya dan dinilai dari audit komunitas yang disetujui — tanpa data demo.</p>
+            <p><a href="#tab-register" class="btn btn-primary" data-jump-register>Daftarkan Usaha</a></p>
           </div>
         </section>
 
         <!-- Tab: Reviews -->
         <section class="panel business-tab-content" id="tab-reviews" style="display:none">
           <h2>Review Aksesibilitas Terbaru</h2>
-          <p style="color:var(--muted);font-size:.92rem;margin-bottom:20px">Ringkasan review yang diterima usaha kecil dari komunitas.</p>
+          <p style="color:var(--muted);font-size:var(--step--1);margin-bottom:20px">Ringkasan review yang diterima usaha kecil dari komunitas.</p>
 
           <div id="business-reviews-list"></div>
-          <div id="no-reviews-message" style="display:none;text-align:center;padding:40px 20px;color:var(--muted)">
-            <p style="font-size:1.1rem;margin-bottom:12px">Belum ada review untuk usaha.</p>
-            <p style="font-size:.92rem">Audit lokasi usaha untuk memberikan review!</p>
+          <div id="no-reviews-message" class="empty" style="display:none">
+            <p style="font-size:var(--step-1);margin-bottom:12px;color:var(--ink)">Belum ada review untuk usaha.</p>
+            <p>Audit lokasi usaha untuk memberikan review!</p>
           </div>
         </section>
 
         <!-- Tab: Register -->
         <section class="panel business-tab-content" id="tab-register" style="display:none">
           <h2>Daftarkan Usaha Anda</h2>
-          <p style="color:var(--muted);font-size:.92rem;margin-bottom:24px">Dapatkan tanda "Usaha Aksesibel" dan terima review dari komunitas.</p>
+          <p style="color:var(--muted);font-size:var(--step--1);margin-bottom:24px">Dapatkan tanda "Usaha Aksesibel" dan terima review dari komunitas.</p>
 
           <form id="business-register-form">
             <label class="form-label" for="biz-name">Nama Usaha *</label>
-            <input type="text" id="biz-name" required maxlength="100" placeholder="Contoh: Kopi Akses Senayan" style="width:100%;height:48px;border:1px solid var(--line);border-radius:11px;padding:0 14px;font-size:.95rem">
+            <input type="text" id="biz-name" required maxlength="100" placeholder="Contoh: Kopi Akses Senayan">
 
             <label class="form-label" for="biz-address">Alamat Usaha *</label>
-            <input type="text" id="biz-address" required maxlength="200" placeholder="Contoh: Jl. Sudirman No. 123, Senayan, Jakarta Pusat" style="width:100%;height:48px;border:1px solid var(--line);border-radius:11px;padding:0 14px;font-size:.95rem">
-            <small style="display:block;color:var(--muted);margin-top:4px;font-size:.82rem">Tuliskan alamat lengkap usaha Anda agar komunitas dapat menemukan lokasi Anda.</small>
+            <input type="text" id="biz-address" required maxlength="200" placeholder="Contoh: Jl. Sudirman No. 123, Senayan, Jakarta Pusat">
+            <small class="form-hint" style="display:block;margin-top:4px">Tuliskan alamat lengkap usaha Anda agar komunitas dapat menemukan lokasi Anda.</small>
 
             <label class="form-label" for="biz-category">Kategori Usaha</label>
             <select id="biz-category" class="biz-select">
@@ -106,22 +104,31 @@
             </select>
 
             <label class="form-label" for="biz-owner">Nama Pemilik</label>
-            <input type="text" id="biz-owner" maxlength="80" placeholder="Nama lengkap" style="width:100%;height:48px;border:1px solid var(--line);border-radius:11px;padding:0 14px;font-size:.95rem">
+            <input type="text" id="biz-owner" maxlength="80" placeholder="Nama lengkap">
 
             <label class="form-label" for="biz-email">Email Pemilik *</label>
-            <input type="email" id="biz-email" required placeholder="email@contoh.com" style="width:100%;height:48px;border:1px solid var(--line);border-radius:11px;padding:0 14px;font-size:.95rem">
+            <input type="email" id="biz-email" required placeholder="email@contoh.com">
+
+            <fieldset class="biz-services" style="border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;margin:0 0 16px">
+              <legend style="font-size:var(--step--1);font-weight:700;padding:0 6px">Layanan khusus disabilitas</legend>
+              <small style="display:block;color:var(--muted);margin-bottom:8px">Centang bila usaha Anda benar-benar menyediakan layanan ini. Usaha dengan minimal satu centang ditandai <strong>Aksesibel</strong>.</small>
+              <label style="display:block;margin:4px 0"><input type="checkbox" name="biz-service" value="kursi_roda"> Ramah kursi roda (rampa, pintu lebar, meja rendah)</label>
+              <label style="display:block;margin:4px 0"><input type="checkbox" name="biz-service" value="tuna_netra"> Layanan tuna netra (pemandu, menu braille, jalur taktil dalam)</label>
+              <label style="display:block;margin:4px 0"><input type="checkbox" name="biz-service" value="bahasa_isyarat"> Bahasa isyarat (petugas bisa SIBI/SIUI)</label>
+              <label style="display:block;margin:4px 0"><input type="checkbox" name="biz-service" value="lansia"> Nyaman untuk lansia (kursi tunggu, tanpa tangga)</label>
+            </fieldset>
 
             <label class="form-label" for="biz-desc">Deskripsi Singkat <small class="optional">Opsional</small></label>
-            <textarea id="biz-desc" maxlength="300" rows="3" placeholder="Tentang usaha Anda…" style="width:100%;border:1px solid var(--line);border-radius:11px;padding:12px;resize:vertical;font-size:.95rem"></textarea>
+            <textarea id="biz-desc" maxlength="300" rows="3" placeholder="Tentang usaha Anda…"></textarea>
 
             <label class="form-label" for="biz-location">Kaitkan ke Lokasi Peta <small class="optional">Opsional — agar muncul di peta &amp; bisa diaudit</small></label>
-            <select id="biz-location" style="width:100%;border:1px solid var(--line);border-radius:11px;padding:0 14px;font-size:.95rem">
+            <select id="biz-location">
               <option value="">— Belum dikaitkan —</option>
             </select>
 
-            <div style="margin-top:24px;display:flex;gap:12px;align-items:center">
+            <div style="margin-top:24px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
               <button class="btn btn-primary" type="submit" id="biz-submit-btn">Daftarkan Usaha</button>
-              <span id="biz-form-message" style="font-size:.88rem;font-weight:600"></span>
+              <span id="biz-form-message" style="font-size:var(--step--1);font-weight:600"></span>
             </div>
           </form>
         </section>
@@ -158,7 +165,7 @@
               <span class="business-badge badge-bronze"></span>
               <div>
                 <strong>Perunggu</strong>
-                <small>Skor <50. Mulai meningkatkan akses.</small>
+                <small>Skor &lt;50. Mulai meningkatkan akses.</small>
               </div>
             </div>
           </div>
@@ -166,10 +173,9 @@
 
         <div class="panel anim-hidden anim-right anim-stagger-5" style="margin-top:16px">
           <h2>Bagaimana Skor Dihitung?</h2>
-          <div style="font-size:.92rem;color:var(--muted);line-height:1.7">
+          <div style="font-size:var(--step--1);color:var(--muted);line-height:1.7">
             <p><strong style="color:var(--ink)">Rating (60%)</strong> — Rata-rata rating dari review komunitas.</p>
-            <p style="margin-top:10px"><strong style="color:var(--ink)">Fasilitas (40%)</strong> — Persentase fasilitas aksesibel yang tersedia: rampa, lift, toilet, jalur taktil, dan rambu.</p>
-            <p style="margin-top:10px"><strong style="color:var(--ink)">Tren</strong> — Perbandingan skor awal dengan skor terkini menunjukkan apakah usaha sedang berkembang.</p>
+            <p><strong style="color:var(--ink)">Fasilitas (40%)</strong> — Persentase fasilitas aksesibel yang tersedia: rampa, toilet, jalur taktil, dan rambu.</p>
           </div>
         </div>
 
@@ -197,7 +203,7 @@
 
   <div id="footer"></div>
 
-  <script type="module" src="js/business-page.js?v=9"></script>
+  <script type="module" src="js/business-page.js?v=24"></script>
 
 </body>
 </html>

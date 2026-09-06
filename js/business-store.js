@@ -193,7 +193,7 @@ export function calculateBusinessScore(businessId) {
 
     // Calculate feature availability
     const featureCounts = {};
-    const features = ['wheelchair_ramp', 'elevator', 'accessible_restroom', 'tactile_paving', 'signage'];
+    const features = ['wheelchair_ramp', 'accessible_restroom', 'tactile_paving', 'signage'];
     features.forEach(f => {
         const available = reviews.filter(r => r.features && r.features.includes(f)).length;
         featureCounts[f] = reviews.length > 0 ? Math.round((available / reviews.length) * 100) : 0;
@@ -370,6 +370,12 @@ export function migrateSeedBusinessLocations(){
  * Kept as an exported no-op so existing callers stay valid.
  */
 export function seedBusinessData(){
+    const key='akseskota_facility_scores_v2';
+    if(localStorage.getItem(key))return false;
+    const reviews=get(STORAGE_KEYS.businessReviews,[]);
+    set(STORAGE_KEYS.businessReviews,reviews.map(r=>({...r,features:(r.features||[]).filter(f=>f!=='elevator')})));
+    for(const b of getBusinesses())if(reviews.some(r=>r.businessId===b.id||r.locationId===b.locationId))recalculateBusinessScore(b.id);
+    localStorage.setItem(key,'done');
     return false;
 }
 

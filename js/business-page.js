@@ -1,15 +1,5 @@
-import { shell, footer, initShell, initLogout, loadVenues, categories, initAnimations } from './core.js?v=5';
-import {
-    getBusinesses,
-    getBusinessLeaderboard,
-    getMostImprovedBusinesses,
-    getAllBusinessReviews,
-    registerBusiness,
-    seedBusinessData,
-    getBusinessReviews,
-    getBusinessForLocation,
-    migrateSeedBusinessLocations
-} from './business-store.js';
+import { shell, footer, initShell, initLogout, loadVenues, categories, initAnimations } from './core.js?v=24';
+import { fetchBusinesses, registerBusiness as apiRegisterBusiness } from './api.js?v=3';
 
 /* ---------- Shell ---------- */
 document.querySelector('#shell').innerHTML = shell('business');
@@ -18,11 +8,9 @@ initShell();
 initLogout();
 initAnimations();
 
-/* ---------- Seed Data ---------- */
-seedBusinessData();
-migrateSeedBusinessLocations();
-
 /* ---------- Helpers ---------- */
+let SERVER_BUSINESSES = []; // diisi renderAll() dari /api/businesses
+const bizNameById = (id) => SERVER_BUSINESSES.find(b => b.locationId === id)?.name || null;
 const $ = (s) => document.querySelector(s);
 const esc = (s) => { const d = document.createElement('div'); d.textContent = s ?? ''; return d.innerHTML; };
 
@@ -35,6 +23,13 @@ const categoryLabels = {
     general: 'Umum', cafe: 'Kafe', food: 'Makanan', retail: 'Retail',
     healthcare: 'Kesehatan', services: 'Jasa', automotive: 'Otomotif',
     education: 'Pendidikan', hospitality: 'Hotel'
+};
+
+const serviceLabels = {
+    kursi_roda: 'Ramah kursi roda',
+    tuna_netra: 'Layanan tuna netra',
+    bahasa_isyarat: 'Bahasa isyarat',
+    lansia: 'Nyaman untuk lansia'
 };
 
 function renderStars(rating) {
@@ -55,12 +50,22 @@ tabs.forEach(tab => {
     });
 });
 
+/* Empty-state CTA: jump to the register tab */
+document.addEventListener('click', e => {
+    const jump = e.target.closest('[data-jump-register]');
+    if (!jump) return;
+    e.preventDefault();
+    const registerTab = [...tabs].find(t => t.dataset.tab === 'register');
+    if (registerTab) registerTab.click();
+    $('#tab-register')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 /* ---------- Leaderboard ---------- */
 let leaderboardType = 'best';
 
 function renderLeaderboard() {
     const isBest = leaderboardType === 'best';
-    const data = isBest ? getBusinessLeaderboard() : getMostImprovedBusinesses();
+    const data = SERVER_BUSINESSES; // skor dihitung server, sudah terurut
     const tbody = $('#business-leaderboard-body');
     const noMsg = $('#no-business-message');
 
@@ -79,8 +84,8 @@ function renderLeaderboard() {
         return `<tr>
             <td class="rank">${rank}</td>
             <td>
-                <strong>${esc(b.name)}</strong>
-                <small style="display:block;color:var(--muted)">${esc(categoryLabels[b.category] || b.category)}</small>
+                <strong>${esc(b.name)}</strong>${b.accessible ? ` <span class="biz-accessible-badge">Aksesibel</span>` : ''}
+                <small style="display:block;color:var(--muted)">${esc(categoryLabels[b.category] || b.category)}${b.services && b.services.length ? ' · ' + b.services.map(x => serviceLabels[x] || x).join(', ') : ''}</small>
             </td>
             <td><span class="business-badge badge-${b.badgeLevel}">${badge} ${badgeLabels[b.badgeLevel]}</span></td>
             <td><strong>${b.score}</strong> ${improvementStr ? `<small style="color:var(--green)">${improvementStr}</small>` : ''}</td>
@@ -102,12 +107,11 @@ document.querySelectorAll('#leaderboard-type-tabs .chip').forEach(chip => {
 
 /* ---------- Reviews ---------- */
 function renderReviews() {
-    const reviews = getAllBusinessReviews().sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-    const businesses = getBusinesses();
+    const businesses = SERVER_BUSINESSES.filter(b => (b.reviewCount || 0) > 0);
     const noMsg = $('#no-reviews-message');
     const list = $('#business-reviews-list');
 
-    if (reviews.length === 0) {
+    if (businesses.length === 0) {
         list.innerHTML = '';
         noMsg.style.display = 'block';
         return;
@@ -115,83 +119,29 @@ function renderReviews() {
 
     noMsg.style.display = 'none';
 
-    // Group reviews by business
-    const grouped = {};
-    reviews.forEach(r => {
-        if (!grouped[r.locationId]) grouped[r.locationId] = [];
-        grouped[r.locationId].push(r);
-    });
-
     let html = '';
-    for (const [locId, locReviews] of Object.entries(grouped)) {
-        const biz = getBusinessForLocation(locId);
-        const bizName = biz ? biz.name : locId;
-        const avgRating = locReviews.reduce((s, r) => s + (r.rating || 0), 0) / locReviews.length;
-
+    for (const biz of businesses) {
         html += `<div class="business-review-card">
             <div class="review-card-header">
                 <div>
-                    <strong>${esc(bizName)}</strong>
-                    <small style="display:block;color:var(--muted)">${locReviews.length} review · Rating rata-rata ${avgRating.toFixed(1)}/5</small>
+                    <strong>${esc(biz.name)}</strong>
+                    <small style="display:block;color:var(--muted)">${biz.reviewCount} review · Rating rata-rata ${Number(biz.avgRating || 0).toFixed(1)}/5</small>
                 </div>
-                <span class="business-badge badge-${biz?.badgeLevel || 'bronze'}">${badgeIcons[biz?.badgeLevel || 'bronze']} ${badgeLabels[biz?.badgeLevel || 'bronze']}</span>
+                <span class="business-badge badge-${biz.badgeLevel || 'bronze'}">${badgeIcons[biz.badgeLevel || 'bronze']} ${badgeLabels[biz.badgeLevel || 'bronze']}</span>
             </div>
             <div class="review-card-features">
-                ${locReviews.slice(-3).map(r => {
-                    const features = (r.features || []).map(f => {
-                        const labels = { wheelchair_ramp: 'Rampa', elevator: 'Lift', accessible_restroom: 'Toilet', tactile_paving: 'Taktil', signage: 'Rambu' };
-                        return `<span class="feature-tag">${labels[f] || f}</span>`;
-                    }).join('');
-                    return `<div class="review-mini">
-                        <span style="color:var(--amber)">${renderStars(r.rating)}</span>
-                        <small style="color:var(--muted)">${new Date(r.timestamp).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}</small>
-                        <div class="review-features-row">${features}</div>
-                    </div>`;
-                }).join('')}
+                <p style="color:var(--muted);font-size:.9rem;margin:0">Skor aksesibilitas ${biz.score}/100 dari audit komunitas yang disetujui.</p>
             </div>
         </div>`;
     }
-
     list.innerHTML = html;
 }
 
-/* ---------- Register Business ---------- */
-$('#business-register-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const msg = $('#biz-form-message');
-
-    const result = registerBusiness({
-        name: $('#biz-name').value,
-        address: $('#biz-address').value,
-        category: $('#biz-category').value,
-        ownerName: $('#biz-owner').value,
-        ownerEmail: $('#biz-email').value,
-        description: $('#biz-desc').value,
-        locationId: $('#biz-location')?.value || null
-    });
-
-    if (result.ok) {
-        msg.textContent = 'Usaha berhasil didaftarkan!';
-        msg.style.color = 'var(--green)';
-        msg.style.background = 'var(--mint)';
-        msg.style.padding = '8px 14px';
-        msg.style.borderRadius = '8px';
-        $('#business-register-form').reset();
-        renderAll();
-    } else {
-        msg.textContent = `${result.error}`;
-        msg.style.color = 'var(--danger)';
-        msg.style.background = '#fdf2f1';
-        msg.style.padding = '8px 14px';
-        msg.style.borderRadius = '8px';
-    }
-});
-
 /* ---------- Stats ---------- */
 function renderStats() {
-    const businesses = getBusinesses();
-    const reviews = getAllBusinessReviews();
-    const improving = businesses.filter(b => b.trend === 'improving').length;
+    const businesses = SERVER_BUSINESSES;
+    const reviews = businesses.reduce((n, b) => n + (b.reviewCount || 0), 0);
+    const improving = 0;
 
     $('#stat-total-businesses').textContent = businesses.length;
     $('#stat-total-reviews').textContent = reviews.length;
@@ -199,7 +149,8 @@ function renderStats() {
 }
 
 /* ---------- Render All ---------- */
-function renderAll() {
+async function renderAll() {
+    try { SERVER_BUSINESSES = await fetchBusinesses(); } catch { SERVER_BUSINESSES = []; }
     renderLeaderboard();
     renderReviews();
     renderStats();
@@ -214,8 +165,7 @@ renderAll();
     if (!sel) return;
     try {
         const venues = await loadVenues();
-        const businesses = getBusinesses();
-        const taken = new Set(businesses.filter(b => b.locationId && !b.deleted).map(b => b.locationId));
+        const taken = new Set(SERVER_BUSINESSES.filter(b => b.locationId).map(b => b.locationId));
         sel.innerHTML = '<option value="">— Belum dikaitkan —</option>' +
             venues
                 .filter(v => !taken.has(v.id))
@@ -225,3 +175,43 @@ renderAll();
         sel.innerHTML = '<option value="">Data lokasi gagal dimuat</option>';
     }
 })();
+
+/* ---------- Form pendaftaran usaha (server API) ---------- */
+const bizForm = $('#business-register-form');
+if (bizForm) {
+    bizForm.addEventListener('submit', async e => {
+        e.preventDefault();
+        const msg = $('#biz-form-message');
+        const btn = $('#biz-submit-btn');
+        const services = [...document.querySelectorAll('input[name="biz-service"]:checked')].map(x => x.value);
+        const payload = {
+            name: $('#biz-name').value.trim(),
+            address: $('#biz-address').value.trim(),
+            category: $('#biz-category').value,
+            ownerName: $('#biz-owner').value.trim(),
+            ownerEmail: $('#biz-email').value.trim(),
+            description: $('#biz-desc').value.trim(),
+            locationId: $('#biz-location').value || null,
+            services
+        };
+        btn.disabled = true; btn.textContent = 'Mendaftarkan…';
+        msg.style.color = 'var(--muted)'; msg.textContent = '';
+        try {
+            const r = await apiRegisterBusiness(payload);
+            if (r && r.ok) {
+                msg.style.color = 'var(--green)';
+                msg.textContent = services.length ? 'Usaha terdaftar — ditandai Aksesibel.' : 'Usaha terdaftar.';
+                bizForm.reset();
+                renderAll();
+            } else {
+                msg.style.color = 'var(--danger)';
+                msg.textContent = (r && r.error) || 'Gagal mendaftar.';
+            }
+        } catch (err) {
+            msg.style.color = 'var(--danger)';
+            msg.textContent = err.message || 'Gagal menghubungi server.';
+        } finally {
+            btn.disabled = false; btn.textContent = 'Daftarkan Usaha';
+        }
+    });
+}

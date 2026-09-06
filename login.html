@@ -5,17 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <meta name="description" content="Masuk ke AksesKota — akun pengguna atau administrator.">
-  <meta name="theme-color" content="#176b45">
+  <meta name="theme-color" content="#1C5B41">
   <title>Masuk — AksesKota</title>
-  <!-- Google Identity Services — replace YOUR_CLIENT_ID with your Google Cloud OAuth client ID -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,650;0,700;1,400&display=swap">
-  <link rel="stylesheet" href="css/tokens.css?v=1">
-  <link rel="stylesheet" href="css/base.css?v=1">
-  <link rel="stylesheet" href="css/shell.css?v=1">
-  <link rel="stylesheet" href="css/components.css?v=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=2">
+  <link rel="stylesheet" href="css/base.css?v=3">
+  <link rel="stylesheet" href="css/shell.css?v=4">
+  <link rel="stylesheet" href="css/components.css?v=7">
 </head>
 <body>
   <div id="shell"></div>
@@ -29,12 +27,10 @@
           <a class="brand login-brand" href="index.html">
             <span class="brand-mark">A</span>AksesKota
           </a>
-          <span class="eyebrow">Autentikasi</span>
           <h1>Masuk ke akun Anda</h1>
           <p>Pilih tipe akun dan masukkan kredensial Anda.</p>
         </div>
 
-        <!-- Role Tabs -->
         <div class="login-tabs" role="tablist">
           <button class="login-tab active" role="tab" aria-selected="true" data-role="user" id="tab-user" onclick="switchTab('user')">
             Pengguna
@@ -44,7 +40,6 @@
           </button>
         </div>
 
-        <!-- User Login Form -->
         <form class="login-form" id="login-user-form" role="tabpanel" aria-labelledby="tab-user" novalidate>
           <div class="field">
             <label for="user-email">Email</label>
@@ -61,15 +56,9 @@
             <a href="#" class="login-forgot" id="forgot-password-link">Lupa kata sandi?</a>
           </div>
           <button type="submit" class="btn btn-primary login-submit">Masuk sebagai Pengguna</button>
-          <div class="login-divider"><span>atau</span></div>
-          <!-- Google Sign-In -->
-          <button type="button" class="btn btn-google" id="google-signin-btn">
-            Masuk dengan Google
-          </button>
           <p class="login-hint">Belum punya akun? <a href="#" id="show-register-link">Daftar sekarang</a></p>
         </form>
 
-        <!-- Admin Login Form -->
         <form class="login-form" id="login-admin-form" role="tabpanel" aria-labelledby="tab-admin" style="display:none" novalidate>
           <div class="field">
             <label for="admin-email">Email admin</label>
@@ -86,8 +75,7 @@
           <button type="submit" class="btn btn-primary login-submit">Masuk sebagai Admin</button>
         </form>
 
-        <!-- Already logged in hint -->
-        <div class="login-hint" id="logout-hint" hidden>
+        <div class="login-hint" id="logout-hint" hidden style="text-align:center;margin-top:16px">
           Anda sudah masuk sebagai <strong id="current-role"></strong>.
           <a href="#" id="logout-link">Keluar</a> untuk akun lain.
         </div>
@@ -99,7 +87,6 @@
           <a class="brand login-brand" href="index.html">
             <span class="brand-mark">A</span>AksesKota
           </a>
-          <span class="eyebrow">Buat Akun</span>
           <h2>Daftar sekarang</h2>
           <p>Buat akun untuk mulai melakukan audit aksesibilitas.</p>
         </div>
@@ -122,10 +109,6 @@
             <input type="password" id="reg-password-confirm" placeholder="Ulangi kata sandi" required autocomplete="new-password">
           </div>
           <button type="submit" class="btn btn-primary login-submit">Buat Akun</button>
-          <div class="login-divider"><span>atau</span></div>
-          <button type="button" class="btn btn-google" id="google-register-btn">
-            Daftar dengan Google
-          </button>
           <p class="login-hint">Sudah punya akun? <a href="#" id="show-login-link">Masuk</a></p>
         </form>
       </div>
@@ -136,7 +119,6 @@
           <a class="brand login-brand" href="index.html">
             <span class="brand-mark">A</span>AksesKota
           </a>
-          <span class="eyebrow">Reset Password</span>
           <h2>Lupa kata sandi?</h2>
           <p>Masukkan email Anda dan kami akan cek apakah akun ada.</p>
         </div>
@@ -148,7 +130,7 @@
           </div>
           <button type="submit" class="btn btn-primary login-submit">Cek Akun</button>
           <p class="login-hint" id="forgot-result"></p>
-          <p class="login-hint"><a href="#" id="forgot-back-link"> Kembali ke masuk</a></p>
+          <p class="login-hint"><a href="#" id="forgot-back-link">Kembali ke masuk</a></p>
         </form>
       </div>
 
@@ -166,7 +148,6 @@
 
   <div id="footer"></div>
 
-  <!-- Inline script for tabs — runs immediately, no module loading issues -->
   <script>
     function switchTab(role) {
       var tabs = document.querySelectorAll('.login-tab');
@@ -190,12 +171,10 @@
         adminForm.style.display = '';
       }
 
-      // Clear error
       var err = document.getElementById('login-error');
       if (err) err.hidden = true;
     }
 
-    /* --- View switching --- */
     function showView(view) {
       var loginView = document.getElementById('login-view');
       var registerView = document.getElementById('register-view');
@@ -231,6 +210,6 @@
     });
   </script>
 
-  <script type="module" src="js/login.js?v=8"></script>
+  <script type="module" src="js/login.js?v=23"></script>
 </body>
 </html>

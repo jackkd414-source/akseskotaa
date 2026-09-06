@@ -1,0 +1,75 @@
+/* ============================================================
+   AksesKota — Trip/rute tambahan untuk halaman peta
+   (pelengkap di atas components.css, spesifik form perjalanan)
+   ============================================================ */
+
+.trip-form {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+}
+.trip-form .btn-primary { width: 100%; margin-top: var(--sp-2); }
+
+/* Opsi dalam details */
+.trip-form details summary::-webkit-details-marker { display: none; }
+.trip-form details summary::after {
+  content: "+";
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--accent);
+}
+.trip-form details[open] summary::after { content: "–"; }
+
+/* Legend kecil */
+.trip-form fieldset legend {
+  border: none;
+  padding: 0;
+  color: var(--muted);
+}
+
+
+/* Tombol "Pilih di peta" — jelas & tegas */
+.trip-secondary { margin-top: var(--sp-2); }
+.trip-secondary .pick-btn {
+  width: 100%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+  min-height: var(--target);
+  border-radius: var(--r-md);
+  cursor: pointer;
+}
+.trip-secondary .pick-btn:hover { background: var(--accent-soft); }
+.trip-secondary .pick-btn:active { transform: translateY(1px); }
+.trip-option-fields .pick-btn {
+  margin-top: var(--sp-2);
+  width: 100%;
+  background: var(--surface);
+  border: 2px solid var(--line-strong);
+  font-weight: 700;
+  min-height: var(--target);
+  border-radius: var(--r-md);
+  cursor: pointer;
+}
+.trip-option-fields .pick-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Pin titik asal/tujuan — BESAR & terlihat */
+.trip-point {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50% 50% 50% 4px;
+  transform: rotate(-45deg);
+  background: var(--accent);
+  border: 3px solid #fff;
+  box-shadow: 0 4px 14px rgba(28, 91, 65, 0.45);
+  font-weight: 800;
+  font-size: 20px;
+  color: #fff;
+}
+.trip-point::after { content: ""; }
+.trip-point > span { transform: rotate(45deg); }

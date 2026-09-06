@@ -1,389 +1,120 @@
-/* ==========================================================================
+/* ============================================================
    AksesKota — Base
-   Reset, tipografi, dan primitif yang dipakai seluruh halaman.
-   Bergantung pada tokens.css.
-   ========================================================================== */
+   Reset minimal + tipografi + fokus + utilitas
+   ============================================================ */
 
-*,
-*::before,
-*::after { box-sizing: border-box; }
-
-* { margin: 0; }
+*, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-sans);
+  margin: 0;
+  font-family: var(--font);
   font-size: var(--step-0);
-  line-height: var(--leading-normal);
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
+  line-height: var(--lh);
+  color: var(--ink);
+  background: var(--paper);
+  text-wrap: pretty;
 }
-
-img,
-svg,
-video { display: block; max-width: 100%; height: auto; }
-
-/* --- Tipografi ---------------------------------------------------------- */
 
 h1, h2, h3, h4 {
-  line-height: var(--leading-tight);
-  font-weight: 650;
-  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin: 0 0 var(--sp-3);
   text-wrap: balance;
+  letter-spacing: -0.015em;
+  font-weight: 700;
 }
+h1 { font-size: clamp(var(--step-3), 4.5vw, var(--step-4)); }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); }
 
-h1 { font-size: var(--step-5); }
-h2 { font-size: var(--step-3); }
-h3 { font-size: var(--step-1); letter-spacing: -0.005em; }
-h4 { font-size: var(--step-0); }
+p { margin: 0 0 var(--sp-3); }
+p:last-child { margin-bottom: 0; }
 
-p { text-wrap: pretty; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: var(--accent-deep); }
 
-/* Lebar baca dibatasi agar mata tidak kehilangan baris. */
-.prose { max-width: var(--measure); }
+img, svg { max-width: 100%; display: block; }
+img { height: auto; }
 
-/* Label bagian. Versi lama memakai warna 1.23:1 — tidak terbaca.
-   Sekarang memakai --accent (8.31:1) dan ukuran naik dari 12px. */
-.eyebrow {
-  display: inline-block;
-  font-size: var(--step--1);
-  font-weight: 650;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
+button { font: inherit; color: inherit; }
 
-.lede {
-  font-size: var(--step-1);
-  color: var(--ink-soft);
-  max-width: var(--measure);
-}
+::selection { background: var(--accent-soft); color: var(--accent-deep); }
 
-small,
-.meta {
-  font-size: var(--step--1);
-  color: var(--muted);
-}
-
-/* Angka data (koordinat, skor, jarak) sejajar vertikal. */
-.tnum { font-variant-numeric: tabular-nums; }
-
-code,
-kbd { font-family: var(--font-mono); font-size: 0.9em; }
-
-/* --- Tautan ------------------------------------------------------------- */
-
-a {
-  color: var(--accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
-}
-
-a:hover { color: var(--accent-hover); }
-
-/* --- Fokus -------------------------------------------------------------
-   Satu perlakuan untuk seluruh aplikasi. :focus-visible agar cincin hanya
-   muncul untuk keyboard, bukan pada klik mouse. */
-
-:focus { outline: none; }
-
+/* Fokus — selalu terlihat, tidak pernah hilang */
 :focus-visible {
-  outline: var(--focus-ring) solid var(--focus-color);
-  outline-offset: var(--focus-offset);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
   border-radius: var(--r-sm);
 }
-
-/* Elemen di atas latar aksen butuh cincin yang kontras dengan aksen. */
-.btn-primary:focus-visible,
-.on-accent :focus-visible {
-  outline-color: var(--ink);
+[data-theme="high-contrast"] :focus-visible {
+  outline: 3px solid var(--accent);
 }
 
-[data-theme='high-contrast'] .btn-primary:focus-visible {
-  outline-color: var(--focus-color);
+/* ---------- Kontrol form ---------- */
+input, select, textarea, button {
+  font: inherit;
+  color: inherit;
 }
+input, select, textarea {
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  min-height: var(--field-h);
+  padding: 8px 12px;
+  width: 100%;
+}
+input::placeholder, textarea::placeholder { color: var(--faint); }
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+input[readonly] { background: var(--surface-2); color: var(--muted); }
+input[type="checkbox"], input[type="radio"] { width: auto; min-height: 0; }
+textarea { resize: vertical; }
 
-/* --- Skip link ---------------------------------------------------------
-   Tersembunyi sampai difokus, lalu muncul sebagai target penuh. */
+label { font-weight: 600; font-size: var(--step--1); }
+
+fieldset { border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-4); margin: 0 0 var(--sp-4); }
+legend { font-weight: 600; font-size: var(--step--1); padding: 0 var(--sp-2); }
+
+/* ---------- Utilitas ---------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
 
 .skip-link {
   position: absolute;
-  left: var(--sp-4);
-  top: calc(-1 * var(--target) - 8px);
-  z-index: 100;
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--target);
-  padding: 0 var(--sp-4);
+  left: 8px; top: -48px;
+  z-index: 200;
   background: var(--accent);
-  color: var(--accent-ink);
-  font-weight: 650;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: var(--r-sm);
+  font-weight: 600;
   text-decoration: none;
-  border-radius: 0 0 var(--r-md) var(--r-md);
-  transition: top var(--dur-fast) var(--ease);
+  transition: top 0.15s ease;
 }
-
-.skip-link:focus-visible {
-  top: 0;
-  color: var(--accent-ink);
-}
-
-/* --- Tombol -----------------------------------------------------------
-   Semua varian memenuhi tinggi sentuh minimum 44px. */
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-2);
-  min-height: var(--target);
-  padding: 0 var(--sp-5);
-  border: 1px solid transparent;
-  border-radius: var(--r-md);
-  background: none;
-  font: inherit;
-  font-weight: 650;
-  line-height: 1;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background var(--dur-fast) var(--ease),
-              border-color var(--dur-fast) var(--ease),
-              color var(--dur-fast) var(--ease);
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: var(--accent-ink);
-}
-.btn-primary:hover { background: var(--accent-hover); color: var(--accent-ink); }
-
-.btn-outline {
-  background: var(--surface);
-  border-color: var(--line-strong);
-  color: var(--ink);
-}
-.btn-outline:hover { border-color: var(--ink); color: var(--ink); }
-
-.btn-quiet {
-  background: none;
-  color: var(--ink);
-  padding: 0 var(--sp-3);
-}
-.btn-quiet:hover { background: var(--surface-sunken); }
-
-.btn-danger {
-  background: var(--danger);
-  color: #ffffff;
-}
-
-.btn:disabled,
-.btn[aria-disabled='true'] {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-/* --- Form -------------------------------------------------------------- */
-
-label {
-  display: block;
-  font-size: var(--step--1);
-  font-weight: 650;
-  color: var(--ink-soft);
-  margin-bottom: var(--sp-2);
-}
-
-input[type='text'],
-input[type='email'],
-input[type='password'],
-input[type='search'],
-input[type='number'],
-select,
-textarea {
-  width: 100%;
-  min-height: var(--target);
-  padding: var(--sp-3) var(--sp-4);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r-md);
-  background: var(--surface);
-  color: var(--ink);
-  font: inherit;
-}
-
-textarea { min-height: 7rem; resize: vertical; line-height: var(--leading-snug); }
-
-input::placeholder,
-textarea::placeholder { color: var(--muted); opacity: 1; }
-
-input:hover,
-select:hover,
-textarea:hover { border-color: var(--ink-soft); }
-
-/* Checkbox dan radio diberi area sentuh lewat label pembungkus. */
-.check-row {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  min-height: var(--target);
-  cursor: pointer;
-  font-weight: 400;
-  color: var(--ink);
-  margin: 0;
-}
-
-.check-row input[type='checkbox'],
-.check-row input[type='radio'] {
-  width: 1.25rem;
-  height: 1.25rem;
-  min-height: 0;
-  accent-color: var(--accent);
-  flex: none;
-}
-
-fieldset { border: 0; padding: 0; }
-legend { font-weight: 650; margin-bottom: var(--sp-3); }
-
-/* --- Permukaan --------------------------------------------------------- */
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  padding: var(--sp-5);
-}
-
-.page {
-  width: 100%;
-  max-width: var(--page-max);
-  margin-inline: auto;
-  padding-inline: var(--sp-5);
-}
-
-.section { padding-block: var(--sp-8); }
-
-.divider { border: 0; border-top: 1px solid var(--line); }
-
-/* --- Utilitas ---------------------------------------------------------- */
-
-/* Terlihat oleh pembaca layar, tidak oleh mata. */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
-
-.stack > * + * { margin-top: var(--flow, var(--sp-4)); }
-
-/* --- Tabel ------------------------------------------------------------- */
-
-table { width: 100%; border-collapse: collapse; }
-
-th {
-  text-align: left;
-  font-size: var(--step--1);
-  font-weight: 650;
-  color: var(--ink-soft);
-  padding: var(--sp-3) var(--sp-4);
-  background: var(--surface-sunken);
-  border-bottom: 1px solid var(--line);
-}
-
-td {
-  padding: var(--sp-4);
-  border-bottom: 1px solid var(--line);
-  vertical-align: middle;
-}
-
-tbody tr:last-child td { border-bottom: 0; }
+.skip-link:focus { top: 8px; color: #fff; }
 
 .empty {
   color: var(--muted);
+  font-style: normal;
   text-align: center;
-  padding: var(--sp-7) var(--sp-4);
-}
-
-/* Tautan aksi di dalam keadaan kosong: area sentuh diperbesar lewat padding
-   vertikal supaya tetap memenuhi 44px tanpa memutus aliran teks. */
-.empty a,
-.empty-action a {
-  display: inline-block;
-  padding-block: var(--sp-3);
-  font-weight: 650;
-}
-
-/* --- Status -----------------------------------------------------------
-   Warna selalu disertai teks: tidak ada informasi yang hanya lewat warna
-   (WCAG 1.4.1). */
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  padding: var(--sp-1) var(--sp-3);
-  border-radius: var(--r-pill);
+  padding: var(--sp-5) var(--sp-4);
   font-size: var(--step--1);
-  font-weight: 650;
+  line-height: 1.7;
 }
 
-.pill-ok { background: var(--ok-wash); color: var(--ok); }
-.pill-warn { background: var(--warn-wash); color: var(--warn); }
-.pill-danger { background: var(--danger-wash); color: var(--danger); }
-.pill-neutral { background: var(--surface-sunken); color: var(--ink-soft); }
-
-.notice {
-  padding: var(--sp-4) var(--sp-5);
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  background: var(--surface);
+code {
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 0.85em;
+  background: var(--surface-2);
+  padding: 2px 6px;
+  border-radius: var(--r-sm);
 }
 
-.notice-warn { background: var(--warn-wash); border-color: var(--warn); }
-
-/* --- Motion -----------------------------------------------------------
-   Dihormati secara menyeluruh: animasi masuk juga dinetralkan agar
-   konten tidak pernah tertinggal dalam keadaan transparan. */
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  .anim-hidden { opacity: 1 !important; transform: none !important; }
-}
-
-/* Kontrol pengguna: mematikan motion tanpa mengubah setelan sistem. */
-[data-motion='off'] *,
-[data-motion='off'] *::before,
-[data-motion='off'] *::after {
-  animation-duration: 0.01ms !important;
-  transition-duration: 0.01ms !important;
-}
-[data-motion='off'] .anim-hidden { opacity: 1 !important; transform: none !important; }
-
-.anim-hidden {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 480ms var(--ease), transform 480ms var(--ease);
-}
-
-.anim-visible { opacity: 1; transform: none; }
-
-/* --- Cetak ------------------------------------------------------------- */
-
-@media print {
-  .topbar, .navlinks, .a11y-panel, .skip-link { display: none !important; }
-  body { background: #fff; color: #000; }
-  a::after { content: ' (' attr(href) ')'; font-size: 0.85em; color: #444; }
-}
+table { border-collapse: collapse; width: 100%; }

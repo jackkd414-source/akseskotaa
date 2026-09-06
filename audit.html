@@ -7,41 +7,60 @@
   <title>Audit Lokasi — AksesKota</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,650;0,700;1,400&display=swap">
-  <link rel="stylesheet" href="css/tokens.css?v=1">
-  <link rel="stylesheet" href="css/base.css?v=1">
-  <link rel="stylesheet" href="css/shell.css?v=1">
-  <link rel="stylesheet" href="css/components.css?v=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=2">
+  <link rel="stylesheet" href="css/base.css?v=3">
+  <link rel="stylesheet" href="css/shell.css?v=4">
+  <link rel="stylesheet" href="css/components.css?v=8">
 </head>
 <body>
-
-  <script>
-    (function(){
-      try {
-        var auth = JSON.parse(localStorage.getItem('akseskota_auth') || 'null');
-        if (!auth || auth.loggedIn !== true || (auth.role !== 'user' && auth.role !== 'admin')) {
-          window.location.href = 'login.html?return=audit.html';
-        }
-      } catch(e) {
-        window.location.href = 'login.html?return=audit.html';
-      }
-    })();
-  </script>
 
   <div id="shell"></div>
 
   <main id="main" class="page">
     <header class="page-header anim-hidden anim-stagger-1">
-      <span class="eyebrow">Kontribusi komunitas</span>
       <h1>Audit dalam 30 detik.</h1>
-      <p>Bagikan kondisi aksesibilitas terkini. Tidak perlu menulis panjang atau membuat akun.</p>
+      <p>Bagikan kondisi aksesibilitas terkini. Cukup pilih lokasi, isi nama, dan kirim.</p>
     </header>
 
     <div class="content-grid">
 
-      <!-- Audit Form -->
-      <form class="panel anim-hidden anim-left anim-stagger-2" id="audit-form">
-        <h2>Kondisi lokasi</h2>
+      <!-- Gate login/register untuk audit (wajib akun) -->
+      <section class="panel anim-hidden anim-left anim-stagger-1" id="audit-gate">
+        <h2>Buat akun untuk mengirim audit</h2>
+        <p style="color:var(--muted);margin:0 0 var(--sp-3)">Kontribusi audit dan poin akan terikat ke akun Anda. Sudah punya akun? Masuk di bawah.</p>
+        <div class="auth-tabs" role="tablist" style="display:flex;gap:var(--sp-2);margin-bottom:var(--sp-3)">
+          <button class="btn btn-outline auth-tab active" data-auth-tab="register" type="button" role="tab" aria-selected="true">Buat akun</button>
+          <button class="btn btn-outline auth-tab" data-auth-tab="login" type="button" role="tab" aria-selected="false">Masuk</button>
+        </div>
+        <form id="auth-form-register" data-auth-pane="register" autocomplete="on">
+          <label class="form-label" for="auth-name">Nama</label>
+          <input id="auth-name" type="text" required minlength="2" maxlength="40" placeholder="Nama tampil" autocomplete="name">
+          <label class="form-label" for="auth-email-reg">Email</label>
+          <input id="auth-email-reg" type="email" required placeholder="email@contoh.com" autocomplete="email">
+          <label class="form-label" for="auth-pw-reg">Kata sandi</label>
+          <input id="auth-pw-reg" type="password" required minlength="6" autocomplete="new-password">
+          <p id="auth-error-register" class="auth-error" hidden></p>
+          <button type="submit" class="btn btn-primary">Buat akun</button>
+        </form>
+        <form id="auth-form-login" data-auth-pane="login" hidden autocomplete="on">
+          <label class="form-label" for="auth-email-login">Email</label>
+          <input id="auth-email-login" type="email" required placeholder="email@contoh.com" autocomplete="email">
+          <label class="form-label" for="auth-pw-login">Kata sandi</label>
+          <input id="auth-pw-login" type="password" required autocomplete="current-password">
+          <p id="auth-error-login" class="auth-error" hidden></p>
+          <button type="submit" class="btn btn-primary">Masuk</button>
+        </form>
+      </section>
+
+      <form class="panel anim-hidden anim-left anim-stagger-2" id="audit-form" hidden>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:var(--sp-2);flex-wrap:wrap;margin-bottom:var(--sp-3)">
+          <div>
+            <h2 style="margin:0">Kondisi lokasi</h2>
+            <small style="color:var(--muted)" id="audit-as-who">Masuk sebagai …</small>
+          </div>
+          <button type="button" class="btn btn-outline" id="audit-logout">Keluar</button>
+        </div>
 
         <label class="form-label" for="venue-select">Pilih lokasi</label>
         <div class="location-picker">
@@ -55,10 +74,6 @@
           <button type="button" class="check-item" data-feature="wheelchair_ramp" aria-pressed="false">
             Rampa kursi roda
             <small>Akses masuk tanpa tangga</small>
-          </button>
-          <button type="button" class="check-item" data-feature="elevator" aria-pressed="false">
-            Lift
-            <small>Tersedia dan berfungsi</small>
           </button>
           <button type="button" class="check-item" data-feature="accessible_restroom" aria-pressed="false">
             Toilet aksesibel
@@ -83,7 +98,7 @@
           <button type="button" class="star" data-value="5" aria-label="5 bintang"></button>
         </div>
 
-        <span class="form-label">Bukti & penjelasan <small class="optional">Opsional</small></span>
+        <span class="form-label">Bukti &amp; penjelasan <small class="optional">Opsional</small></span>
         <div class="audit-extras">
           <label class="upload-box" id="upload-box" for="audit-image">
             <input id="audit-image" type="file" accept="image/jpeg,image/png,image/webp" hidden>
@@ -102,7 +117,7 @@
 
           <label class="explanation-field" for="audit-explanation">
             Penjelasan lebih lanjut
-            <textarea id="audit-explanation" maxlength="500" rows="4" placeholder="Contoh: lift sedang rusak, jalur taktil tertutup barang..."></textarea>
+            <textarea id="audit-explanation" maxlength="500" rows="4" placeholder="Contoh: rampa tertutup, jalur taktil tertutup barang..."></textarea>
             <small><span id="explanation-count">0</span>/500 karakter</small>
           </label>
         </div>
@@ -110,7 +125,6 @@
         <button class="btn btn-primary" id="submit" disabled>Kirim audit</button>
       </form>
 
-      <!-- Sidebar -->
       <aside>
         <div class="panel anim-hidden anim-right anim-stagger-3">
           <h2>Kontribusi Anda</h2>
@@ -118,7 +132,7 @@
             <strong id="score">0 poin</strong>
             <small id="audit-count">Belum ada audit</small>
           </div>
-          <p>Setiap audit mendapat 10 poin. Audit tersimpan di perangkat ini.</p>
+          <p style="color:var(--muted);font-size:var(--step--1)">Setiap audit mendapat 10 poin setelah disetujui. Data tersimpan di server.</p>
           <a href="community.html" class="btn btn-outline">Lihat komunitas</a>
         </div>
       </aside>
@@ -128,7 +142,7 @@
 
   <div id="footer"></div>
 
-  <script type="module" src="js/audit-page.js?v=8"></script>
+  <script type="module" src="js/audit-page.js?v=26"></script>
 
 </body>
 </html>

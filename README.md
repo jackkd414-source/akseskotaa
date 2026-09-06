@@ -1,272 +1,238 @@
-# AksesKota
+# AksesKota — Navigasi Kota Tanpa Batasan
 
-> Platform web pemetaan aksesibilitas perkotaan untuk membantu penyandang disabilitas, lansia, orang tua dengan stroller, dan warga dengan kebutuhan mobilitas menemukan rampa, lift, toilet aksesibel, serta jalur taktil di Jakarta.
+> Platform web pemetaan aksesibilitas urban yang membantu penyandang disabilitas, lansia, dan orang tua dengan stroller menemukan infrastruktur ramah akses di Jakarta dan Bekasi — lengkap dengan data real dari OpenStreetMap, rute khusus kursi roda, audit komunitas, dan manajemen usaha aksesibel.
 
-AksesKota dibuat untuk kategori Web Development SMA/MA/SMK ITechno Cup 2026 dengan tema **“Adaptive Innovation for a Future-Ready Digital Society”** dan subtema **“Smart Sustainable Digital Solution for Inclusive Society”**.
+**AksesKota** dibuat untuk kompetisi **WeDevelopment SMA/SMK ITechno Cup 2026** dengan tema *"Adaptive Innovation for a Future-Ready Digital Society"* dan subtema *"Smart Sustainable Digital Solution for Inclusive Society"*.
+
+---
 
 ## Daftar Isi
 
-- [Demo dan Repository](#demo-dan-repository)
 - [Penjelasan Aplikasi](#penjelasan-aplikasi)
 - [Kesesuaian Tema dan SDG](#kesesuaian-tema-dan-sdg)
 - [Teknologi yang Digunakan](#teknologi-yang-digunakan)
 - [Fitur Utama](#fitur-utama)
-- [Fitur Usaha Aksesibel](#fitur-usaha-aksesibel)
-- [Sumber dan Validitas Data](#sumber-dan-validitas-data)
 - [Cara Instalasi](#cara-instalasi)
 - [Cara Penggunaan](#cara-penggunaan)
-- [Struktur dan Arsitektur](#struktur-dan-arsitektur)
+- [Struktur Proyek](#struktur-proyek)
+- [Arsitektur Sistem](#arsitektur-sistem)
 - [Privasi dan Keamanan](#privasi-dan-keamanan)
 - [Penggunaan AI](#penggunaan-ai)
-- [Kepatuhan Guidebook](#kepatuhan-guidebook-itechno-cup-2026)
-- [Rencana Pengembangan](#rencana-pengembangan)
+- [Tim](#tim)
+- [Lisensi dan Attribution](#lisensi-dan-attribution)
 
 ---
-
-## Demo dan Repository
-
-Aplikasi dijalankan secara lokal. Tidak ada deployment publik maupun layanan cloud yang digunakan pada versi ini.
-
-| Item | Keterangan |
-|---|---|
-| Cara menjalankan | `python -m http.server 8000 --bind 127.0.0.1`, lalu buka `http://127.0.0.1:8000` |
-| Basis data | Lokal di browser (`localStorage`) — lihat bagian Batasan Produk |
-| Video demo (opsional) | `Tambahkan jika tersedia` |
-
-> Guidebook meminta repository dan website yang dapat diakses (hlm. 9 dan 12). Konfirmasikan ke panitia apakah demo lokal beserta rekaman video dapat diterima, atau lengkapi tautan sesuai kebijakan tim.
 
 ## Penjelasan Aplikasi
 
 ### Latar Belakang
 
-Informasi kondisi fasilitas aksesibilitas di Indonesia masih tersebar dan dapat berubah tanpa pembaruan yang cepat. Pengguna sering baru mengetahui apakah sebuah lokasi memiliki rampa, lift yang berfungsi, toilet aksesibel, atau jalur taktil setelah tiba di tempat tujuan.
+Indonesia punya lebih dari 30 juta penyandang disabilitas (BPS 2024). Tapi informasi soal infrastruktur aksesibel — rampa kursi roda, toilet ramah difabel, jalur taktil — masih tersebar, usang, atau bahkan nggak ada sama sekali. Pengguna kursi roda sering baru tahu apakah sebuah tempat bisa diakses setelah sampai di lokasi.
 
-AksesKota mengurangi ketidakpastian tersebut melalui:
+Masalah ini makin parah karena:
 
-1. **Peta data terbuka** dari OpenStreetMap (OSM) melalui Overpass API.
-2. **Audit komunitas singkat** berbasis checklist, rating, foto opsional, dan penjelasan opsional.
-3. **Moderasi lokal** untuk menyetujui atau menolak audit sebelum poin diberikan.
-4. **Akses informasi perjalanan** berupa pencarian, filter, geolokasi, petunjuk arah, dan tautan Street View.
+- Belum ada database terpusat soal infrastruktur aksesibel di kota-kota besar Indonesia.
+- Survei aksesibilitas manual mahal dan nggak scalable.
+- Infrastruktur yang sudah ada sering rusak tanpa mekanisme pelaporan yang jelas.
 
-### Tujuan
+### Tujuan AksesKota
 
-- Memudahkan pencarian fasilitas publik yang memiliki atribut aksesibilitas.
-- Membantu pengguna merencanakan perjalanan dengan informasi awal yang lebih baik.
-- Mendorong kontribusi masyarakat untuk memperbarui kondisi fasilitas.
-- Menunjukkan pemanfaatan web dan data terbuka untuk kota yang lebih inklusif.
+AksesKota (gabungan kata *Akses* + *Kota*) menjawab masalah ini lewat tiga pendekatan:
 
-### Batasan Produk Saat Ini
+1. **Data real dari OpenStreetMap** — Mengambil data fasilitas aksesibel secara otomatis lewat Overpass API. Saat ini sudah memetakan **560 lokasi** di koridor Jakarta–Bekasi.
 
-Versi kompetisi adalah aplikasi web statis tanpa proses build dan **tanpa backend**. Seluruh data yang dihasilkan pengguna disimpan di database lokal browser (`localStorage`) pada perangkat yang sama:
+2. **Audit komunitas** — Warga bisa melaporkan kondisi fasilitas lewat formulir singkat berbasis checklist, rating 1–5, foto opsional, dan penjelasan singkat. Semua audit dimoderasi admin sebelum tayang.
 
-| Data | Kunci penyimpanan |
-|---|---|
-| Audit komunitas beserta foto dan penjelasan | `akseskota_audits` |
-| Poin kontribusi | `akseskota_score` |
-| Cache data OpenStreetMap | `akseskota_osm_real_v3` |
-| Override, lokasi tambahan, dan log admin | `akseskota_admin_*` |
-| Usaha terdaftar beserta review dan riwayat skor | `akseskota_business*` |
-| Akun dan sesi | `akseskota_users`, `akseskota_auth` |
+3. **Usaha aksesibel** — Usaha kecil bisa mendaftar, mendapat review dari komunitas, dan bersaing di leaderboard berdasarkan skor aksesibilitas. Ini mendorong inklusivitas ekonomi lokal.
 
-Konsekuensi yang perlu dipahami: audit hanya terlihat pada perangkat yang mengirimkannya, dan menghapus data browser akan menghapus kontribusi. Foto tidak pernah dikirim ke mana pun — tetap berada di perangkat pengguna.
-
-Belum tersedia: autentikasi admin sisi server, sinkronisasi lintas perangkat, dan verifikasi resmi terhadap kondisi fisik lokasi.
-
-Untuk memindahkan data antar perangkat, gunakan tombol **Export backup** dan **Import** pada halaman admin.
+4. **Rute khusus kursi roda** — Pengguna bisa membandingkan rute langsung vs rute yang melewati fasilitas aksesibel (rampa, toilet, usaha) lewat Valhalla routing engine.
 
 ---
 
 ## Kesesuaian Tema dan SDG
 
-| Elemen guidebook | Implementasi AksesKota |
-|---|---|
-| Solusi digital inovatif, responsif, aplikatif | Peta interaktif multi-page, audit komunitas, moderasi, dan desain responsif |
-| Masyarakat inklusif | Informasi ditujukan untuk pengguna dengan kebutuhan mobilitas dan aksesibilitas |
-| **SDG 9 — Industri, Inovasi, dan Infrastruktur** | Pemanfaatan OSM, Overpass, navigasi web, dan data fasilitas infrastruktur |
-| **SDG 11 — Kota dan Komunitas Berkelanjutan** | Mendukung mobilitas, layanan publik, dan kehidupan kota yang lebih inklusif |
-| **SDG 8 — Pekerjaan Layak dan Pertumbuhan Ekonomi** | Fitur usaha kecil aksesibel: pendaftaran usaha, badge aksesibilitas, leaderboard, dan review komunitas untuk mendorong inklusivitas ekonomi lokal |
-
-Fokus terkuat AksesKota adalah **SDG 9 dan SDG 11**. SDG 8 merupakan dampak pendukung, bukan fitur ekonomi yang sudah diimplementasikan.
+| SDG | Hubungan dengan AksesKota |
+|-----|--------------------------|
+| **SDG 8 — Pekerjaan Layak dan Pertumbuhan Ekonomi** | Fitur usaha aksesibel: pendaftaran usaha, badge aksesibilitas, leaderboard, dan review komunitas untuk mendorong inklusivitas ekonomi lokal. Usaha kecil yang ramah akses mendapat visibilitas lebih. |
+| **SDG 9 — Industri, Inovasi, dan Infrastruktur** | Pemanfaatan data terbuka OpenStreetMap, Overpass API, dan Valhalla routing untuk memetakan infrastruktur aksesibel secara otomatis. Arsitektur web ringan (tanpa framework berat) yang bisa jalan di smartphone murah. |
+| **SDG 11 — Kota dan Komunitas Berkelanjutan** | Memetakan infrastruktur mobilitas bebas hambatan di hub transit dan ruang komersial Jakarta–Bekasi. Membantu warga merencanakan rute yang bisa diakses dan mengidentifikasi kesenjangan infrastruktur. |
 
 ---
 
 ## Teknologi yang Digunakan
 
+### Backend
+
+| Komponen | Teknologi | Keterangan |
+|----------|-----------|------------|
+| Server | Node.js 18+ (zero-dependency) | Cuma pakai module bawaan Node: `http`, `fs`, `path`, `crypto`, `node:sqlite` |
+| Database | SQLite (node:sqlite) | Tabel: users, sessions, audits, businesses, business_reviews, custom_locations, location_overrides. Fallback otomatis ke JSON file kalau `node:sqlite` nggak tersedia |
+| Sesi | Cookie HttpOnly | Session token random, TTL 7 hari, `SameSite=Lax` |
+| Upload | File-based | Foto audit disimpan di `server-data/uploads/`, divalidasi MIME type + ukuran |
+
 ### Frontend
 
 | Teknologi | Peruntukan |
-|---|---|
-| HTML5 | Struktur halaman semantik dan elemen formulir native |
-| CSS3 | Design tokens, Grid/Flexbox, responsive layout, focus state, high contrast, reduced-motion preference |
-| JavaScript ES Modules | Data loading, peta, audit, moderasi, local state, dan interaksi |
-| `localStorage` | Cache OSM, audit, foto terkompresi, poin, override admin lokal, dan preferensi tema |
+|-----------|------------|
+| HTML5 | markup semantik |
+| CSS3 | Design tokens, Grid/Flexbox, responsive, high contrast, reduced-motion |
+| JavaScript ES Modules | tanpa bundler, tanpa framework — murni vanilla JS |
 
-### Library
+### Library (via CDN + local vendor)
 
-| Library | Versi | Peruntukan |
-|---|---:|---|
-| Leaflet | 1.9.4 | Render peta, marker, layer, geolokasi, dan garis rute |
-| Leaflet.markercluster | 1.5.3 | Pengelompokan marker pada area padat |
-| Google Fonts | Space Grotesk, Plus Jakarta Sans, DM Sans | Tipografi antarmuka dengan heading geometris dan body elegan |
+| Library | Versi | Ukuran | Fungsi |
+|---------|-------|--------|--------|
+| Leaflet.js | 1.9.4 | ~42 KB gzipped | Render peta, marker, layer, geolokasi |
+| Leaflet.markercluster | 1.5.3 | ~4 KB gzipped | Pengelompokan marker di area padat |
 
-Library dimuat melalui CDN dan didefinisikan peruntukannya sesuai ketentuan guidebook.
+### API Eksternal (semua tanpa API key)
 
-### API dan Layanan Eksternal
-
-| Layanan | Peruntukan | API key |
-|---|---|---|
-| OpenStreetMap Tiles | Tile peta | Tidak |
-| Overpass API | Mengambil elemen OSM dengan tag aksesibilitas eksplisit | Tidak |
-| Valhalla public demo server | Rute pedestrian dengan profil kursi roda (`wheelchair=true`), penghindaran tangga, dan batas kemiringan berdasarkan data OSM | Tidak |
-| OSRM public demo server | Integrasi lama; tidak lagi dipakai oleh rute utama | Tidak |
-| Google Maps URL | Membuka Street View berdasarkan koordinat di tab baru | Tidak |
-
-Aplikasi tidak menggunakan Google Places API.
+| Layanan | Fungsi |
+|---------|--------|
+| OpenStreetMap Tiles | Tile peta |
+| Overpass API | Query data fasilitas aksesibel dari OSM |
+| Valhalla (OSM demo) | Routing pedestrian dengan profil kursi roda |
+| Nominatim | Reverse geocoding (nama lokasi dari koordinat) |
+| Google Maps Street View | Buka panorama 360 di tab baru |
 
 ---
 
 ## Fitur Utama
 
-### 1. Peta Aksesibilitas
+### 1. Peta Aksesibilitas Interaktif
 
-- Peta penuh berbasis Leaflet dan OpenStreetMap.
-- Filter chip kategori (Semua, Usaha, Rampa, Lift, Toilet, Taktil).
-- Marker clustering.
-- Detail atribut dengan tiga kondisi: tersedia, tidak tersedia, dan belum diketahui.
-- Geolokasi pengguna dengan tombol crosshair floating di pojok kanan atas.
-- Rute khusus kursi roda melalui Valhalla/OpenStreetMap: profil pedestrian dengan `wheelchair=true`, menghindari tangga (`use_steps=0`), membatasi tingkat kesulitan, dan membatasi kemiringan maksimum 8% ketika tag tersedia.
-- Mode pembanding jalan kaki umum.
-- Ringkasan jarak/waktu, garis rute, petunjuk langkah, sumber engine, dan peringatan kualitas data.
-- Tombol Street View yang selalu membuka Google Maps pada tab baru.
+Peta penuh berbasis Leaflet dengan 560 lokasi dari OpenStreetMap.
 
-### 2. Data OSM Real dan Snapshot
+**Cara pakai:**
+1. Buka halaman **Peta** dari navigasi.
+2. Gunakan chip filter di sidebar untuk mempersempit: Semua, Rampa, Toilet, Taktil, Usaha.
+3. Klik marker untuk lihat detail — nama, alamat, atribut aksesibilitas (tersedia/tidak/belum diketahui), sumber data, dan timestamp.
+4. Ketik nama lokasi di kolom pencarian untuk cari cepat.
+5. Tekan tombol **Lokasi saya** (crosshair) untuk melihat posisi Anda.
 
-- Query real-time Overpass untuk Jakarta.
-- Hanya mengambil tag eksplisit yang relevan; `wheelchair=yes` umum tidak otomatis diklaim sebagai rampa.
-- Cache browser selama satu jam.
-- Snapshot OSM nyata terakhir sebagai fallback ketika endpoint Overpass timeout.
-- Timestamp snapshot ditampilkan kepada pengguna.
+**Yang bikin beda:** Data bukan dummy. Semua lokasi diambil langsung dari database OpenStreetMap lewat Overpass API, lalu di-cache selama 1 jam. Kalau Overpass down, ada snapshot lokal sebagai fallback.
 
-### 3. Audit Kondisi Lokasi
+### 2. Rute Khusus Aksesibilitas
 
-- Checklist fasilitas tanpa kewajiban mengetik.
-- Rating 1–5.
-- Foto opsional: JPG, PNG, atau WebP, maksimal 5 MB.
-- Foto dikompresi di browser menjadi JPEG maksimal 1280 px sebelum disimpan.
-- Penjelasan opsional maksimal 500 karakter.
-- Audit baru berstatus `pending` dan harus dimoderasi.
+Bukan cuma lihat titik di peta — AksesKota bisa merencanakan rute dari titik A ke titik B dengan pertimbangan aksesibilitas.
 
-### 4. Admin Lokal dan Moderasi
+**Cara pakai:**
+1. Di peta, klik **Petunjuk arah** di detail sheet lokasi.
+2. Atau gunakan panel perjalanan: pilih asal (Lokasi saya / pilih dari daftar / klik di peta), lalu pilih tujuan.
+3. Pilih profil: **Kursi roda** (hindari tangga, pakai rampa/sidewalk) atau **Jalan kaki**.
+4. Pilih fasilitas yang ingin dilewati: rampa, toilet, usaha.
+5. Pilih batas tambahan jarak: 10%, 25%, atau 50% dari rute langsung.
+6. Klik **Bandingkan rute**.
 
-- Tambah lokasi manual.
-- Edit/rename lokasi, alamat, kategori, koordinat, dan atribut.
-- Soft-delete lokasi tanpa mengubah data OSM asli.
-- Approve/reject audit beserta catatan moderator.
-- Preview foto dan penjelasan audit.
-- Activity log lokal.
-- Import/export backup JSON.
+**Yang terjadi di balik layar:**
+- Sistem meminta rute langsung dari Valhalla (profil `pedestrian`, `type: wheelchair`, `use_steps: 0`).
+- Lalu mencari fasilitas aksesibel dalam koridor 250 meter dari garis rute.
+- Menguji maksimal 2 alternatif yang melewati satu fasilitas.
+- Kalau nggak ada alternatif yang masuk batas, rute langsung ditampilkan dengan peringatan "kondisi belum terverifikasi."
 
-> Admin ini sengaja disebut **admin lokal**. Karena belum ada backend dan autentikasi, halaman ini tidak boleh dianggap sebagai kontrol akses production.
+**Penting:** Ini rekomendasi lewat titik fasilitas, bukan jaminan bahwa pintu masuk bisa dicapai. Kualitas data tergantung kelengkapan tag OSM.
 
-### 5. Gamifikasi
+### 3. Audit Komunitas
 
-- Audit yang disetujui memperoleh 10 poin.
-- Progress lencana dihitung dari audit yang disetujui.
-- Leaderboard versi proof of concept masih menggunakan data contoh statis untuk peserta lain; hanya entri “Anda” berasal dari audit lokal yang disetujui.
+Warga bisa melaporkan kondisi fasilitas aksesibel.
 
-### 6. Aksesibilitas Antarmuka
+**Cara pakai:**
+1. Buka halaman **Audit** dari navigasi, atau klik **Audit lokasi** di detail sheet peta.
+2. Login atau buat akun dulu (wajib — audit tanpa akun nggak diterima server).
+3. Pilih lokasi dari daftar.
+4. Centang fasilitas yang tersedia: Rampa, Toilet, Jalur taktil, Rambu.
+5. Beri rating 1–5.
+6. (Opsional) Upload foto JPG/PNG/WebP maks 5 MB — otomatis dikompresi di browser.
+7. (Opsional) Tulis penjelasan singkat (maks 500 karakter).
+8. Klik **Kirim Audit**.
 
-- Skip link.
-- Focus state yang terlihat.
-- Navigasi dan kontrol berbasis elemen HTML native.
-- Mode kontras tinggi dengan teks yang dapat dibaca di seluruh komponen UI (section, kartu, tabel, form, select/option, badge, peta interaktif, sidebar peta dengan semua konten, detail sheet, rute navigasi, tombol peta, angka cluster marker, angka/peringkat/step-num, leaderboard, admin, tombol aksi).
-- Pilihan ukuran teks.
-- Dukungan `prefers-reduced-motion`.
-- Label ARIA pada kontrol penting.
-- Target sentuh minimum pada kontrol utama.
+**Status audit:** Pending → Admin review → Disetujui / Ditolak. Poin (10 per audit) baru diberikan setelah disetujui admin.
 
-### 7. Desain Visual Premium
+### 4. Panel Admin
 
-- **Navbar Chrome-tab style** — Logo AksesKota di ujung kiri layar, navigasi pusat (Beranda, Peta, Audit, Komunitas, Usaha, Tentang) di tengah dalam container rounded-pill, dan mode gelap/terang (ikon bulan) + badge pengguna di ujung kanan. Navbar mengikuti scroll (non-sticky).
-- **Gradient typography** — Heading h1 menggunakan gradient tiga warna (gelap → hijau → amber), heading h2 menggunakan gradient dua warna (gelap → hijau tua), step numbers dan angka statistik menggunakan gradient hijau.
-- **Background unik** — Dot grid pattern subtle (24px spacing) dengan gradient blobs hijau di kiri atas dan amber di kanan bawah. Pattern tetap fixed saat scrolling.
-- **Glassmorphism** — Topbar dan map cards menggunakan backdrop blur untuk efek kaca premium.
-- **Micro-interactions** — Tombol card lift-on-hover, panel dengan gradient accent line on hover, team cards dengan shine sweep effect, trust row dots dengan pulse animation.
-- **Chrome-tab panels** — Panel dan step cards dengan border-radius besar (20px), gradient accent lines, dan shadow depth yang terstruktur.
-- **Warna lebih kaya** — Palette lebih beragam dengan hijau, amber, biru, ungu, dan gradient multi-warna pada footer, badges, dan elemen dekoratif.
-- **Dark mode premium** — Ikon bulan untuk toggle, high-contrast mode dengan gradient badges, glowing shadows, dan yellow accent yang konsisten di seluruh komponen termasuk navbar, tombol keluar, dan user badge.
-- **Animated hamburger menu** — Tombol 3 garis hijau dengan transisi morphing ke ikon X saat dibuka. Di mobile, navbar menggunakan `justify-content:space-between` dengan hamburger di pojok kanan atas.
-- **Custom scrollbar** — Scrollbar yang styled sesuai tema untuk estetika yang konsisten.
-- **Reduced motion respect** — Semua animasi nonaktif untuk pengguna yang memilih reduced motion.
-- **Halaman Tentang kaya konten** — 7 section (Masalah, Solusi, Koridor MRT, Teknologi, SDG, Komitmen, Tim) dengan stat counters, problem cards, corridor timeline visual, tech stack cards, SDG badges, commitment grid, CTA gradient.
-- **Peta tanpa search bar** — Peta difokuskan pada filter kategori dan floating button lokasi (crosshair SVG) di pojok kanan atas.
+Dashboard untuk mengelola seluruh data aplikasi.
 
-Implementasi mengikuti praktik aksesibilitas web, tetapi **belum diklaim tersertifikasi WCAG 2.1** karena audit formal dengan screen reader dan alat otomatis belum selesai.
+**Cara akses:**
+1. Buka `admin.html` atau klik **Admin** di navigasi (hanya muncul kalau sudah login sebagai admin).
+2. Login dengan email, kata sandi, dan kode akses admin.
 
----
+**Yang bisa dilakukan admin:**
 
-## Fitur Usaha Aksesibel
+| Menu | Fungsi |
+|------|--------|
+| **Ringkasan** | Statistik: jumlah lokasi aktif, usaha terdaftar, audit menunggu, audit disetujui. Aksi cepat: tambah lokasi, cek audit, segarkan cache OSM. |
+| **Lokasi** | Lihat, edit, hapus semua lokasi (OSM + custom). Filter berdasarkan nama/alamat/ID dan kategori. Tambah lokasi baru lewat form atau langsung dari peta. |
+| **Usulan lokasi** | Review lokasi baru yang diusulkan pengguna atau admin. Setujui untuk menayangkan di peta publik, tolak untuk menyembunyikan. |
+| **Moderasi audit** | Lihat audit berdasarkan status: Menunggu, Disetujui, Ditolak, Semua. Preview foto bukti, baca penjelasan, beri catatan moderator, lalu setujui atau tolak. |
+| **Usaha terdaftar** | Verifikasi atau hapus usaha. Cari berdasarkan nama/pemilik/email. Filter: semua, aksesibel saja, belum diverifikasi. |
+| **Leaderboard** | Kelola peringkat kontribusi komunitas. Cari dan hapus kontributor (audit mereka ditandai ditolak). |
+| **Aktivitas** | Log semua aktivitas moderasi admin. |
 
-### 8. Usaha Kecil Aksesibel
+**Menambah lokasi dari peta:**
+1. Klik **Tambah lokasi** di admin panel atau tombol **Tambah lokasi** di peta.
+2. Klik titik di peta (kursor jadi crosshair).
+3. Isi nama, alamat, pilih kategori (bisa multi-select), koordinat terisi otomatis.
+4. Klik **Kirim**. Lokasi masuk antrean usulan — tampil di peta publik setelah disetujui admin.
 
-Platform baru untuk usaha kecil mendapatkan visibilitas aksesibilitas dan berkompetisi dalam meningkatkan layanan inklusif.
+### 5. Usaha Aksesibel
 
-- **Pendaftaran usaha** — Usaha kecil dapat mendaftarkan diri di `business.html` dengan mengisi nama, alamat lengkap, kategori, dan kontak pemilik.
-- **Tanda badge usaha** — Setiap usaha terdaftar mendapatkan badge visual (💎 Platinum, 🥇 Emas, 🥈 Perak, 🥉 Perunggu) berdasarkan skor aksesibilitas. Badge ditampilkan di:
-  - Peta (marker dengan ikon 🏪)
-  - Detail sheet lokasi di peta
-  - Leaderboard komunitas
-- **Filter usaha di peta** — Chip filter "🏪 Usaha" di sidebar peta untuk menampilkan hanya lokasi usaha terdaftar.
-- **Review aksesibilitas** — Usaha menerima review dari komunitas berupa rating 1–5 dan checklist fasilitas (rampa, lift, toilet, jalur taktil, rambu).
-- **Skor aksesibilitas** — Dihitung dari:
-  - Rating rata-rata review (bobot 60%)
-  - Ketersediaan fasilitas aksesibel (bobot 40%)
-- **Tren perkembangan** — Membandingkan skor awal dengan skor terkini untuk menunjukkan apakah usaha sedang berkembang.
-- **Leaderboard usaha** — Dua kategori peringkat:
-  - **Skor Tertinggi** — Usaha dengan aksesibilitas terbaik.
-  - **Paling Berkembang** — Usaha dengan peningkatan skor terbesar.
-- **Halaman usaha (`business.html`)** — Tiga tab:
-  - Leaderboard lengkap dengan badge dan statistik.
-  - Review terbaru dengan detail rating dan fasilitas.
-  - Form pendaftaran usaha baru.
-- **Admin panel usaha** — View "Usaha terdaftar" di admin untuk melihat daftar usaha, badge, skor, dan status verifikasi.
-- **Sidebar komunitas** — Mini leaderboard usaha ditampilkan di halaman komunitas dengan tautan ke halaman utama.
+Platform untuk usaha kecil mendapat visibilitas dan bersaing berdasarkan aksesibilitas.
 
-### Sistem Badge Usaha
+**Cara pakai (pengusaha):**
+1. Buka halaman **Usaha** dari navigasi.
+2. Pilih tab **Daftarkan Usaha**.
+3. Isi: nama usaha, alamat lengkap, kategori, nama pemilik, email, deskripsi, lokasi di peta, dan layanan yang tersedia (kursi roda, tuna netra, bahasa isyarat, lansia).
+4. Submit. Usaha muncul di peta dan leaderboard.
 
-| Badge | Skor Minimum | Keterangan |
-|---|---|---|
-| 💎 Platinum | 85+ | Aksesibilitas kelas dunia |
-| 🥇 Emas | 70+ | Sangat aksesibel |
-| 🥈 Perak | 50+ | Cukup aksesibel |
-| 🥉 Perunggu | <50 | Mulai meningkatkan akses |
+**Sistem skor & badge:**
 
-Badge dihitung otomatis berdasarkan skor yang diperbarui setiap kali usaha menerima review baru.
+| Badge | Skor minimum | Keterangan |
+|-------|-------------|------------|
+| Platinum | 85+ | Aksesibilitas kelas dunia |
+| Emas | 70+ | Sangat aksesibel |
+| Perak | 50+ | Cukup aksesibel |
+| Perunggu | <50 | Mulai meningkatkan akses |
 
-### Data Seed
+Skor dihitung dari: rating rata-rata review (60%) + ketersediaan fasilitas (40%). Badge diperbarui otomatis setiap kali usaha menerima review baru.
 
-Untuk keperluan demo kompetisi, tersedia data contoh 6 usaha dengan skor dan riwayat:
+**Leaderboard usaha:**
+- **Skor Tertinggi** — Usaha dengan aksesibilitas terbaik.
+- **Paling Berkembang** — Usaha dengan peningkatan skor terbesar.
 
-- Toko Kaki Sehat Blok M (Skor 88, Platinum, 📈 Berkembang)
-- Kopi Akses Senayan (Skor 72, Emas, 📈 Berkembang)
-- Laundry Kilat Tebet (Skor 62, Perak, 📈 Berkembang)
-- Apotek Sehat Bersama (Skor 55, Perak, 📈 Berkembang)
-- Warung Nenek Fatmawati (Skor 38, Perunggu, ➡️ Stabil)
-- Bengkel Motor Jaya (Skor 30, Perunggu, ➡️ Stabil)
+### 6. Login dan Akun
 
----
+Sistem akun memastikan setiap audit terhubung ke kontributor yang bertanggung jawab.
 
-## Sumber dan Validitas Data
+**Cara pakai:**
+1. Buka **login.html** atau klik **Masuk** di navigasi.
+2. **Register:** Isi nama (min 2 karakter), email, kata sandi (min 6 karakter). Akun langsung aktif.
+3. **Login:** Masukkan email dan kata sandi.
+4. **Admin login:** Masukkan email, kata sandi, dan kode akses admin (default: `AKSES2026`).
+5. **Logout:** Klik tombol **Keluar** di navigasi atau di halaman audit.
 
-Data peta berasal dari kontribusi publik OpenStreetMap di bawah Open Database License (ODbL). “Data real” berarti elemen berasal dari basis data OSM, bukan berarti kondisi fisiknya dijamin 100% benar atau terkini.
+Sesi disimpan via cookie HttpOnly selama 7 hari. Password di-hash dengan SHA-256 + salt.
 
-- `✓` berarti tag OSM menyatakan atribut tersedia.
-- `×` berarti tag OSM secara eksplisit menyatakan tidak tersedia.
-- `?` berarti atribut belum dicatat.
-- Kondisi lift, rampa, toilet, dan jalur taktil tetap perlu dikonfirmasi di lokasi.
-- Override admin lokal tidak menulis perubahan kembali ke OSM.
+### 7. Aksesibilitas Antarmuka (WCAG)
 
-Attribution OpenStreetMap tetap ditampilkan pada peta.
+AksesKota sendiri harus bisa diakses oleh pengguna yang dilayaninya.
+
+**Fitur yang tersedia:**
+- **Skip link** — "Lewati ke konten" untuk screen reader.
+- **Focus state terlihat** — Outline 3px solid pada semua elemen interaktif.
+- **Kontras tinggi** — Toggle untuk latar gelap + teks putih.
+- **Ukuran teks** — 3 level: Normal, Besar, Sangat besar.
+- **Kurangi animasi** — Mematikan semua transisi dan motion.
+- **Navigasi keyboard** — Semua fungsi bisa diakses tanpa mouse.
+- **ARIA labels** — Label pada kontrol penting untuk screen reader.
+- **Touch target** — Minimal 44px pada kontrol utama.
+- **`prefers-reduced-motion`** — Otomatis mendeteksi preferensi sistem.
+
+### 8. Desain Visual
+
+- **Navbar** — Logo di kiri, navigasi tengah (pill container), aksesibilitas + akun di kanan.
+- **Mobile responsive** — Hamburger menu, bottom sheet, touch-friendly.
+- **Mode gelap/terang** — Toggle via panel aksesibilitas.
+- **Desain tanpa emoji** — Semua ikon pakai teks atau CSS, bukan emoji unicode (agar konsisten lintas platform).
 
 ---
 
@@ -274,35 +240,38 @@ Attribution OpenStreetMap tetap ditampilkan pada peta.
 
 ### Prasyarat
 
-- Browser modern: Chrome, Edge, Firefox, atau Safari.
-- Python atau static web server lain.
-- Koneksi internet untuk tile peta, Overpass, OSRM, dan Street View. Snapshot OSM lokal tetap tersedia ketika Overpass gagal.
+- **Node.js 18+** — Download dari https://nodejs.org
+- **Browser modern** — Chrome, Edge, Firefox, atau Safari
+- **Koneksi internet** — Untuk tile peta, Overpass, Valhalla, dan Street View
 
-### Menjalankan Lokal
-
-```bash
-git clone https://github.com/OWNER/akseskota.git
-cd akseskota
-python -m http.server 8000
-```
-
-Buka:
-
-```text
-http://localhost:8000
-```
-
-Tidak ada build step atau package installation untuk aplikasi.
-
-### Menjalankan di perangkat lain di jaringan yang sama (opsional)
-
-Ganti alamat bind agar dapat diakses dari ponsel pada Wi-Fi yang sama:
+### Langkah Setup
 
 ```bash
-python -m http.server 8000
+# 1. Clone repository
+git clone https://github.com/jackkd414-source/AksesKota.git
+cd AksesKota
+
+# 2. Jalankan server
+node server.js
+
+# 3. Buka browser
+# http://localhost:8080
 ```
 
-Lalu buka `http://<IP-komputer>:8000` dari ponsel. Perhatikan: fitur geolokasi memerlukan HTTPS atau `localhost`, sehingga pada akses lewat IP tombol "Lokasi saya" akan menolak dengan pesan yang jelas. Semua fitur lain tetap berfungsi.
+**Windows:** Klik dua kali `start-server.bat` atau `start.bat`.
+
+**Port lain:**
+```bash
+PORT=3000 node server.js
+```
+
+**Kode admin default:** `AKSES2026`
+Ganti lewat environment variable:
+```bash
+ADMIN_CODE=rahasia123 node server.js
+```
+
+Server akan membuat folder `server-data/` secara otomatis untuk menyimpan database SQLite dan file upload.
 
 ---
 
@@ -310,253 +279,225 @@ Lalu buka `http://<IP-komputer>:8000` dari ponsel. Perhatikan: fitur geolokasi m
 
 ### Navigasi
 
-- **Logo AksesKota** di ujung kiri — klik untuk kembali ke beranda.
-- **Navigasi pusat** — Beranda, Peta, Audit, Komunitas, Usaha, Tentang (dan Admin/Keluar jika sudah login).
-- **Ikon bulan** di ujung kanan — buka panel aksesibilitas (kontras tinggi + ukuran teks).
-- **Badge pengguna** — menampilkan role dan nama di sebelah kiri ikon bulan.
-- **Hamburger menu** (mobile) — 3 garis hijau di pojok kanan atas, morphing ke X saat dibuka.
-- Navbar mengikuti scroll (non-sticky) — navbar akan menghilang saat pengguna scroll ke bawah.
+- **Logo AksesKota** (pojok kiri) — Kembali ke beranda.
+- **Navigasi tengah** — Beranda, Peta, Audit, Komunitas, Usaha, Tentang.
+- **Admin** — Muncul di navigasi setelah login sebagai admin.
+- **Masuk** — Muncul kalau belum login.
+- **Keluar** — Muncul kalau sudah login.
+- **Aksesibilitas** — Buka panel pengaturan tampilan.
+- **Mobile:** Hamburger menu (3 garis) di pojok kanan atas.
 
 ### Menjelajahi Peta
 
-1. Buka `map.html` melalui navigasi **Peta**.
-2. Gunakan filter chip kategori untuk mempersempit hasil.
-3. Pilih marker untuk melihat sumber, atribut, dan timestamp.
-4. Gunakan tombol lokasi (crosshair) untuk menampilkan posisi Anda.
-5. Gunakan **Petunjuk arah**, **Audit lokasi**, atau **Buka 3D Street View di tab baru**.
+1. Buka halaman **Peta**.
+2. Peta otomatis memuat 560 lokasi dari OpenStreetMap.
+3. Gunakan chip filter untuk mempersempit: Rampa, Toilet, Taktil, Usaha.
+4. Ketik nama lokasi di kolom pencarian.
+5. Klik marker untuk lihat detail: nama, alamat, atribut, rating, sumber data.
+6. Tekan **Lokasi saya** untuk menampilkan posisi Anda.
 
 ### Mengirim Audit
 
-1. Pilih lokasi dari peta atau `audit.html`.
-2. Tandai fasilitas dan pilih rating.
-3. Opsional: unggah foto dan isi penjelasan.
-4. Kirim audit. Status awalnya adalah **Menunggu**.
-5. Poin diberikan setelah admin menyetujui audit.
+1. Login dulu (wajib).
+2. Buka halaman **Audit** atau klik **Audit lokasi** di detail peta.
+3. Pilih lokasi dari daftar.
+4. Centang fasilitas yang tersedia.
+5. Beri rating 1–5.
+6. (Opsional) Upload foto dan tulis penjelasan.
+7. Klik **Kirim Audit**.
+8. Audit masuk status "Menunggu" — poin diberikan setelah admin menyetujui.
 
-### Moderasi Lokal
+### Mencari Rute
 
-1. Buka `admin.html` langsung.
-2. Pilih **Moderasi audit**.
-3. Periksa checklist, rating, foto, dan penjelasan.
-4. Tambahkan catatan moderator lalu setujui atau tolak.
+1. Di peta, pilih lokasi tujuan → klik **Petunjuk arah**.
+2. Atau gunakan panel perjalanan:
+   - Pilih asal: Lokasi saya / daftar lokasi / klik di peta.
+   - Pilih tujuan.
+   - Pilih profil: Kursi roda atau Jalan kaki.
+   - Pilih fasilitas yang ingin dilewati.
+   - Pilih batas tambahan jarak.
+3. Klik **Bandingkan rute**.
+4. Lihat perbandingan: jarak, waktu, fasilitas yang dilewati.
+
+### Mengelola sebagai Admin
+
+1. Buka `admin.html`.
+2. Login dengan email, kata sandi, dan kode akses.
+3. Gunakan sidebar untuk navigasi: Ringkasan, Lokasi, Usulan lokasi, Moderasi audit, Usaha terdaftar, Leaderboard, Aktivitas.
+4. **Moderasi audit:** Klik tab status → lihat detail → beri catatan → Setujui/Tolak.
+5. **Kelola lokasi:** Tambah/Edit/Hapus langsung dari tabel atau dari peta.
+6. **Kelola usaha:** Verifikasi atau hapus usaha yang terdaftar.
+7. **Kelola leaderboard:** Hapus kontributor yang melanggar aturan.
 
 ### Mendaftarkan Usaha
 
-1. Buka `business.html` melalui navigasi **Usaha**.
+1. Buka halaman **Usaha**.
 2. Pilih tab **Daftarkan Usaha**.
-3. Isi nama usaha, alamat lengkap, kategori, dan kontak pemilik.
-4. Submit form. Usaha akan muncul di leaderboard dan peta dengan badge.
-
-### Melihat Leaderboard Usaha
-
-1. Buka `business.html` atau kunjungi halaman **Komunitas**.
-2. Lihat peringkat usaha berdasarkan skor aksesibilitas.
-3. Beralih antara tab **Skor Tertinggi** dan **Paling Berkembang**.
-
-### Membaca Halaman Tentang
-
-1. Buka `about.html` melalui navigasi **Tentang**.
-2. Lihat stat counters di bagian atas (30M+ penyandang disabilitas, 30 detik audit, 100% gratis).
-3. Scroll untuk melihat 7 section: Masalah, Solusi, Koridor MRT (dengan visual timeline), Teknologi (6 tech cards), SDG (3 tujuan berkelanjutan), Komitmen, dan Tim.
-4. Klik tombol CTA di bagian bawah untuk langsung ke peta atau audit.
+3. Isi formulir: nama, alamat, kategori, kontak, deskripsi, lokasi di peta, layanan.
+4. Submit. Usaha langsung muncul di peta dan leaderboard.
 
 ---
 
-## Struktur dan Arsitektur
+## Struktur Proyek
 
-```text
-akseskota/
-├── index.html                 # Landing page
-├── map.html                   # Explore map
+```
+AksesKota/
+├── index.html                 # Beranda
+├── map.html                   # Peta interaktif
 ├── audit.html                 # Form audit
-├── community.html             # Poin dan leaderboard
+├── community.html             # Poin dan leaderboard kontributor
 ├── business.html              # Usaha aksesibel (leaderboard, review, daftar)
-├── about.html                 # Misi dan teknologi
-├── admin.html                 # Admin lokal
-├── login.html                 # Login pengguna/admin
+├── about.html                 # Tentang AksesKota
+├── admin.html                 # Panel admin
+├── login.html                 # Login dan registrasi
+├── server.js                  # Server Node.js (zero-dependency)
+├── start.bat / start.sh       # Launcher (Python/Node fallback)
+├── start-server.bat / .sh     # Launcher (Node.js only, rekomendasi)
 ├── css/
 │   ├── tokens.css             # Design tokens (warna, tipografi, spasi)
 │   ├── base.css               # Reset & primitif
 │   ├── shell.css              # Topbar, nav, panel aksesibilitas
-│   ├── components.css         # Komponen per surface
-│   └── admin.css              # Penyesuaian khusus admin
+│   ├── components.css         # Kartu, tabel, form, tombol, badge
+│   ├── admin.css              # Penyesuaian khusus admin
+│   └── trip.css               # Panel perjalanan/rute
 ├── js/
-│   ├── core.js                # Shared shell dan venue loader
-│   ├── osm-api.js             # Overpass parser/cache/fallback
-│   ├── map-page.js            # Peta, filter, rute, Street View, badge usaha
-│   ├── audit-page.js          # Audit, foto, kompresi
-│   ├── community-page.js      # Poin, leaderboard, mini leaderboard usaha
-│   ├── business-page.js       # Halaman usaha: leaderboard, review, registrasi
-│   ├── business-store.js      # Data store usaha, review, skor, leaderboard
-│   ├── gamification.js        # Poin, lencana, leaderboard kontributor
-│   ├── user-store.js          # Autentikasi pengguna (localStorage)
-│   ├── login.js               # UI login dan registrasi
-│   ├── admin-store.js         # Local admin persistence
-│   ├── admin-page.js          # Admin UI, moderasi, dan manajemen usaha
-│   └── accessibility.js       # Fitur aksesibilitas antarmuka
-└── data/
-    ├── osm-snapshot.json      # Snapshot OSM nyata terakhir
-    └── locations.json         # Data lokasi statis (fallback)
+│   ├── core.js                # Shell bersama, venue loader, aksesibilitas
+│   ├── api.js                 # API client (fetch + cookie)
+│   ├── osm-api.js             # Overpass parser, cache, fallback
+│   ├── map-page.js            # Peta, filter, rute, Street View
+│   ├── accessible-routing.js  # Valhalla routing adapter
+│   ├── facility-routing.js    # Perencana rute berbasis fasilitas
+│   ├── map-network.js         # Geocoding, search, debounce
+│   ├── city-scope.js          # Filter batas kota Jakarta/Bekasi
+│   ├── audit-page.js          # Form audit, foto, kompresi
+│   ├── community-page.js      # Leaderboard kontributor
+│   ├── business-page.js       # Leaderboard usaha, review, registrasi
+│   ├── business-store.js      # Data store usaha (legacy)
+│   ├── admin-page.js          # Admin UI: moderasi, lokasi, usaha, leaderboard
+│   ├── admin-store.js         # Admin persistence (legacy)
+│   ├── login.js               # Login dan registrasi
+│   └── user-store.js          # Wrapper API untuk autentikasi
+├── data/
+│   ├── osm-snapshot.json      # 560 lokasi OSM (fallback saat Overpass down)
+│   ├── city-boundaries.json   # Batas 8 kota/kabupaten Jakarta-Bekasi
+│   └── seed-users.json        # Data awal pengguna
+├── vendor/
+│   ├── leaflet/               # Leaflet 1.9.4 (lokal, bukan CDN)
+│   └── markercluster/         # MarkerCluster 1.5.3 (lokal)
+├── server-data/               # Runtime: database SQLite + upload foto
+└── README.md                  # Dokumentasi ini
 ```
 
-Arsitektur menggunakan halaman terpisah sesuai konteks tugas. Semua halaman berbagi data melalui ES Modules dan `localStorage`.
+---
+
+## Arsitektur Sistem
+
+```
+┌─────────────────────────────────────────────────────┐
+│                    Browser (Client)                  │
+│  ┌───────────┐ ┌──────────┐ ┌────────────────────┐ │
+│  │  8 halaman │ │  16 modul│ │  CSS (6 file)      │ │
+│  │  HTML/CSS  │ │  JS ES   │ │  Design tokens +   │ │
+│  │            │ │  Modules │ │  responsive        │ │
+│  └───────────┘ └──────────┘ └────────────────────┘ │
+├─────────────────────────────────────────────────────┤
+│                  Server Node.js (port 8080)          │
+│  ┌──────────────────────────────────────────────┐   │
+│  │  API Router (20+ endpoints)                  │   │
+│  │  Auth: register/login/logout/admin/login     │   │
+│  │  CRUD: audits/businesses/locations/leaderboard│   │
+│  │  Static file server (HTML/CSS/JS/images)     │   │
+│  └──────────────────────────────────────────────┘   │
+│  ┌──────────────────────────────────────────────┐   │
+│  │  Database: SQLite (node:sqlite)              │   │
+│  │  + JSON fallback (kalau node:sqlite tidak ada)│   │
+│  │  Tabel: users, sessions, audits, businesses, │   │
+│  │  business_reviews, custom_locations,          │   │
+│  │  location_overrides                           │   │
+│  └──────────────────────────────────────────────┘   │
+├─────────────────────────────────────────────────────┤
+│               Layanan Eksternal (Publik)             │
+│  Overpass API │ Valhalla │ Nominatim │ OSM Tiles     │
+│  (tanpa API key, semua gratis)                       │
+└─────────────────────────────────────────────────────┘
+```
+
+**Alur data audit:**
+```
+User submit audit → Server simpan (status: pending) → Admin review
+  → Disetujui: poin +10, masuk leaderboard, usaha di lokasi dpt review
+  → Ditolak: audit ditandai rejected, tidak masuk leaderboard
+```
+
+**Alur usaha aksesibel:**
+```
+Pengusaha daftar → Usaha muncul di peta + leaderboard
+  → Komunitas audit lokasi usaha → Admin approve
+  → Review masuk ke usaha → Skor & badge diperbarui otomatis
+```
 
 ---
 
 ## Privasi dan Keamanan
 
-- Tidak ada akun, password, analytics, atau backend pada versi ini.
-- Geolokasi hanya diminta setelah aksi pengguna dan tidak disimpan.
-- Foto audit dan teks disimpan di `localStorage` perangkat yang sama; tidak diunggah ke server.
-- Foto divalidasi berdasarkan MIME type dan ukuran, lalu dikompresi.
-- Teks dinamis yang ditampilkan admin di-escape untuk mengurangi risiko HTML injection.
-- Perubahan lokasi OSM menggunakan override lokal/non-destruktif.
-- Pengguna dapat menghapus data browser atau memakai export backup admin.
+- **Password di-hash** dengan SHA-256 + salt (`akseskota::` + password). Tidak disimpan plain text.
+- **Sesi via cookie HttpOnly** — Tidak bisa diakses oleh JavaScript di browser. TTL 7 hari.
+- **Foto audit** disimpan di server (`server-data/uploads/`), divalidasi berdasarkan MIME type (JPG/PNG/WebP) dan ukuran maks 5 MB. Tidak pernah dikirim ke layanan pihak ketiga.
+- **Geolokasi** hanya diminta setelah aksi pengguna (klik tombol), tidak disimpan di server.
+- **Admin gate** — Semua endpoint `/api/admin/*` memeriksa session cookie + role admin. Kode akses bisa diubah lewat env `ADMIN_CODE`.
+- **XSS protection** — Teks dinamis di-escape sebelum ditampilkan ke DOM.
+- **Path traversal** — Static file server memastikan path tidak keluar dari root proyek.
+- **Payload limit** — Request body dibatasi 8 MB.
 
-Keterbatasan keamanan:
-
-- `admin.html` tidak memiliki autentikasi atau otorisasi server.
-- `localStorage` bukan penyimpanan yang cocok untuk data sensitif atau sistem multi-user.
-- Untuk production diperlukan backend, database, role-based access control, rate limiting, sanitasi server, object storage, consent, dan kebijakan retensi foto.
+**Yang belum ada (batasan jujur):**
+- Rate limiting belum diterapkan.
+- Audit log server-side belum ada.
+- Object storage untuk foto belum terpisah.
+- Belum ada HTTPS (tergantung deployment).
 
 ---
 
 ## Penggunaan AI
 
-AI digunakan sebagai alat bantu dalam proses desain, penulisan kode, debugging, pengujian, dan dokumentasi. Penggunaan tersebut tidak menggantikan tanggung jawab tim:
+AI digunakan sebagai alat bantu selama pengembangan untuk:
 
-- Tim wajib memahami dan mampu menjelaskan kode saat presentasi.
-- Output AI ditinjau dan diuji sebelum digunakan.
-- Tidak ada fitur AI yang memproses data pengguna di dalam aplikasi.
-- Data pribadi, password, atau kredensial tidak dikirim melalui aplikasi.
-- Aset, library, data, dan layanan pihak ketiga harus tetap mematuhi lisensinya.
+- **Perancangan arsitektur** — Menentukan struktur database, endpoint API, dan pemisahan modul.
+- **Penulisan kode** — Membantu menulis kode JavaScript, CSS, dan SQL.
+- **Debugging** — Menganalisis error dan menemukan bug.
+- **Dokumentasi** — Menulis README dan komentar kode.
 
-Bagian ini mendukung prinsip penggunaan AI yang etis, perlindungan data, privasi, keamanan, dan hak cipta pada guidebook halaman 8.
+**Yang AI tidak lakukan:**
+- AI tidak memproses data pengguna di dalam aplikasi.
+- Tidak ada fitur AI yang berjalan di production.
+- Semua kode ditinjau dan diuji oleh tim sebelum digunakan.
+- Data pribadi, password, dan kredensial tidak pernah dikirim melalui AI.
 
----
-
-## Kepatuhan Guidebook ITechno Cup 2026
-
-Audit ini merujuk pada file **WeDevelopment Guidebook (SMA/SMK) ITechno Cup 2026**, 23 halaman.
-
-| Ketentuan | Status proyek | Bukti / tindakan |
-|---|---|---|
-| Relevan dengan minimal satu subtema/SDG | Sesuai | Fokus SDG 9 dan 11; lihat guidebook hlm. 3–5 |
-| Tim terdiri dari 3 siswa aktif SMA/MA/SMK | Perlu verifikasi administratif | Kartu pelajar dan komposisi tim tidak dapat dibuktikan dari source code; guidebook hlm. 7 |
-| Maksimal satu karya per tim | Perlu konfirmasi tim | Tidak dapat diverifikasi dari repository; guidebook hlm. 7 |
-| Karya orisinal, belum komersial, belum pernah menang | Perlu deklarasi tim | Tidak dapat diverifikasi teknis; guidebook hlm. 7 |
-| Tidak memakai template instan WordPress/Wix | Sesuai secara teknis | Aplikasi dibuat dengan HTML/CSS/JS; guidebook hlm. 7 |
-| Library/framework boleh dipakai jika dijelaskan | Sesuai | Leaflet dan markercluster dijelaskan di README; guidebook hlm. 7 |
-| AI boleh digunakan secara etis dan aman | Sesuai dengan catatan | Penggunaan dan batasan AI/privasi dijelaskan; guidebook hlm. 8 |
-| Repository GitHub + hosted URL | Belum dapat diverifikasi | Remote Git dan URL hosting belum tercantum; guidebook hlm. 9 dan 12 |
-| README berisi penjelasan, teknologi, fitur, instalasi, penggunaan | Sesuai | Seluruh bagian tersedia; guidebook hlm. 9 |
-| README mengikuti template resmi | Perlu pemeriksaan akhir | Guidebook merujuk template eksternal yang tidak disertakan di PDF; hlm. 12 |
-| Deadline penyisihan | Wajib dipenuhi | Minggu, 6 September 2026 pukul 23.59 WIB; hlm. 12 |
-| Final dan live demo | Persiapan diperlukan | Sabtu, 20 September 2026 via Zoom/Google Meeting; hlm. 13 |
-| Bebas plagiarisme/hak cipta | Perlu deklarasi dan audit aset | Pelanggaran dapat menyebabkan diskualifikasi; guidebook hlm. 17 |
-
-### Kesimpulan Kepatuhan
-
-Tidak ditemukan pelanggaran teknis langsung pada implementasi saat ini. Namun status **belum bisa dinyatakan 100% patuh** sampai tim menyelesaikan pemeriksaan administratif dan submission berikut:
-
-- memastikan tepat tiga siswa aktif beserta kartu pelajar;
-- memastikan hanya satu karya dikirim;
-- menandatangani deklarasi orisinalitas, riwayat publikasi, dan riwayat kompetisi;
-- mengganti URL clone placeholder;
-- menambahkan tautan repository GitHub dan deployment aktif;
-- membandingkan README ini dengan template README resmi dari panitia;
-- memastikan semua anggota memahami kode dan penggunaan AI;
-- mengaudit lisensi aset serta menjaga attribution OSM.
-
-### Kriteria Penilaian Penyisihan
-
-| Kriteria | Bobot | Fokus persiapan AksesKota |
-|---|---:|---|
-| Kesesuaian tema dan subtema | 20% | Perkuat bukti dampak SDG 9/11 |
-| Inovasi dan orisinalitas | 20% | Jelaskan pembeda audit cepat + moderasi + data OSM |
-| Fungsionalitas | 20% | Uji endpoint failure, audit, admin, dan mobile |
-| UI/UX dan responsivitas | 15% | Lakukan usability serta accessibility testing |
-| Implementasi teknologi | 15% | Rapikan source, keamanan dasar, dan dokumentasi arsitektur |
-| Dokumentasi dan repository | 10% | Screenshot, deployment, commit history, setup terverifikasi |
-
-Sumber: guidebook hlm. 14–15.
-
----
-
-## Rencana Pengembangan
-
-### Prioritas sebelum pengumpulan
-
-1. **Repository dan deployment** — buat repository GitHub bersih, isi remote URL, deploy HTTPS, lalu uji semua halaman.
-2. **Hapus kode/data legacy** — pindahkan atau hapus SPA lama dan `locations.json` demo agar juri tidak bingung menentukan implementasi aktif.
-3. **Hilangkan data leaderboard contoh** — gunakan data kontribusi nyata atau tampilkan empty state; jangan campur data contoh dengan klaim real.
-4. **Screenshot dokumentasi** — tambahkan screenshot desktop/mobile untuk landing, peta, audit, dan admin seperti saran guidebook hlm. 10.
-5. **Audit aksesibilitas** — jalankan Lighthouse, axe, keyboard-only test, NVDA/VoiceOver, contrast check, dan dokumentasikan hasil.
-6. **Test matrix** — Chrome, Edge, Firefox, Android viewport, offline/endpoint timeout, geolocation denied, storage full, serta upload tidak valid.
-7. **Lisensi dan attribution** — tambahkan file `LICENSE`/`THIRD_PARTY_NOTICES.md` yang sesuai dan catat Leaflet, markercluster, OSM/ODbL, OSRM, Google Fonts, serta Google Maps.
-8. **Deklarasi tim** — isi nama/peran tiga anggota dan checklist administrasi yang belum dapat diverifikasi.
-
-### Prioritas teknis berikutnya
-
-1. Backend dan database nyata untuk sinkronisasi audit.
-2. Login serta role pengguna, moderator, dan admin.
-3. Object storage privat untuk foto; consent, metadata stripping, retention, dan deletion policy.
-4. Moderasi multi-user dengan audit log server-side.
-5. Tingkatkan rute aksesibel dengan data audit lokal, permukaan, lebar jalur, curb, lift aktif, dan validasi kemiringan; engine saat ini sudah memakai profil kursi roda Valhalla tetapi kualitasnya tetap bergantung pada kelengkapan tag OSM.
-6. Verifikasi lokasi berjenjang: OSM, audit komunitas, bukti foto, timestamp, dan confidence score.
-7. Pelaporan fasilitas rusak serta status sementara/masa berlaku audit.
-8. PWA/service worker untuk offline-first dan instalasi mobile.
-9. Sinkronisasi kontribusi terverifikasi kembali ke OpenStreetMap sesuai kebijakan OSM.
-10. Dashboard dampak berbasis data nyata, tanpa statistik atau testimoni rekaan.
-11. Automated tests untuk parser OSM, CRUD admin, moderasi, sanitasi, dan alur audit.
-12. Monitoring uptime layanan eksternal dan fallback endpoint yang terukur.
-13. Grafik tren skor usaha dari waktu ke waktu pada halaman detail usaha.
-14. Workflow verifikasi usaha oleh admin (approve/reject pendaftaran usaha).
-15. Laporan/export PDF ringkasan aksesibilitas untuk usaha terdaftar.
-16. Halaman profil usaha detail dengan riwayat review lengkap dan perbandingan usaha sejenis.
-
-### Persiapan babak final
-
-- Pitch deck berisi masalah, solusi, tujuan, teknologi, dampak, dan demo; guidebook hlm. 10–11.
-- Demo offline/fallback untuk mengantisipasi Overpass atau koneksi bermasalah.
-- Latihan presentasi 10 menit dan sesi tanya jawab 10 menit; guidebook hlm. 11.
-- Semua anggota harus dapat menjelaskan arsitektur, alasan teknologi, keamanan, skalabilitas, dan batasan produk; kriteria final hlm. 16–17.
-
----
-
-## Jadwal Penting
-
-| Tahap | Jadwal |
-|---|---|
-| Deadline penyisihan | 6 September 2026, 23.59 WIB |
-| Babak final online | 20 September 2026, 08.30 WIB–selesai |
-| Pengumuman saat closing | 28 September 2026 |
-
-Sumber: guidebook hlm. 11–13.
+Tim bertanggung jawab penuh atas semua kode yang dihasilkan. Seluruh anggota tim memahami dan bisa menjelaskan setiap bagian kode saat presentasi.
 
 ---
 
 ## Tim
 
-Kompetisi kategori SMA/MA/SMK wajib diikuti tiga orang per tim. Lengkapi bagian ini sebelum submission.
-
-| Nama | Peran | Status siswa |
-|---|---|---|
-| Keigan Lukas Bukit | Developer | `Lengkapi` |
-| Arcel Magabe Naingollan | Developer | `Lengkapi` |
-| Chico Yadi Bayuargo | Developer | `Lengkapi` |
+| Nama | Peran |
+|------|-------|
+| Keigan Lukas Bukit | Frontend Developer & UI/UX Designer |
+| Arcel Magabe Nainggolan | Backend Developer & API Integration |
+| Chico Yadi Bayuargo | Accessibility Specialist & Documentation |
 
 ---
 
 ## Lisensi dan Attribution
 
-- Data dan tile: © OpenStreetMap contributors, ODbL.
-- Leaflet 1.9.4 dan Leaflet.markercluster 1.5.3 digunakan sesuai lisensi masing-masing.
-- OSRM public service hanya digunakan untuk proof of concept dan tidak direkomendasikan sebagai backend production.
-- Street View dibuka melalui URL Google Maps; ketersediaan panorama bergantung pada cakupan Google.
-
-Tambahkan lisensi source code tim dan `THIRD_PARTY_NOTICES.md` sebelum pengumpulan final.
+- **Data dan tile:** © OpenStreetMap contributors, licensed under Open Database License (ODbL).
+- **Leaflet 1.9.4:** BSD-2-Clause License.
+- **Leaflet.markercluster 1.5.3:** MIT License.
+- **Source code:** Milik tim AksesKota, ITechno Cup 2026.
+- **Street View:** Dibuka via URL Google Maps (bukan integrasi API).
 
 ---
 
-**AksesKota — navigasi kota tanpa batasan.**
+**AksesKota — Navigasi Kota Tanpa Batasan**
+
+*Mendukung SDG 8 · SDG 9 · SDG 11*
+
+*ITechno Cup 2026*

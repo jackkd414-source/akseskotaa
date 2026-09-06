@@ -122,22 +122,63 @@ export function initA11y() {
   }
 }
 
-import{fetchOSMLocations}from'./osm-api.js?v=5';
-import{applyAdminState}from'./admin-store.js';
+import{fetchOSMLocations}from'./osm-api.js?v=10';
+import{filterCityVenues}from'./city-scope.js?v=1';
 export function initLogout(){
  const btn=$('#btn-logout');
  btn?.addEventListener('click',()=>{logout();window.location.href='login.html'});
 }
 
+// Custom locations (publik, hanya yang disetujui) + overrides admin.
+let _adminLocationsCache=null;
+export async function fetchAdminLocationsState(){
+ if(_adminLocationsCache)return _adminLocationsCache;
+ let custom=[],overrides=[];
+ try{
+  const res=await fetch('/api/locations',{credentials:'same-origin'});
+  if(res.ok){const d=await res.json();custom=d.custom||[]}
+ }catch{/* publik gagal → coba admin */}
+ const auth=getAuth();
+ if(auth?.role==='admin'){
+  try{
+   const res=await fetch('/api/admin/locations',{credentials:'same-origin'});
+   if(res.ok){const d=await res.json();overrides=d.overrides||[];custom=d.custom?.filter(c=>!c.deleted&&!c.pending)||custom}
+  }catch{/* abaikan */}
+ }
+ _adminLocationsCache={custom,overrides};
+ return _adminLocationsCache;
+}
+export function clearAdminLocationsCache(){_adminLocationsCache=null}
+function applyAdminState(base,adminState){
+ const{custom,overrides}=adminState;
+ const ovMap=new Map(overrides.map(o=>[o.osm_id,o]));
+ const out=[...custom.filter(c=>!c.deleted).map(c=>({
+   ...c,id:c.id,name:c.name,address:c.address||'',lat:c.lat,lng:c.lng,
+   source:c.source||'Admin lokal',category:(c.categories&&c.categories[0])||'wheelchair_place',
+   categories:c.categories||[],attributes:c.attributes||{}
+ })),...base.map(v=>{
+   const ov=ovMap.get(v.id);
+   if(!ov)return v;
+   if(ov.deleted)return null;
+   const merged={...v,...(ov.name?{name:ov.name}:{}),...(ov.address?{address:ov.address}:{})};
+   const cats=ov.categories&&ov.categories.length?ov.categories:[v.category];
+   merged.categories=cats;merged.category=cats[0]||v.category;
+   merged.attributes={...v.attributes,...(ov.attributes||{})};
+   return merged;
+ })].filter(Boolean);
+ return out;
+}
 export async function loadVenues(options={}){
  const result=await fetchOSMLocations(options);
- const venues=applyAdminState(result.venues);
- venues.updatedAt=result.updatedAt;venues.dataSource=result.source;venues.warning=result.warning;
+ const adminState=await fetchAdminLocationsState();
+ const overlaid=applyAdminState(result.venues,adminState).filter(v=>v.category!=='elevator');
+ const venues=filterCityVenues(overlaid,result.cityScope);
+ venues.updatedAt=result.updatedAt;venues.dataSource=result.source;venues.warning=result.warning;venues.scopeId=result.cityScope.scope_id;
  return venues;
 }
 
-export const featureLabels={wheelchair_ramp:'Rampa',elevator:'Lift',accessible_restroom:'Toilet aksesibel',tactile_paving:'Jalur taktil',signage:'Rambu jelas'};
-export const categories={wheelchair_ramp:{label:'Rampa',color:'#1b4f86',letter:'R'},elevator:{label:'Lift',color:'#14563a',letter:'L'},accessible_restroom:{label:'Toilet',color:'#8a4a0b',letter:'T'},tactile_paving:{label:'Taktil',color:'#5b3a82',letter:'J'}};
+export const featureLabels={wheelchair_access:'Akses kursi roda',wheelchair_ramp:'Rampa',accessible_restroom:'Toilet aksesibel',tactile_paving:'Jalur taktil',signage:'Rambu jelas'};
+export const categories={wheelchair_place:{label:'Akses kursi roda',color:'#38606b',letter:'A'},wheelchair_ramp:{label:'Rampa',color:'#1b4f86',letter:'R'},accessible_restroom:{label:'Toilet',color:'#8a4a0b',letter:'T'},tactile_paving:{label:'Taktil',color:'#5b3a82',letter:'J'}};
 
 const NAV = [
   ['home', 'index.html', 'Beranda'],

@@ -27,5 +27,8 @@ dist/
 .netlify/
 .vercel/
 
+# Server runtime data (SQLite/JSON DB + uploads) — jangan ikut repo
+server-data/
+
 # Legacy single-page prototype (kept locally for reference, not shipped)
 legacy/

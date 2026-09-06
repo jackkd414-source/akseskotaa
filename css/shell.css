@@ -1,16 +1,20 @@
-/* ==========================================================================
+/* ============================================================
    AksesKota — Shell
-   Topbar, navigasi, panel aksesibilitas, footer.
-   Semua target interaktif memenuhi 44px.
-   ========================================================================== */
+   Topbar (dirender core.js), panel aksesibilitas, footer,
+   page container, page-header, panel, anim reveal.
+   ============================================================ */
 
-/* --- Topbar ------------------------------------------------------------- */
+.page {
+  width: min(var(--page), calc(100% - 2 * var(--sp-5)));
+  margin-inline: auto;
+}
 
+/* ---------- Topbar ---------- */
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 50;
-  background: var(--surface);
+  z-index: 100;
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
 
@@ -18,319 +22,219 @@
   display: flex;
   align-items: center;
   gap: var(--sp-4);
-  min-height: var(--nav-h);
+  min-height: 60px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: var(--sp-3);
-  min-height: var(--target);
-  font-size: var(--step-1);
+  gap: 10px;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--ink);
+  font-size: var(--step-1);
   text-decoration: none;
-  flex: none;
+  color: var(--ink);
+  margin-right: var(--sp-3);
+  white-space: nowrap;
 }
 
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 2rem;
-  height: 2rem;
+  width: 34px; height: 34px;
   border-radius: var(--r-sm);
   background: var(--accent);
-  color: var(--accent-ink);
-  font-size: var(--step-0);
+  color: #fff;
+  font-size: 18px;
   font-weight: 700;
 }
 
-/* --- Navigasi ---------------------------------------------------------- */
-
-.navlinks {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-1);
-  margin: 0;
-  margin-left: auto;
-  padding: 0;
-  list-style: none;
-}
-
-.navlink {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--target);
-  padding: 0 var(--sp-4);
-  border-radius: var(--r-md);
-  color: var(--ink-soft);
-  font-size: var(--step--1);
-  font-weight: 650;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.navlink:hover {
-  background: var(--surface-sunken);
-  color: var(--ink);
-}
-
-/* Halaman aktif ditandai warna DAN garis bawah: tidak hanya lewat warna. */
-.navlink.active {
-  color: var(--accent);
-  background: var(--accent-wash);
-  box-shadow: inset 0 -2px 0 var(--accent);
-}
-
-.nav-account {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  margin-left: var(--sp-3);
-  padding-left: var(--sp-3);
-  border-left: 1px solid var(--line);
-}
-
-.nav-user {
-  font-size: var(--step--1);
-  font-weight: 650;
-  color: var(--accent);
-  white-space: nowrap;
-}
-
-.a11y-btn {
-  flex: none;
-  margin-left: var(--sp-2);
-  padding: 0 var(--sp-4);
-  font-size: var(--step--1);
-}
-
-/* Tombol menu hanya tampil di layar sempit. */
+/* Menu mobile */
 .menu-btn {
   display: none;
-  align-items: center;
-  gap: var(--sp-2);
-  min-height: var(--target);
-  min-width: var(--target);
   margin-left: auto;
-  padding: 0 var(--sp-3);
+  align-items: center;
+  gap: 8px;
+  background: none;
   border: 1px solid var(--line-strong);
   border-radius: var(--r-md);
-  background: var(--surface);
-  color: var(--ink);
-  font: inherit;
-  font-size: var(--step--1);
-  font-weight: 650;
+  min-height: var(--target);
+  padding: 8px 14px;
   cursor: pointer;
+  font-weight: 600;
+  font-size: var(--step--1);
 }
-
-.menu-bars {
-  display: grid;
+.menu-btn .menu-bars {
+  display: inline-flex;
+  flex-direction: column;
   gap: 3px;
-  width: 16px;
 }
-
-.menu-bars span {
-  display: block;
-  height: 2px;
-  background: currentColor;
+.menu-btn .menu-bars span {
+  width: 16px; height: 2px;
+  background: var(--ink);
   border-radius: 1px;
 }
 
-/* --- Panel aksesibilitas ----------------------------------------------- */
-
-.a11y-panel {
-  position: fixed;
-  top: calc(var(--nav-h) + var(--sp-2));
-  right: var(--sp-4);
-  z-index: 60;
-  width: min(21rem, calc(100vw - 2 * var(--sp-4)));
-  padding: var(--sp-5);
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r-lg);
-  box-shadow: var(--e-3);
-}
-
-.a11y-panel[hidden] { display: none; }
-
-.a11y-title {
-  font-size: var(--step-1);
-  margin-bottom: var(--sp-4);
-}
-
-.a11y-row + .a11y-row {
-  margin-top: var(--sp-4);
-  padding-top: var(--sp-4);
-  border-top: 1px solid var(--line);
-}
-
-.a11y-hint {
-  font-size: var(--step--1);
-  color: var(--muted);
-  margin-top: var(--sp-1);
-}
-
-.a11y-note {
-  margin-top: var(--sp-5);
-  padding-top: var(--sp-4);
-  border-top: 1px solid var(--line);
-  font-size: var(--step--1);
-  color: var(--muted);
-}
-
-/* --- Footer ------------------------------------------------------------ */
-
-.footer {
-  margin-top: var(--sp-9);
-  padding-block: var(--sp-6);
-  border-top: 1px solid var(--line);
-  background: var(--surface);
-}
-
-.footer-in {
+/* Link navigasi */
+.navlinks {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-4);
+  gap: 2px;
+  list-style: none;
+  margin: 0; padding: 0;
+  flex-wrap: wrap;
 }
-
-.footer-note {
-  font-size: var(--step--1);
+.navlink {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  text-decoration: none;
   color: var(--muted);
-  margin: 0;
+  font-weight: 600;
+  font-size: var(--step--1);
+  min-height: var(--target);
+  line-height: 26px;
+}
+.navlink:hover { color: var(--ink); background: var(--surface-2); }
+.navlink.active {
+  color: var(--accent-deep);
+  background: var(--accent-soft);
 }
 
-/* --- Layar sempit ------------------------------------------------------
-   Navigasi menjadi panel yang dibuka tombol Menu. Setiap tautan tetap
-   memenuhi tinggi sentuh 44px.
+.nav-account {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-left: var(--sp-3);
+  padding-left: var(--sp-4);
+  border-left: 1px solid var(--line);
+}
+.nav-user {
+  color: var(--muted);
+  font-size: var(--step--1);
+  font-weight: 600;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-   Satuan em pada media query selalu berbasis 16px dan TIDAK mengikuti
-   pengaturan ukuran teks pengguna. Karena itu ambangnya dinaikkan per
-   tingkat ukuran teks: nav horizontal butuh ruang lebih saat teks besar,
-   dan tanpa ini navigasi meluber keluar viewport. */
+.topbar .btn.a11y-btn { margin-left: auto; }
 
-@media (max-width: 78em) {
+@media (max-width: 900px) {
   .menu-btn { display: inline-flex; }
-
+  .topbar .btn.a11y-btn { display: none; }
   .navlinks {
     display: none;
     position: absolute;
-    top: var(--nav-h);
-    left: 0;
-    right: 0;
+    top: 100%;
+    left: 0; right: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line-strong);
+    padding: var(--sp-3) var(--sp-4);
     flex-direction: column;
     align-items: stretch;
-    gap: 0;
-    margin: 0;
-    padding: var(--sp-2);
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
-    box-shadow: var(--e-2);
-    max-height: calc(100vh - var(--nav-h));
-    overflow-y: auto;
+    gap: var(--sp-1);
+    box-shadow: 0 var(--sp-4) var(--sp-6) rgba(26,33,27,0.08);
   }
-
   .navlinks.open { display: flex; }
-
-  .navlink {
-    justify-content: flex-start;
-    border-radius: var(--r-sm);
-  }
-
-  .navlink.active { box-shadow: inset 3px 0 0 var(--accent); }
-
+  .navlink { min-height: var(--target); }
   .nav-account {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--sp-2);
+    border-left: none;
+    border-top: 1px solid var(--line);
     margin: var(--sp-2) 0 0;
     padding: var(--sp-3) 0 0;
-    border-left: 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .a11y-btn { margin-left: var(--sp-2); }
-}
-
-/* Teks "Besar": nav butuh ~88em sebelum muat horizontal. */
-@media (max-width: 88em) {
-  html[data-text-size='large'] .menu-btn { display: inline-flex; }
-
-  html[data-text-size='large'] .navlinks {
-    display: none;
-    position: absolute;
-    top: var(--nav-h);
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    margin: 0;
-    padding: var(--sp-2);
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
-    box-shadow: var(--e-2);
-    max-height: calc(100vh - var(--nav-h));
-    overflow-y: auto;
-  }
-
-  html[data-text-size='large'] .navlinks.open { display: flex; }
-  html[data-text-size='large'] .navlink { justify-content: flex-start; border-radius: var(--r-sm); }
-  html[data-text-size='large'] .navlink.active { box-shadow: inset 3px 0 0 var(--accent); }
-
-  html[data-text-size='large'] .nav-account {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--sp-2);
-    margin: var(--sp-2) 0 0;
-    padding: var(--sp-3) 0 0;
-    border-left: 0;
-    border-top: 1px solid var(--line);
   }
 }
 
-/* Teks "Sangat besar": ambang paling lebar. */
-@media (max-width: 105em) {
-  html[data-text-size='xlarge'] .menu-btn { display: inline-flex; }
+/* ---------- Panel aksesibilitas ---------- */
+.a11y-panel {
+  position: fixed;
+  top: 70px; right: var(--sp-4);
+  width: min(340px, calc(100vw - 2 * var(--sp-4)));
+  z-index: 1100;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+  box-shadow: 0 var(--sp-6) var(--sp-7) rgba(26,33,27,0.12);
+}
+.a11y-title { font-size: var(--step-1); }
+.a11y-row { margin-bottom: var(--sp-4); }
+.a11y-row label { display: block; margin-bottom: var(--sp-1); }
+.a11y-hint { color: var(--faint); font-size: var(--step--1); margin: 0; }
+.a11y-note { color: var(--faint); font-size: var(--step--1); margin: 0; border-top: 1px solid var(--line); padding-top: var(--sp-3); }
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  cursor: pointer;
+  font-size: var(--step-0);
+  min-height: var(--target);
+}
+.check-row input { width: 18px; height: 18px; accent-color: var(--accent); }
+.check-row input[type="checkbox"] { min-height: 0; }
 
-  html[data-text-size='xlarge'] .navlinks {
-    display: none;
-    position: absolute;
-    top: var(--nav-h);
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    margin: 0;
-    padding: var(--sp-2);
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
-    box-shadow: var(--e-2);
-    max-height: calc(100vh - var(--nav-h));
-    overflow-y: auto;
-  }
+/* ---------- Footer ---------- */
+.footer {
+  border-top: 1px solid var(--line);
+  margin-top: var(--sp-8);
+  padding: var(--sp-6) 0;
+}
+.footer-in {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+.footer-note { color: var(--muted); font-size: var(--step--1); margin: 0; }
 
-  html[data-text-size='xlarge'] .navlinks.open { display: flex; }
-  html[data-text-size='xlarge'] .navlink { justify-content: flex-start; border-radius: var(--r-sm); }
-  html[data-text-size='xlarge'] .navlink.active { box-shadow: inset 3px 0 0 var(--accent); }
+/* ---------- Page header (halaman konten) ---------- */
+main.page, main#main.page { padding: var(--sp-6) 0 var(--sp-7); }
+.page-header {
+  margin-bottom: var(--sp-6);
+  max-width: 640px;
+}
+.page-header h1 { margin-bottom: var(--sp-2); }
+.page-header p { color: var(--muted); font-size: var(--step-1); margin: 0; }
 
-  html[data-text-size='xlarge'] .nav-account {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--sp-2);
-    margin: var(--sp-2) 0 0;
-    padding: var(--sp-3) 0 0;
-    border-left: 0;
-    border-top: 1px solid var(--line);
-  }
+/* ---------- Panel ---------- */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+}
+.panel h2 { margin-bottom: var(--sp-4); }
+
+/* ---------- Layout konten 2 kolom ---------- */
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: var(--sp-5);
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .content-grid { grid-template-columns: 1fr; }
+  .content-grid aside { width: 100%; }
 }
 
-@media (max-width: 34em) {
-  .nav { flex-wrap: wrap; gap: var(--sp-2); }
-  .a11y-btn { order: 3; }
-  .menu-btn-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+/* ---------- Animasi reveal (dipakai initAnimations) ---------- */
+.anim-hidden {
+  opacity: 0;
+  transform: translateY(10px);
 }
+.anim-hidden.anim-left  { transform: translateX(-14px); }
+.anim-hidden.anim-right { transform: translateX(14px); }
+.anim-hidden.anim-scale { transform: scale(0.98); }
+.anim-visible {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.anim-stagger-1 { transition-delay: 0.05s; }
+.anim-stagger-2 { transition-delay: 0.10s; }
+.anim-stagger-3 { transition-delay: 0.15s; }
+.anim-stagger-4 { transition-delay: 0.20s; }
+.anim-stagger-5 { transition-delay: 0.25s; }
+.anim-stagger-6 { transition-delay: 0.30s; }

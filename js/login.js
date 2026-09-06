@@ -1,15 +1,14 @@
-import { shell, footer, initShell, initLogout, initAnimations } from './core.js?v=5';
+import { shell, footer, initShell, initLogout, initAnimations } from './core.js?v=24';
 import {
   registerUser,
   loginUser,
-  loginWithGoogle,
   loginAdmin,
   saveAuth,
   getAuth,
   logout,
-  findUserByEmail,
-  loadSeedUsers
-} from './user-store.js';
+  findUserByEmail
+} from './user-store.js?v=2';
+import { fetchMe } from './api.js?v=3';
 
 const $ = (s) => document.querySelector(s);
 
@@ -78,9 +77,10 @@ function redirectAfterLogin(role) {
   }, 800);
 }
 
-/* ---------- Check if already logged in ---------- */
-const existingAuth = getAuth();
-if (existingAuth?.loggedIn) {
+/* ---------- Check if already logged in (server session via cookie) ---------- */
+let existingAuth = null;
+try { existingAuth = await fetchMe(); } catch { existingAuth = null; }
+if (existingAuth) {
   const returnUrl = safeReturnUrl(getReturnUrl());
   if (returnUrl) {
     if (returnUrl === 'admin.html' && existingAuth.role === 'admin') {
@@ -285,175 +285,6 @@ forgotForm.addEventListener('submit', (e) => {
   }
 });
 
-/* ---------- Google Sign-In ---------- */
-// Replace YOUR_CLIENT_ID with your Google Cloud OAuth 2.0 client ID
-const GOOGLE_CLIENT_ID = 'YOUR_CLIENT_ID';
-
-function handleGoogleCredential(response) {
-  try {
-    const payload = JSON.parse(
-      atob(response.credential.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))
-    );
-
-    const email = payload.email || '';
-    const name = payload.name || '';
-    const picture = payload.picture || '';
-
-    if (!email) { showError('Gagal mendapatkan email dari Google.'); return; }
-
-    const result = loginWithGoogle({ email, name, picture });
-    if (result.ok) {
-      saveAuth({
-        role: 'user',
-        email: result.user.email,
-        name: result.user.name,
-        picture: result.user.picture,
-        provider: 'google',
-        loggedIn: true,
-        timestamp: Date.now()
-      });
-      redirectAfterLogin('user');
-    } else {
-      showError(result.error);
-    }
-  } catch (err) {
-    console.error('Google sign-in error:', err);
-    showError('Gagal masuk dengan Google. Silakan coba lagi.');
-  }
-}
-
-/* ---------- Google OAuth popup simulation ---------- */
-function openGooglePopup() {
-  return new Promise((resolve) => {
-    // Build a minimal Google-styled popup
-    const overlay = document.createElement('div');
-    overlay.id = 'google-popup-overlay';
-    overlay.innerHTML = `
-      <div class="google-popup">
-        <div class="google-popup-header">
-          <svg viewBox="0 0 24 24" width="28" height="28">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-          </svg>
-          <h2>Masuk dengan Google</h2>
-          <p>Gunakan akun Google Anda untuk masuk ke AksesKota</p>
-        </div>
-        <div class="google-popup-body">
-          <div class="google-popup-field">
-            <label for="google-email-input">Email Google</label>
-            <input type="email" id="google-email-input" placeholder="nama@gmail.com" autocomplete="email">
-          </div>
-          <div class="google-popup-actions">
-            <button type="button" class="btn btn-google-popup-cancel">Batal</button>
-            <button type="button" class="btn btn-primary btn-google-popup-ok">Lanjutkan</button>
-          </div>
-          <div class="google-popup-error" id="google-popup-error" hidden></div>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-
-    const emailInput = overlay.querySelector('#google-email-input');
-    const errBox = overlay.querySelector('#google-popup-error');
-    const okBtn = overlay.querySelector('.btn-google-popup-ok');
-    const cancelBtn = overlay.querySelector('.btn-google-popup-cancel');
-
-    setTimeout(() => emailInput.focus(), 100);
-
-    function close(val) {
-      overlay.remove();
-      resolve(val);
-    }
-
-    cancelBtn.addEventListener('click', () => close(null));
-    overlay.addEventListener('click', (e) => { if (e.target === overlay) close(null); });
-
-    function doOk() {
-      const email = emailInput.value.trim().toLowerCase();
-      if (!email) {
-        errBox.textContent = 'Masukkan email Google Anda.';
-        errBox.hidden = false;
-        emailInput.focus();
-        return;
-      }
-      if (!email.includes('@') || !email.includes('.')) {
-        errBox.textContent = 'Format email tidak valid.';
-        errBox.hidden = false;
-        emailInput.focus();
-        return;
-      }
-      const name = email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-      close({ email, name, picture: '' });
-    }
-
-    okBtn.addEventListener('click', doOk);
-    emailInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') doOk(); });
-  });
-}
-
-function initGoogleSignIn() {
-  // Try real Google Identity Services first
-  if (typeof google !== 'undefined' && google.accounts && GOOGLE_CLIENT_ID !== 'YOUR_CLIENT_ID') {
-    try {
-      google.accounts.id.initialize({
-        client_id: GOOGLE_CLIENT_ID,
-        callback: handleGoogleCredential,
-        auto_select: false
-      });
-
-      const triggerPrompt = () => {
-        google.accounts.id.prompt((notification) => {
-          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-            google.accounts.id.prompt();
-          }
-        });
-      };
-
-      document.getElementById('google-signin-btn')?.addEventListener('click', triggerPrompt);
-      document.getElementById('google-register-btn')?.addEventListener('click', triggerPrompt);
-      return;
-    } catch (err) {
-      console.error('Google Sign-In init error:', err);
-    }
-  }
-
-  // Fallback: popup-based Google-style flow
-  const loginBtn = document.getElementById('google-signin-btn');
-  const registerBtn = document.getElementById('google-register-btn');
-
-  async function handleGoogleClick() {
-    const profile = await openGooglePopup();
-    if (!profile) return;
-
-    const result = loginWithGoogle(profile);
-    if (result.ok) {
-      saveAuth({
-        role: 'user',
-        email: result.user.email,
-        name: result.user.name,
-        picture: result.user.picture,
-        provider: 'google',
-        loggedIn: true,
-        timestamp: Date.now()
-      });
-      redirectAfterLogin('user');
-    } else {
-      showError(result.error);
-    }
-  }
-
-  if (loginBtn) loginBtn.addEventListener('click', handleGoogleClick);
-  if (registerBtn) registerBtn.addEventListener('click', handleGoogleClick);
-}
-
-// Start init when ready
-if (typeof google !== 'undefined' && google.accounts) {
-  initGoogleSignIn();
-} else {
-  window.addEventListener('load', initGoogleSignIn);
-}
 
 /* ---------- Seed users: auto-load on first visit ---------- */
 loadSeedUsers();

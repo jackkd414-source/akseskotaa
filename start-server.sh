@@ -4,12 +4,11 @@ echo "  AksesKota - Server produksi lokal"
 echo "  ================================="
 echo "  Buka browser: http://localhost:8080"
 echo "  Tekan Ctrl+C untuk berhenti."
-echo "  Butuh Node.js 18+ (https://nodejs.org)"
+echo "  Butuh Node.js 18+"
 echo ""
 
 if ! command -v node &>/dev/null; then
-    echo "  ERROR: Node.js tidak ditemukan."
-    echo "  Install dari https://nodejs.org lalu jalankan lagi."
+    echo "  ERROR: Node.js tidak ditemukan. Install dari https://nodejs.org"
     exit 1
 fi
 

@@ -1,28 +1,394 @@
-/* ==========================================================================
-   AksesKota — Admin (Operate surface)
-   Penyesuaian khusus admin. Gaya utama ada di components.css.
-   ========================================================================== */
+/* ============================================================
+   AksesKota — Admin console (Operate)
+   Topbar, nav samping, stats, tabel lokasi, moderasi audit.
+   ============================================================ */
 
-/* Lencana jumlah audit menunggu: angka + warna, di dalam tombol navigasi. */
-.admin-nav-item { justify-content: space-between; }
+.admin-body { background: var(--paper); }
 
-#pending-badge:not(:empty) {
-  display: grid;
-  place-items: center;
-  min-width: 1.375rem;
-  height: 1.375rem;
-  padding: 0 var(--sp-1);
-  border-radius: var(--r-pill);
-  background: var(--danger);
-  color: #ffffff;
-  font-size: var(--step--1);
+.admin-top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: 0 var(--sp-5);
+  min-height: 60px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line-strong);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.admin-local {
+  font-size: 0.72rem;
   font-weight: 700;
-  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+.admin-top-actions {
+  margin-left: auto;
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-/* Peringatan konteks lokal didorong ke bawah sidebar. */
-.admin-nav .admin-warning { margin-top: auto; }
+.admin-shell {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: var(--sp-5);
+  width: min(1400px, 100% - 2 * var(--sp-5));
+  margin: var(--sp-5) auto;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .admin-shell { grid-template-columns: 1fr; }
+}
 
-@media (max-width: 900px) {
-  .admin-nav .admin-warning { margin-top: var(--sp-4); width: 100%; }
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  position: sticky;
+  top: calc(var(--sp-5) + 60px);
+}
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: var(--step-0);
+  min-height: var(--target);
+  padding: 10px 14px;
+  cursor: pointer;
+}
+.admin-nav-item:hover { background: var(--surface-2); color: var(--ink); }
+.admin-nav-item.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-deep);
+}
+#pending-badge {
+  min-width: 22px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
+  background: var(--danger);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+#pending-badge:empty { display: none; }
+
+.admin-warning {
+  margin-top: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface);
+}
+.admin-warning strong { display: block; font-size: var(--step--1); }
+.admin-warning span { color: var(--muted); font-size: var(--step--1); }
+
+.admin-view { display: none; }
+.admin-view.active { display: block; }
+
+.admin-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-5);
+  flex-wrap: wrap;
+}
+.admin-heading h2 { margin: 0; }
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+@media (max-width: 720px) { .admin-stats { grid-template-columns: 1fr 1fr; } }
+.admin-stats article {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  padding: var(--sp-4);
+}
+.admin-stats span {
+  display: block;
+  color: var(--muted);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+.admin-stats strong {
+  font-size: var(--step-3);
+  color: var(--accent-deep);
+  line-height: 1.2;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--sp-4);
+}
+@media (max-width: 720px) { .admin-grid { grid-template-columns: 1fr; } }
+
+.admin-card {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-4);
+}
+.admin-card h2 { font-size: var(--step-1); margin-bottom: var(--sp-3); }
+
+.admin-toolbar {
+  display: flex;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+  flex-wrap: wrap;
+}
+.admin-toolbar input[type="search"] { flex: 1; min-width: 220px; }
+.admin-toolbar select { width: auto; }
+
+/* Tabel lokasi */
+.table-card { padding: 0; overflow: auto; }
+.admin-table { min-width: 720px; }
+.admin-table th {
+  text-align: left;
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  background: var(--surface-2);
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--line-strong);
+  white-space: nowrap;
+}
+.admin-table td {
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  font-size: var(--step--1);
+}
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table strong { display: block; font-size: var(--step-0); }
+.admin-table small { display: block; color: var(--muted); }
+.row-actions { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+.row-actions button,
+.row-actions a {
+  background: none;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: var(--step--1);
+  cursor: pointer;
+  min-height: 36px;
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.row-actions a.row-sv { border-color: var(--accent); color: var(--accent); }
+.row-actions a.row-sv:hover { background: var(--accent-soft); }
+.row-actions a.row-map:hover { background: var(--surface-2); }
+.row-actions button.delete { border-color: var(--danger); color: var(--danger); }
+.row-actions button:hover { background: var(--surface-2); }
+
+.category-pill {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 2px 10px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Mini row (ringkasan) */
+.mini-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--step--1);
+}
+.mini-row:last-child { border-bottom: none; }
+.mini-row strong { display: block; }
+.mini-row small { color: var(--muted); }
+
+/* Aksi cepat */
+.admin-action {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4);
+  font-weight: 600;
+  font-size: var(--step-0);
+  color: var(--ink);
+  cursor: pointer;
+  margin-bottom: var(--sp-2);
+  min-height: var(--target);
+}
+.admin-action:hover { background: var(--surface-2); }
+.admin-action span { color: var(--accent); }
+
+/* Tabs moderasi */
+.admin-tabs { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-4); flex-wrap: wrap; }
+
+/* Kartu audit review */
+.audit-queue { display: flex; flex-direction: column; gap: var(--sp-4); }
+.audit-review {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  padding: var(--sp-4);
+}
+.audit-review-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+.audit-review-head strong { display: block; font-size: var(--step-0); }
+.audit-review-head small { color: var(--muted); font-size: var(--step--1); display: block; }
+.status {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  padding: 4px 12px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.status.pending { color: var(--warning); border-color: var(--warning); background: var(--warning-bg); }
+.status.approved { color: var(--success); border-color: var(--success); background: var(--success-bg); }
+.status.rejected { color: var(--danger); border-color: var(--danger); background: var(--danger-bg); }
+
+.audit-features { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-bottom: var(--sp-3); }
+.audit-features span {
+  font-size: var(--step--1);
+  font-weight: 600;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 2px 10px;
+  color: var(--muted);
+}
+
+.audit-evidence { display: block; margin-bottom: var(--sp-3); }
+.audit-evidence img {
+  max-height: 180px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  object-fit: cover;
+  width: 100%;
+}
+.audit-evidence span {
+  display: inline-block;
+  margin-top: 4px;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: var(--step--1);
+}
+
+.audit-explanation {
+  background: var(--surface-2);
+  border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4);
+  margin-bottom: var(--sp-3);
+}
+.audit-explanation strong { font-size: var(--step--1); display: block; margin-bottom: 2px; }
+.audit-explanation p { margin: 0; font-size: var(--step--1); }
+
+.audit-review label { display: block; font-size: var(--step--1); margin-bottom: var(--sp-3); }
+.audit-review textarea { margin-top: 4px; }
+
+.review-actions { display: flex; gap: var(--sp-3); }
+.approve-btn {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  border-radius: var(--r-md);
+  min-height: var(--target);
+  padding: 8px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+}
+.approve-btn:hover { background: var(--accent-deep); }
+.reject-btn {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: var(--r-md);
+  min-height: var(--target);
+  padding: 8px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+}
+.reject-btn:hover { background: var(--danger-bg); }
+
+/* Aktivitas */
+.activity-row {
+  display: grid;
+  grid-template-columns: 160px 110px 1fr;
+  gap: var(--sp-3);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--step--1);
+}
+.activity-row:last-child { border-bottom: none; }
+.activity-row span { color: var(--muted); }
+.activity-row strong { font-size: var(--step--1); }
+
+/* Panel aksesibilitas di admin (menggunakan komponen shell) */
+.a11y-panel { top: 70px; }
+
+/* Chip layanan usaha (tersimpan) */
+.biz-svc-chip {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  margin: 0 4px 4px 0;
+}
+
+
+/* User management modal */
+.user-manage {
+  padding: var(--sp-4);
+}
+.user-manage h3 {
+  margin-bottom: var(--sp-3);
+  font-size: 1.2rem;
+}
+.user-manage .row-actions {
+  margin-top: var(--sp-4);
 }

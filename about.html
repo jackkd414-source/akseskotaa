@@ -7,11 +7,11 @@
   <title>Tentang — AksesKota</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,650;0,700;1,400&display=swap">
-  <link rel="stylesheet" href="css/tokens.css?v=1">
-  <link rel="stylesheet" href="css/base.css?v=1">
-  <link rel="stylesheet" href="css/shell.css?v=1">
-  <link rel="stylesheet" href="css/components.css?v=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=2">
+  <link rel="stylesheet" href="css/base.css?v=3">
+  <link rel="stylesheet" href="css/shell.css?v=4">
+  <link rel="stylesheet" href="css/components.css?v=7">
 </head>
 <body>
 
@@ -19,12 +19,11 @@
 
   <main id="main" class="page">
     <header class="page-header anim-hidden anim-stagger-1">
-      <span class="eyebrow">Tentang AksesKota</span>
       <h1>Akses bukan kemewahan.</h1>
-      <p>AksesKota adalah platform crowdsourcing yang membantu warga merencanakan perjalanan berdasarkan kondisi aksesibilitas nyata. Kami percaya bahwa setiap orang berhak mengetahui kondisi fasilitas sebelum berangkat.</p>
+      <p>AksesKota membantu warga merencanakan perjalanan berdasarkan kondisi aksesibilitas nyata. Setiap orang berhak mengetahui kondisi fasilitas sebelum berangkat.</p>
     </header>
 
-    <!-- Stat counters -->
+    <!-- Statistik -->
     <div class="about-stats anim-hidden anim-stagger-2">
       <div class="about-stat">
         <span class="about-stat-num">30M+</span>
@@ -40,7 +39,7 @@
       </div>
       <div class="about-stat">
         <span class="about-stat-num">100%</span>
-        <span class="about-stat-label">Gratis dan tanpa akun</span>
+        <span class="about-stat-label">Gratis, audit tanpa akun</span>
       </div>
     </div>
 
@@ -48,24 +47,18 @@
 
       <!-- Masalah -->
       <div class="about-section anim-hidden anim-stagger-3">
-        <div class="about-section-header">
-          <span class="eyebrow">01 — Masalah</span>
-          <h2>Mengapa AksesKota dibuat?</h2>
-        </div>
-        <p>Lebih dari 30 juta penyandang disabilitas di Indonesia menghadapi informasi aksesibilitas yang tersebar, usang, atau tidak tersedia. Kondisi rampa, lift, toilet, dan jalur taktil sering baru diketahui setelah tiba di lokasi. Ketidakpastian ini menghambat mobilitas jutaan warga setiap hari.</p>
+        <h2>Mengapa AksesKota dibuat?</h2>
+        <p>Lebih dari 30 juta penyandang disabilitas di Indonesia menghadapi informasi aksesibilitas yang tersebar, usang, atau tidak tersedia. Kondisi rampa, toilet, dan jalur taktil sering baru diketahui setelah tiba di lokasi. Ketidakpastian ini menghambat mobilitas jutaan warga setiap hari.</p>
         <div class="about-problem-grid">
           <div class="about-problem-card">
-            
             <strong>Informasi Tidak Terpusat</strong>
             <p>Data aksesibilitas tersebar di berbagai platform, sebagian besar sudah usang atau tidak lengkap.</p>
           </div>
           <div class="about-problem-card">
-            
             <strong>Kondisi Berubah Cepat</strong>
-            <p>Lift rusak, rampa ditutup, jalur taktil tertutup barang — perubahan ini sering tidak tercatat.</p>
+            <p>Rampa ditutup, jalur taktil tertutup barang — perubahan ini sering tidak tercatat.</p>
           </div>
           <div class="about-problem-card">
-            
             <strong>Tidak Ada Suara Komunitas</strong>
             <p>Warga yang paling sering menggunakan fasilitas tidak memiliki platform sederhana untuk berbagi kondisi terkini.</p>
           </div>
@@ -74,36 +67,27 @@
 
       <!-- Solusi -->
       <div class="about-section text-right anim-hidden anim-stagger-3">
-        <div class="about-section-header">
-          <span class="eyebrow">02 — Solusi</span>
-          <h2>Cara AksesKota bekerja</h2>
-        </div>
+        <h2>Cara AksesKota bekerja</h2>
         <p>AksesKota menggabungkan data terbuka dari OpenStreetMap dengan audit singkat dari komunitas. Setiap warga dapat berkontribusi dalam 30 detik tanpa membuat akun.</p>
-        <div class="principles anim-hidden">
+        <div class="principles">
           <div class="principle">
-            
             <b>Data otomatis</b>
             <span>OpenStreetMap mengisi dasar peta tanpa proses manual. Query Overpass mengambil data real-time.</span>
           </div>
           <div class="principle">
-            
             <b>Audit singkat</b>
             <span>Warga memperbarui kondisi lokasi hanya dengan beberapa ketukan. Checklist, rating, foto opsional.</span>
           </div>
           <div class="principle">
-            
-            <b>Moderasi lokal</b>
-            <span>Admin lokal memverifikasi setiap audit sebelum data diperbarui. Kualitas tetap terjaga.</span>
+            <b>Moderasi admin</b>
+            <span>Admin memverifikasi setiap audit sebelum data diperbarui. Kualitas tetap terjaga.</span>
           </div>
         </div>
       </div>
 
       <!-- Koridor awal -->
       <div class="about-section anim-hidden anim-stagger-3">
-        <div class="about-section-header">
-          <span class="eyebrow">03 — Fokus awal</span>
-          <h2>Koridor MRT Jakarta</h2>
-        </div>
+        <h2>Koridor MRT Jakarta</h2>
         <div class="about-corridor">
           <div class="about-corridor-visual">
             <div class="corridor-line">
@@ -115,78 +99,66 @@
           </div>
           <div class="about-corridor-text">
             <p>Proof of concept berfokus pada koridor MRT Jakarta, dari Lebak Bulus hingga Bundaran HI, beserta venue publik di sekitarnya. Model ini dapat diperluas ke kota lain menggunakan data Overpass API.</p>
-            <p>Setiap stasiun memiliki data aksesibilitas yang mencakup rampa, lift, toilet, jalur taktil, dan rambu. Komunitas dapat mengaudit kondisi terkini dalam hitungan detik.</p>
+            <p>Setiap stasiun memiliki data aksesibilitas yang mencakup rampa, toilet, jalur taktil, dan rambu. Komunitas dapat mengaudit kondisi terkini dalam hitungan detik.</p>
           </div>
         </div>
       </div>
 
       <!-- Teknologi -->
       <div class="about-section text-right anim-hidden anim-stagger-3">
-        <div class="about-section-header">
-          <span class="eyebrow">04 — Teknologi</span>
-          <h2>Dibangun dengan tanggung jawab</h2>
-        </div>
+        <h2>Dibangun dengan tanggung jawab</h2>
         <div class="about-tech-grid">
           <div class="about-tech-card">
-            <div class="about-tech-icon" <div class="about-tech-icon" style="background:##e44d26; color:#FFFFFF"></div>
             <strong>HTML5</strong>
             <span>Struktur semantik dan formulir native</span>
           </div>
           <div class="about-tech-card">
-            <div class="about-tech-icon" <div class="about-tech-icon" style="background:##264de4; color:#FFFFFF"></div>
             <strong>CSS3</strong>
-            <span>Grid, Flexbox, responsive, glassmorphism</span>
+            <span>Grid, Flexbox, responsive, tanpa framework</span>
           </div>
           <div class="about-tech-card">
-            <div class="about-tech-icon" <div class="about-tech-icon" style="background:##f0db4f; color:#FFFFFF"></div>
             <strong>JavaScript ES</strong>
             <span>Modules, async/await, IntersectionObserver</span>
           </div>
           <div class="about-tech-card">
-            <div class="about-tech-icon" <div class="about-tech-icon" style="background:##199900; color:#FFFFFF"></div>
             <strong>Leaflet + OSM</strong>
             <span>Peta interaktif dengan data terbuka</span>
           </div>
           <div class="about-tech-card">
-            <div class="about-tech-icon" <div class="about-tech-icon" style="background:##5c2d91; color:#FFFFFF"></div>
             <strong>Overpass API</strong>
             <span>Query data OSM real-time untuk Jakarta</span>
           </div>
           <div class="about-tech-card">
-            <div class="about-tech-icon" <div class="about-tech-icon" style="background:##2878b5; color:#FFFFFF"></div>
-            <strong>Valhalla / OSRM</strong>
-            <span>Rute aksesibel dengan profil kursi roda</span>
+            <strong>Node + SQLite</strong>
+            <span>Server tanpa dependensi, data audit &amp; akun</span>
           </div>
         </div>
-        <p class="about-tech-note">Tidak ada framework berat, tidak ada pelacakan pengguna, tidak ada backend yang menunggu. Aplikasi berjalan 100% di browser Anda.</p>
+        <p class="about-tech-note">Tidak ada framework berat dan tidak ada pelacakan pengguna. Front-end tetap ringan; server menangani akun, audit, dan moderasi.</p>
       </div>
 
       <!-- SDG -->
       <div class="about-section anim-hidden anim-stagger-3">
-        <div class="about-section-header">
-          <span class="eyebrow">05 — Dampak</span>
-          <h2>Mendukung Tujuan Berkelanjutan</h2>
-        </div>
+        <h2>Mendukung Tujuan Pembangunan Berkelanjutan</h2>
         <div class="about-sdg-grid">
           <div class="about-sdg-card">
-            <div class="about-sdg-num" style="background:#7D1F3C">8</div>
+            <div class="about-sdg-num" style="background:var(--sdg-8)">8</div>
             <div>
               <strong>Pekerjaan Layak</strong>
-              <p>Mendorong partisipasi mikro komunitas dan inklusivitas ekonomi lokal melalui fitur usaha aksesibel.</p>
+              <p>Mendorong partisipasi ekonomi mikro komunitas penyandang disabilitas melalui data terbuka.</p>
             </div>
           </div>
           <div class="about-sdg-card">
-            <div class="about-sdg-num" style="background:#B8551F">9</div>
+            <div class="about-sdg-num" style="background:var(--sdg-9)">9</div>
             <div>
               <strong>Industri, Inovasi, Infrastruktur</strong>
-              <p>Membuat data infrastruktur kota lebih terbuka, akurat, dan berguna bagi semua warga.</p>
+              <p>Data aksesibilitas membantu pengambil keputusan merancang infrastruktur yang lebih baik.</p>
             </div>
           </div>
           <div class="about-sdg-card">
-            <div class="about-sdg-num" style="background:#7D5C1E">11</div>
+            <div class="about-sdg-num" style="background:var(--sdg-11)">11</div>
             <div>
               <strong>Kota Berkelanjutan</strong>
-              <p>Mendorong kota yang aman, inklusif, dan dapat diakses oleh semua warga tanpa pengecualian.</p>
+              <p>Navigasi yang aman dan setara untuk semua warga kota.</p>
             </div>
           </div>
         </div>
@@ -194,14 +166,11 @@
 
       <!-- Komitmen -->
       <div class="about-section text-right anim-hidden anim-stagger-3">
-        <div class="about-section-header">
-          <span class="eyebrow">06 — Komitmen</span>
-          <h2>Yang kami jaga</h2>
-        </div>
+        <h2>Yang kami jaga</h2>
         <div class="about-commitment-grid">
           <div class="about-commitment">
             <strong>Privasi</strong>
-            <p>Tidak ada data pengguna yang dikirim ke server. Semua tersimpan lokal di browser Anda.</p>
+            <p>Kata sandi disimpan sebagai hash, sesi memakai cookie HttpOnly. Tidak ada pelacakan pengguna.</p>
           </div>
           <div class="about-commitment">
             <strong>Aksesibilitas</strong>
@@ -213,17 +182,14 @@
           </div>
           <div class="about-commitment">
             <strong>Performa</strong>
-            <p>Tanpa framework berat. Memuat cepat bahkan di jaringan lambat. Zero build step.</p>
+            <p>Tanpa framework berat. Memuat cepat bahkan di jaringan lambat.</p>
           </div>
         </div>
       </div>
 
       <!-- Tim -->
       <div class="about-section anim-hidden anim-stagger-3">
-        <div class="about-section-header">
-          <span class="eyebrow">07 — Tim</span>
-          <h2>Yang membangun AksesKota</h2>
-        </div>
+        <h2>Yang membangun AksesKota</h2>
         <p>Kami adalah tiga siswa yang bersemangat membangun solusi aksesibilitas untuk kota yang lebih inklusif. Kami percaya teknologi seharusnya melayani semua orang, bukan hanya segelintir.</p>
         <div class="team-grid">
           <div class="team-card anim-hidden anim-stagger-1">
@@ -253,39 +219,14 @@
         <cite>— Tim AksesKota</cite>
       </div>
 
-      <!-- SDG Impact -->
-      <div class="about-section anim-hidden anim-stagger-3">
-        <div class="about-section-header">
-          <span class="eyebrow">Dampak SDG</span>
-          <h2>Mendukung Tujuan Pembangunan Berkelanjutan</h2>
-        </div>
-        <div class="about-sdg-grid">
-          <div class="about-sdg-card">
-            <div class="about-sdg-num" style="color:#e5243b">8</div>
-            <strong>Pekerjaan Layak</strong>
-            <p>Mendorong partisipasi ekonomi mikro komunitas penyandang disabilitas melalui data terbuka.</p>
-          </div>
-          <div class="about-sdg-card">
-            <div class="about-sdg-num" style="color:#fd6925">9</div>
-            <strong>Infrastruktur Inklusif</strong>
-            <p>Data aksesibilitas membantu pengambil keputusan merancang infrastruktur yang lebih baik.</p>
-          </div>
-          <div class="about-sdg-card">
-            <div class="about-sdg-num" style="color:#fd9d24">11</div>
-            <strong>Kota Berkelanjutan</strong>
-            <p>Navigasi yang aman dan setara untuk semua warga kota.</p>
-          </div>
-        </div>
-      </div>
-
       <!-- CTA -->
       <div class="about-cta anim-hidden">
         <div class="about-cta-content">
           <h2>Mulai menjelajahi kota</h2>
-          <p>Temukan fasilitas aksesibel di sekitar Anda. Tanpa akun, tanpa biaya, tanpa batasan.</p>
+          <p>Temukan fasilitas aksesibel di sekitar Anda. Tanpa biaya, tanpa batasan.</p>
           <div class="about-cta-actions">
-            <a class="btn btn-primary" href="map.html"> Buka peta aksesibilitas</a>
-            <a class="btn btn-outline" href="audit.html"> Audit satu lokasi</a>
+            <a class="btn btn-primary" href="map.html">Buka peta aksesibilitas</a>
+            <a class="btn btn-outline" href="audit.html">Audit satu lokasi</a>
           </div>
         </div>
       </div>
@@ -297,7 +238,7 @@
   <div id="footer"></div>
 
   <script type="module">
-    import { shell, footer, initShell, initLogout, initAnimations } from './js/core.js';
+    import { shell, footer, initShell, initLogout, initAnimations } from './js/core.js?v=23';
     document.querySelector('#shell').innerHTML = shell('about');
     document.querySelector('#footer').innerHTML = footer();
     initShell();

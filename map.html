@@ -3,17 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Peta fasilitas aksesibilitas Jakarta.">
+  <meta name="description" content="Peta fasilitas aksesibilitas Jakarta dan Bekasi.">
   <title>Peta Aksesibel — AksesKota</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,650;0,700;1,400&display=swap">
-  <link rel="stylesheet" href="css/tokens.css?v=1">
-  <link rel="stylesheet" href="css/base.css?v=1">
-  <link rel="stylesheet" href="css/shell.css?v=1">
-  <link rel="stylesheet" href="css/components.css?v=1">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="vendor/markercluster/MarkerCluster.css">
+  <link rel="stylesheet" href="css/tokens.css?v=2">
+  <link rel="stylesheet" href="css/base.css?v=3">
+  <link rel="stylesheet" href="css/shell.css?v=4">
+  <link rel="stylesheet" href="css/components.css?v=13">
+  <link rel="stylesheet" href="css/trip.css?v=5">
 </head>
 <body>
 
@@ -21,9 +19,39 @@
 
   <main id="main" class="map-page">
 
-    <!-- Sidebar -->
+    <!-- Sidebar: rute → cari → filter → hasil -->
     <aside class="map-sidebar" id="map-sidebar" aria-label="Pencarian dan hasil lokasi">
-      <h1 class="sr-only">Peta aksesibilitas Jakarta</h1>
+      <h1 class="sr-only">Peta aksesibilitas Jakarta dan Bekasi</h1>
+
+      <form id="trip-form" class="trip-form">
+        <h2>Mau ke mana?</h2>
+        <label class="sr-only" for="destination-search">Cari tujuan</label>
+        <input id="destination-search" type="search" list="destination-places" placeholder="Ketik nama tujuan" autocomplete="off" required>
+        <datalist id="destination-places"></datalist>
+        <select id="trip-target" hidden aria-hidden="true" tabindex="-1"><option value="">Pilih tujuan…</option></select>
+        <p id="trip-origin-hint">Dari lokasi saya · Kursi roda</p>
+        <button type="submit" class="btn btn-primary">Cari rute</button>
+        <div class="trip-secondary"><button id="pick-target" type="button" class="btn btn-outline pick-btn">Pilih di peta</button></div>
+        <details id="trip-options"><summary>Opsi perjalanan</summary>
+        <div class="trip-option-fields">
+        <label for="trip-origin">Dari</label>
+        <select id="trip-origin"><option value="gps">Lokasi saya</option></select>
+        <button id="pick-origin" type="button" class="btn btn-outline pick-btn">Pilih asal di peta</button>
+        <label for="trip-profile">Kebutuhan perjalanan</label>
+        <select id="trip-profile"><option value="wheelchair">Kursi roda</option><option value="elderly">Lansia (pelan, landai)</option><option value="walking">Jalan kaki (bisa melalui tangga)</option></select>
+        <fieldset><legend>Utamakan fasilitas</legend>
+          <label><input type="checkbox" name="facility" value="wheelchair_ramp" checked> Rampa</label>
+          
+          <label><input type="checkbox" name="facility" value="accessible_restroom"> Singgah toilet</label>
+          <label><input type="checkbox" name="facility" value="business"> Singgah usaha</label>
+        </fieldset>
+        <label for="trip-detour">Batas tambahan jarak</label>
+        <select id="trip-detour"><option value="0.1">10%</option><option value="0.25" selected>25%</option><option value="0.5">50%</option></select>
+
+        </div></details>
+        <p id="trip-status" role="status"></p>
+      </form>
+
       <form class="map-search" id="search-form" role="search">
         <input id="search" type="search" autocomplete="off" placeholder="Cari lokasi atau alamat" aria-label="Cari lokasi">
         <button class="search-btn" aria-label="Cari">Cari</button>
@@ -32,8 +60,8 @@
       <div class="map-tabs" id="category-chips">
         <button class="chip active" data-category="all">Semua</button>
         <button class="chip" data-category="business">Usaha</button>
+        <button class="chip" data-category="wheelchair_place">Akses kursi roda</button>
         <button class="chip" data-category="wheelchair_ramp">Rampa</button>
-        <button class="chip" data-category="elevator">Lift</button>
         <button class="chip" data-category="accessible_restroom">Toilet</button>
         <button class="chip" data-category="tactile_paving">Taktil</button>
       </div>
@@ -42,28 +70,56 @@
 
       <div class="data-warning" role="status" id="data-status">
         <strong>Mengambil data OpenStreetMap…</strong>
-        <span>Data atribut berasal langsung dari tag OSM; kondisi fisik tetap dapat berubah.</span>
+        <span>Data fasilitas berasal dari peta OpenStreetMap; kondisi fisik tetap dapat berubah.</span>
         <button class="data-refresh" id="refresh-data" type="button">Perbarui data</button>
       </div>
 
       <div class="result-list" id="results" aria-live="polite"></div>
     </aside>
 
-    <!-- Map -->
+    <!-- Kanvas peta -->
     <section class="map-canvas" aria-label="Peta interaktif">
       <div id="map"></div>
 
-      <!-- Floating buttons -->
       <div class="map-fab-group">
         <button class="map-fab" id="location-btn" title="Lokasi saya" aria-label="Tampilkan lokasi saya">Lokasi saya</button>
         <button class="map-fab" id="expand-search" title="Buka hasil pencarian" aria-label="Buka hasil pencarian">Cari</button>
+        <button class="map-fab" id="add-location-btn" title="Tambah lokasi aksesibilitas" aria-label="Tambah lokasi aksesibilitas">Tambah lokasi</button>
       </div>
 
-      <!-- Route panel -->
+      <!-- Dialog tambah lokasi -->
+      <dialog id="add-location-dialog" class="admin-dialog" style="width:min(26rem,calc(100vw - 2*var(--sp-4)))">
+        <form id="add-location-form" novalidate>
+          <div class="dialog-head">
+            <div><h2 id="add-location-title">Tambah lokasi</h2></div>
+            <button type="button" class="detail-close" id="add-location-close" aria-label="Tutup">×</button>
+          </div>
+          <p id="add-location-coords" style="color:var(--muted);font-size:var(--step--1);margin:0 0 12px"></p>
+          <label class="field full">Nama lokasi<input id="add-loc-name" maxlength="120" required placeholder="Contoh: Rampa mall A"></label>
+          <label class="field full">Alamat (opsional)<input id="add-loc-address" maxlength="200" placeholder="Nama jalan / area"></label>
+          <label class="field full">Kategori (bisa lebih dari satu)
+            <div class="loc-category-group" role="group" aria-label="Kategori lokasi">
+              <label><input type="checkbox" data-add-cat="wheelchair_place"> Akses kursi roda</label>
+              <label><input type="checkbox" data-add-cat="wheelchair_ramp"> Rampa</label>
+              <label><input type="checkbox" data-add-cat="accessible_restroom"> Toilet aksesibel</label>
+              <label><input type="checkbox" data-add-cat="tactile_paving"> Jalur taktil</label>
+            </div>
+          </label>
+          <label class="field full" id="add-name-wrap">Nama Anda (opsional)
+            <input id="add-loc-contributor" maxlength="40" placeholder="Agar bisa dikenali di papan kontribusi">
+          </label>
+          <p id="add-location-note" style="color:var(--muted);font-size:var(--step--1);margin:0"></p>
+          <div class="dialog-actions">
+            <button type="button" class="btn btn-outline" id="add-location-cancel">Batal</button>
+            <button type="submit" class="btn btn-primary" id="add-location-submit">Kirim</button>
+          </div>
+        </form>
+      </dialog>
+
+      <!-- Panel rute -->
       <section class="route-panel" id="route-panel" aria-label="Rute aksesibilitas">
         <div class="route-head">
           <div>
-            <span class="eyebrow">Navigasi aksesibel</span>
             <strong id="route-destination">Tujuan</strong>
           </div>
           <button class="detail-close" id="route-close" aria-label="Tutup rute">×</button>
@@ -71,7 +127,7 @@
 
         <div class="route-mode" role="radiogroup" aria-label="Pilih profil rute">
           <button class="active" data-route-profile="wheelchair" role="radio" aria-checked="true">Kursi roda</button>
-          <button data-route-profile="walking" role="radio" aria-checked="false">Jalan kaki</button>
+          <button data-route-profile="elderly" role="radio" aria-checked="false">Lansia</button><button data-route-profile="walking" role="radio" aria-checked="false">Jalan kaki</button>
         </div>
 
         <div class="route-row">
@@ -87,19 +143,21 @@
           <div><strong>—</strong><small>Estimasi</small></div>
         </div>
 
+        <div id="route-options" aria-live="polite"></div>
         <div class="route-quality" id="route-quality"></div>
 
         <ol class="route-steps" id="route-steps"></ol>
       </section>
 
-      <!-- Detail sheet -->
+      <!-- Detail lokasi -->
       <article class="detail-sheet" id="detail" aria-live="polite"></article>
     </section>
 
   </main>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>    <script type="module" src="js/map-page.js?v=8"></script>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="vendor/markercluster/leaflet.markercluster.js"></script>
+  <script type="module" src="js/map-page.js?v=46"></script>
 
 </body>
 </html>
