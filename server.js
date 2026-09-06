@@ -29,7 +29,8 @@ const crypto = require('crypto');
 
 const ROOT = __dirname;
 const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
-const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : path.join(ROOT, 'server-data');
+const isVercel = !!process.env.VERCEL;
+const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : (isVercel ? '/tmp/akseskota' : path.join(ROOT, 'server-data'));
 const UPLOAD_DIR = path.join(DATA_DIR, 'uploads');
 const DB_JSON = path.join(DATA_DIR, 'akseskota.json');
 const SESSION_COOKIE = 'akseskota_session';
@@ -37,7 +38,7 @@ const SESSION_TTL = 1000 * 60 * 60 * 24 * 7; // 7 days
 const MAX_BODY = 8 * 1024 * 1024; // 8 MB (covers base64 photo ~5MB)
 const ADMIN_CODE = process.env.ADMIN_CODE || 'AKSES2026';
 
-for (const d of [DATA_DIR, UPLOAD_DIR]) fs.mkdirSync(d, { recursive: true });
+try { for (const d of [DATA_DIR, UPLOAD_DIR]) fs.mkdirSync(d, { recursive: true }); } catch (e) { console.warn('[db] Cannot create data dir:', e.message); }
 
 /* ---------------- Database (node:sqlite with JSON fallback) ---------------- */
 
