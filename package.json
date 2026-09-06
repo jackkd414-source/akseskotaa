@@ -2,9 +2,9 @@
   "name": "akseskota",
   "version": "1.0.0",
   "description": "AksesKota — Platform pemetaan aksesibilitas urban untuk penyandang disabilitas",
-  "main": "server.js",
+  "main": "server-local.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server-local.js"
   },
   "engines": {
     "node": ">=18"

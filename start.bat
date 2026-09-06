@@ -18,4 +18,4 @@ if errorlevel 1 (
 )
 
 start "" http://localhost:8080
-node "%~dp0server.js"
+node "%~dp0server-local.js"

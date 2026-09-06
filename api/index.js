@@ -1,4 +1,3 @@
 // Vercel serverless entry point
-// Re-exports the request handler from server.js
-const handler = require('../server.js');
+const handler = require('../server-local.js');
 module.exports = handler;

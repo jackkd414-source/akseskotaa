@@ -1,0 +1,5 @@
+{
+  "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3Brelation%28id%3A5802438%2C5802441%2C7625977%2C7626001%2C7626002%2C14509733%29%3Bout%20body%20geom%3B",
+  "query": "[out:json][timeout:90];relation(id:5802438,5802441,7625977,7626001,7626002,14509733);out body geom;",
+  "timestamp_osm_base": "2026-09-05T10:42:06Z"
+}

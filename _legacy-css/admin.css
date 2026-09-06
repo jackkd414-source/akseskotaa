@@ -1,0 +1,33 @@
+/* ==========================================================================
+   AksesKota — Admin (Operate surface)
+   Penyesuaian khusus admin. Gaya utama ada di components.css.
+   ========================================================================== */
+
+/* Lencana jumlah audit menunggu: angka + warna, di dalam tombol navigasi. */
+.admin-nav-item { justify-content: space-between; }
+
+#pending-badge:not(:empty) {
+  display: grid;
+  place-items: center;
+  min-width: 1.375rem;
+  height: 1.375rem;
+  padding: 0 var(--sp-1);
+  border-radius: var(--r-pill);
+  background: var(--danger);
+  color: #ffffff;
+  font-size: var(--step--1);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Peringatan konteks lokal didorong ke bawah sidebar. */
+.admin-nav .admin-warning { margin-top: auto; }
+
+@media (max-width: 900px) {
+  .admin-nav .admin-warning { margin-top: var(--sp-4); width: 100%; }
+}
+
+/* Multi-select kategori lokasi */
+.loc-category-group{display:flex;flex-direction:column;gap:8px;padding:10px;border:1px solid var(--line,#d8dcd6);border-radius:10px;background:var(--paper,#fafaf7);max-height:180px;overflow:auto}
+.loc-category-group .check-item{display:flex;align-items:center;gap:8px;font-size:.92rem;cursor:pointer}
+.loc-category-group input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent,#1e6f50)}

@@ -13,7 +13,7 @@ if ! command -v node &>/dev/null; then
     exit 1
 fi
 
-(cd "$(dirname "$0")" && node server.js) &
+(cd "$(dirname "$0")" && node server-local.js) &
 PID=$!
 sleep 1
 xdg-open http://localhost:8080 2>/dev/null || open http://localhost:8080 2>/dev/null || true

@@ -1,0 +1,3908 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-09-05T10:24:51Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+    {
+      "type": "way",
+      "id": 905258628,
+      "timestamp": "2026-05-27T13:54:35Z",
+      "version": 3,
+      "changeset": 183257887,
+      "center": {
+        "lat": -6.2102682,
+        "lon": 106.8508538
+      },
+      "nodes": [
+        13888379542,
+        13888379546,
+        9398103220,
+        8406780139,
+        9398103320,
+        9398103353,
+        9398103223
+      ],
+      "tags": {
+        "highway": "path",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 917333594,
+      "timestamp": "2026-06-22T07:38:40Z",
+      "version": 7,
+      "changeset": 184418874,
+      "center": {
+        "lat": -6.293984,
+        "lon": 106.8198692
+      },
+      "nodes": [
+        8520207037,
+        8520207036,
+        8520207035,
+        8520207034,
+        8520207033,
+        8520207032,
+        8520207031,
+        8520207030,
+        8520207029,
+        8520207028,
+        8520207027,
+        8520207026,
+        8520207025,
+        7033892804,
+        8520207024,
+        7105213005,
+        8520207023,
+        8520207022,
+        8520207021,
+        8520207020,
+        8520207019,
+        8520207037
+      ],
+      "tags": {
+        "access:roof": "yes",
+        "addr:city": "Jakarta Selatan",
+        "addr:district": "Ragunan",
+        "addr:full": "Jalan TB Simatupang Nomor 1",
+        "addr:postcode": "12550",
+        "addr:province": "DKI Jakarta",
+        "addr:street": "Jalan Tahi Bonar Simatupang",
+        "amenity": "hospital",
+        "backup_generator": "yes",
+        "capacity:persons": "250-500",
+        "emergency": "no",
+        "health_amenity:type": "dialysis;emergency_department;imaging_equipment;intensive_care_unit;laboratory;mri;operating_theater;ultrasound;x_ray",
+        "healthcare": "birthing_centre;blood_donation;clinic;dentist;doctor;hospital;laboratory;optometrist;pharmacy;physiotherapist;rehabilitation",
+        "healthcare:speciality": "allergology;anaesthetics;anatomy;biochemistry;biological_haematology;biology;blood_check;cardiac_surgery;gynaecology;haematology;immunology;infectious_diseases;internal;medical_engineering;orthopaedics;surgery;vaccination",
+        "insurance:health": "private;public",
+        "name": "RSUD Pasar Minggu Jakarta",
+        "opening_hours": "24/7",
+        "operator": "Government",
+        "operator:type": "government",
+        "phone": "+62 21 29059999",
+        "source": "HOT_InAWARESurvey_2017;http://rsudpasarminggu.jakarta.go.id/",
+        "website": "https://rsudpasarminggu.jakarta.go.id/",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 927020149,
+      "timestamp": "2026-07-06T10:52:46Z",
+      "version": 8,
+      "changeset": 185190019,
+      "center": {
+        "lat": -6.2463095,
+        "lon": 106.8696599
+      },
+      "nodes": [
+        8601423545,
+        13353056999,
+        5492419195,
+        13353056997,
+        12189812475,
+        7102059924,
+        8601423544,
+        8601423543,
+        8601423542,
+        8601423541,
+        13357407900,
+        13353056969,
+        8601423540,
+        13353056957,
+        13353056958,
+        8601423545
+      ],
+      "tags": {
+        "addr:city": "Jakarta Timur",
+        "addr:province": "DKI Jakarta",
+        "amenity": "hospital",
+        "emergency": "yes",
+        "healthcare": "hospital",
+        "healthcare:speciality": "neurology",
+        "name": "Rumah Sakit Pusat Otak Nasional Prof. Dr. dr. Mahar Mardjono Jakarta",
+        "phone": "+62 (021)",
+        "short_name": "RSPON",
+        "website": "http://www.rspon.go.id/",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 933772265,
+      "timestamp": "2022-09-23T10:24:01Z",
+      "version": 4,
+      "changeset": 126539826,
+      "center": {
+        "lat": -6.3144209,
+        "lon": 106.7941713
+      },
+      "nodes": [
+        8654650247,
+        8654650262,
+        8654650261,
+        8654650260,
+        8654650259,
+        8654664398,
+        8654650258,
+        8654650257,
+        8654650256,
+        8654650255,
+        8654650254,
+        8654650253,
+        8654650252,
+        8654650251,
+        8654650245,
+        8654650244,
+        8654650250,
+        8654650249,
+        8654650246,
+        8654650248,
+        8654650247
+      ],
+      "tags": {
+        "amenity": "hospital",
+        "name": "RS Prikasih",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 974882100,
+      "timestamp": "2026-05-05T23:26:20Z",
+      "version": 17,
+      "changeset": 182271633,
+      "center": {
+        "lat": -6.1957623,
+        "lon": 106.8208806
+      },
+      "nodes": [
+        5205497635,
+        9021718244,
+        9021718243,
+        9021718242,
+        1352628843,
+        2138698937,
+        2138698906,
+        2138698852,
+        2138698803,
+        2138698762,
+        2138698695,
+        2138698628,
+        2138698581,
+        2138698607,
+        2138698672,
+        2138698766,
+        2138698843,
+        2138698900,
+        9021718245,
+        2138698936,
+        12737354003,
+        12737354002,
+        12737117510,
+        12737117511,
+        12737354001,
+        12737340200,
+        12737340199,
+        1352629095,
+        9021718240,
+        13797014156,
+        13797014150,
+        13797014154,
+        13797014152,
+        13797014153,
+        13797014155,
+        13797014151,
+        9021718241,
+        1797786940,
+        1797786939,
+        4780450817,
+        13799928340,
+        4791005008,
+        2138698848,
+        13799928348,
+        1352628533,
+        9021718234,
+        12400047331,
+        12400047332,
+        12400047333,
+        13799845738,
+        12745299920,
+        13799845737,
+        12745299919,
+        1352628751,
+        1352629181,
+        1352629126,
+        2138723362,
+        2138723363,
+        13796692520,
+        1352628656,
+        1352628508,
+        2138723477,
+        2138723463,
+        2138723490,
+        2138723487,
+        2138723505,
+        13799311461,
+        13799311458,
+        13799311457,
+        13799311456,
+        13799311462,
+        2138723507,
+        2138723503,
+        2138723501,
+        13799311437,
+        2138723496,
+        2138723498,
+        2138723702,
+        12743558816,
+        3732393864,
+        13796692523,
+        13796692524,
+        13796692525,
+        13796692526,
+        1352628778,
+        3375321370,
+        9021718239,
+        1352628916,
+        4761149755,
+        1352628586,
+        1352628855,
+        13701814248,
+        13701814249,
+        4785330348,
+        2138699263,
+        2138699044,
+        1797786943,
+        1797786942,
+        1797786941,
+        1352628797,
+        2138699399,
+        2138699373,
+        1352628481,
+        5205497636,
+        5205497635
+      ],
+      "tags": {
+        "alt_name": "GI, Grand Indonesia",
+        "building": "yes",
+        "name": "Grand Indonesia Shopping Town",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "shop": "mall",
+        "wheelchair": "yes",
+        "wikidata": "Q5594677",
+        "wikimedia_commons": "Category:Grand Indonesia",
+        "wikipedia": "en:Grand Indonesia Shopping Town"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1018930689,
+      "timestamp": "2022-01-07T01:04:21Z",
+      "version": 1,
+      "changeset": 115858573,
+      "center": {
+        "lat": -6.2101691,
+        "lon": 106.850602
+      },
+      "nodes": [
+        9398103244,
+        9398103343
+      ],
+      "tags": {
+        "highway": "path",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1062632843,
+      "timestamp": "2026-05-20T07:35:25Z",
+      "version": 2,
+      "changeset": 182913125,
+      "center": {
+        "lat": -6.4009125,
+        "lon": 106.8219251
+      },
+      "nodes": [
+        5619074549,
+        9761990999,
+        9761991000,
+        9761991001,
+        9761991002,
+        9761991003,
+        5619074549
+      ],
+      "tags": {
+        "addr:city": "Depok",
+        "addr:district": "Pancoranmas",
+        "addr:housenumber": "4",
+        "addr:postcode": "16431",
+        "addr:province": "Jawa Barat",
+        "addr:street": "Jalan Melati",
+        "addr:subdistrict": "Depok",
+        "building": "public",
+        "building:levels": "3",
+        "name": "Gedung Pastoral Yohanes Paulus II",
+        "smoking": "no",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1098486518,
+      "timestamp": "2022-12-14T18:03:44Z",
+      "version": 2,
+      "changeset": 130085432,
+      "center": {
+        "lat": -6.2310378,
+        "lon": 106.7071474
+      },
+      "nodes": [
+        10058001842,
+        10058001843,
+        10058001844,
+        10058001845,
+        10058001842
+      ],
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "mosque",
+        "name": "Darussa'adah",
+        "religion": "muslim",
+        "wheelchair": "designated"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1102570742,
+      "timestamp": "2022-10-10T10:37:28Z",
+      "version": 1,
+      "changeset": 127294459,
+      "center": {
+        "lat": -6.3617729,
+        "lon": 106.8292252
+      },
+      "nodes": [
+        10089376610,
+        10089376611,
+        10089376612,
+        10089376613,
+        10089376614,
+        10089376615,
+        10089376616,
+        10089376610
+      ],
+      "tags": {
+        "access": "permit",
+        "amenity": "parking",
+        "fee": "no",
+        "name": "Area Parkir Internal FISIP UI - Gedung F",
+        "opening_hours": "Mo-Fr 07:00-21:00",
+        "parking": "surface",
+        "surface": "paving_stones",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1102570743,
+      "timestamp": "2022-10-10T10:37:28Z",
+      "version": 1,
+      "changeset": 127294459,
+      "center": {
+        "lat": -6.3635558,
+        "lon": 106.8290543
+      },
+      "nodes": [
+        10089377517,
+        10089377518,
+        10089377519,
+        10089377520,
+        10089377521,
+        10089377522,
+        10089377523,
+        10089377524,
+        10089377517
+      ],
+      "tags": {
+        "access": "permit",
+        "amenity": "parking",
+        "fee": "no",
+        "name": "Area Parkir Internal FISIP UI - Gedung Nusantara",
+        "opening_hours": "Mo-Fr 07:00-21:00",
+        "parking": "surface",
+        "surface": "paving_stones",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1118500925,
+      "timestamp": "2022-12-01T01:54:19Z",
+      "version": 2,
+      "changeset": 129581832,
+      "center": {
+        "lat": -6.2254363,
+        "lon": 106.9706546
+      },
+      "nodes": [
+        10229665346,
+        10229665347,
+        10229665348,
+        10229665349,
+        10229665350,
+        10229665351,
+        10229665346
+      ],
+      "tags": {
+        "amenity": "police",
+        "building": "yes",
+        "name": "Kantor Sub Sektor Kranji",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1144304535,
+      "timestamp": "2024-01-05T02:40:09Z",
+      "version": 5,
+      "changeset": 145903691,
+      "center": {
+        "lat": -6.1601817,
+        "lon": 106.7361677
+      },
+      "nodes": [
+        10651339638,
+        10651339662,
+        10651339668,
+        10651339656,
+        10651339639,
+        10651339661,
+        10651339640,
+        10651339641,
+        10651339642,
+        10651339643,
+        10651339644,
+        10651339654,
+        10651339645,
+        10651339660,
+        10651339659,
+        10651339663,
+        10651339646,
+        10651339647,
+        10651339648,
+        10651339649,
+        10651339650,
+        10651339651,
+        10651339653,
+        10651339652,
+        10651339638
+      ],
+      "tags": {
+        "internet_access": "no",
+        "landuse": "railway",
+        "name": "Stasiun Bojong Indah",
+        "network": "Duri, Tangerang",
+        "operator": "PT. KAIC",
+        "public_transport": "station",
+        "railway:ref": "BOI",
+        "short_name": "BOI",
+        "wheelchair": "yes",
+        "wikidata": "Q19740874",
+        "wikipedia": "id:Stasiun Bojong Indah"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1159366633,
+      "timestamp": "2024-02-16T11:21:32Z",
+      "version": 4,
+      "changeset": 147527893,
+      "center": {
+        "lat": -6.1743927,
+        "lon": 106.8269025
+      },
+      "nodes": [
+        10781538285,
+        10781538180
+      ],
+      "tags": {
+        "access": "yes",
+        "handrail": "no",
+        "highway": "steps",
+        "incline": "up",
+        "ramp": "yes",
+        "ramp:wheelchair": "yes",
+        "step_count": "8",
+        "surface": "paving_stones"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1159366635,
+      "timestamp": "2024-02-16T11:20:46Z",
+      "version": 4,
+      "changeset": 147527893,
+      "center": {
+        "lat": -6.1744042,
+        "lon": 106.8274742
+      },
+      "nodes": [
+        10781538286,
+        10781538177
+      ],
+      "tags": {
+        "access": "yes",
+        "handrail": "no",
+        "highway": "steps",
+        "incline": "up",
+        "ramp": "yes",
+        "ramp:wheelchair": "yes",
+        "step_count": "8",
+        "surface": "paving_stones"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1159366638,
+      "timestamp": "2024-02-16T07:58:19Z",
+      "version": 5,
+      "changeset": 147520048,
+      "center": {
+        "lat": -6.1751283,
+        "lon": 106.8281708
+      },
+      "nodes": [
+        10781538287,
+        10781538214
+      ],
+      "tags": {
+        "access": "yes",
+        "handrail": "no",
+        "highway": "steps",
+        "incline": "down",
+        "ramp": "yes",
+        "ramp:wheelchair": "yes",
+        "step_count": "8",
+        "surface": "paving_stones"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1159366640,
+      "timestamp": "2024-02-16T07:57:29Z",
+      "version": 4,
+      "changeset": 147520048,
+      "center": {
+        "lat": -6.1757162,
+        "lon": 106.828165
+      },
+      "nodes": [
+        10781538288,
+        10781538183
+      ],
+      "tags": {
+        "access": "yes",
+        "handrail": "no",
+        "highway": "steps",
+        "incline": "up",
+        "ramp": "yes",
+        "ramp:wheelchair": "yes",
+        "step_count": "8",
+        "surface": "paving_stones"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1159366644,
+      "timestamp": "2024-02-16T11:22:26Z",
+      "version": 4,
+      "changeset": 147527893,
+      "center": {
+        "lat": -6.1750932,
+        "lon": 106.8261608
+      },
+      "nodes": [
+        10781538323,
+        10781538284
+      ],
+      "tags": {
+        "access": "yes",
+        "handrail": "no",
+        "highway": "steps",
+        "incline": "up",
+        "ramp": "yes",
+        "ramp:wheelchair": "yes",
+        "step_count": "8",
+        "surface": "paving_stones"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1159369426,
+      "timestamp": "2024-02-16T11:20:07Z",
+      "version": 5,
+      "changeset": 147527893,
+      "center": {
+        "lat": -6.1764133,
+        "lon": 106.8274396
+      },
+      "nodes": [
+        10781553013,
+        10781538385
+      ],
+      "tags": {
+        "access": "yes",
+        "handrail": "no",
+        "highway": "steps",
+        "incline": "down",
+        "ramp": "yes",
+        "ramp:wheelchair": "yes",
+        "step_count": "8",
+        "surface": "paving_stones"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1159369427,
+      "timestamp": "2024-02-16T11:19:38Z",
+      "version": 5,
+      "changeset": 147527893,
+      "center": {
+        "lat": -6.176405,
+        "lon": 106.8268621
+      },
+      "nodes": [
+        10781553012,
+        10781538392
+      ],
+      "tags": {
+        "access": "yes",
+        "handrail": "no",
+        "highway": "steps",
+        "incline": "down",
+        "ramp": "yes",
+        "ramp:wheelchair": "yes",
+        "step_count": "8",
+        "surface": "paving_stones"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1159369429,
+      "timestamp": "2024-02-16T11:22:17Z",
+      "version": 5,
+      "changeset": 147527893,
+      "center": {
+        "lat": -6.1756776,
+        "lon": 106.8261606
+      },
+      "nodes": [
+        10781553014,
+        10781538346
+      ],
+      "tags": {
+        "access": "yes",
+        "handrail": "no",
+        "highway": "steps",
+        "incline": "down",
+        "ramp": "yes",
+        "ramp:wheelchair": "yes",
+        "step_count": "8",
+        "surface": "paving_stones"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1160410906,
+      "timestamp": "2024-02-16T07:48:56Z",
+      "version": 8,
+      "changeset": 147517866,
+      "center": {
+        "lat": -6.1776814,
+        "lon": 106.8261581
+      },
+      "nodes": [
+        10792535459,
+        10914199607,
+        10792535461,
+        10914199609,
+        10790269657
+      ],
+      "tags": {
+        "access": "yes",
+        "bicycle": "no",
+        "foot": "designated",
+        "highway": "footway",
+        "horse": "unknown",
+        "motor_vehicle": "no",
+        "source": "gps;07-04-2023 Monas Survey;osm notes",
+        "surface": "paving_stones",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1160591727,
+      "timestamp": "2026-03-19T21:19:33Z",
+      "version": 3,
+      "changeset": 180130355,
+      "center": {
+        "lat": -6.1801381,
+        "lon": 106.8250941
+      },
+      "nodes": [
+        10794421975,
+        13663324901,
+        10794421976,
+        10794421978,
+        10794421977,
+        10794421979,
+        10794421980,
+        10794421981,
+        10794421982,
+        10794421983,
+        10794421984,
+        10794421985,
+        2111402954
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1160591731,
+      "timestamp": "2023-09-14T10:11:12Z",
+      "version": 3,
+      "changeset": 141250129,
+      "center": {
+        "lat": -6.1804603,
+        "lon": 106.826609
+      },
+      "nodes": [
+        10794146262,
+        10794146245
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1160607644,
+      "timestamp": "2023-04-08T04:08:43Z",
+      "version": 1,
+      "changeset": 134638194,
+      "center": {
+        "lat": -6.1802363,
+        "lon": 106.8272973
+      },
+      "nodes": [
+        10794146237,
+        10794146239,
+        10794146240,
+        10794146294,
+        10794146238,
+        10794421975
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1174957833,
+      "timestamp": "2024-02-16T07:45:49Z",
+      "version": 3,
+      "changeset": 147517866,
+      "center": {
+        "lat": -6.1787936,
+        "lon": 106.824802
+      },
+      "nodes": [
+        10792535458,
+        10792535421,
+        10792535426
+      ],
+      "tags": {
+        "access": "yes",
+        "bicycle": "no",
+        "foot": "designated",
+        "highway": "footway",
+        "horse": "unknown",
+        "motor_vehicle": "no",
+        "source": "gps;07-04-2023 Monas Survey;osm notes",
+        "surface": "paving_stones",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193274356,
+      "timestamp": "2026-07-30T02:11:07Z",
+      "version": 4,
+      "changeset": 186620201,
+      "center": {
+        "lat": -6.2307341,
+        "lon": 106.8344752
+      },
+      "nodes": [
+        11076429925,
+        4073739242,
+        4763269837,
+        11076429918,
+        11076429917,
+        11076429935,
+        11076429915,
+        11076429914,
+        11076429913,
+        11076429815,
+        11076429814,
+        11076429934,
+        11076429816,
+        4073738379,
+        11076429926,
+        11076429925
+      ],
+      "tags": {
+        "addr:housenumber": "5-6",
+        "addr:postcode": "12950",
+        "addr:street": "Jalan Patra Kuningan",
+        "contact:website": "https://www.gov.uk/world/organisations/british-embassy-jakarta",
+        "country": "GB",
+        "diplomatic": "embassy",
+        "embassy": "yes",
+        "emergency:phone": "+62 21 23565200",
+        "facebook": "https://www.instagram.com/ukinindonesia/",
+        "instagram": "https://www.instagram.com/ukinindonesia/",
+        "name": "Kedutaan Besar Britania Raya",
+        "name:en": "British Embassy",
+        "name:fr": "Ambassade du Royaume-Uni",
+        "name:id": "Kedutaan Besar Britania Raya",
+        "name:tr": "Birleşik Krallık Büyükelçiliği",
+        "office": "diplomatic",
+        "opening_hours": "open \"By appointment only\"",
+        "subject:wikimedia_commons": "File:British Embassy Jakarta.JPG",
+        "target": "ID;TL",
+        "wheelchair": "yes",
+        "wikidata": "Q25052258",
+        "wikipedia": "id:Kedutaan Besar Britania Raya, Jakarta"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193537785,
+      "timestamp": "2023-07-31T11:50:07Z",
+      "version": 1,
+      "changeset": 139250597,
+      "center": {
+        "lat": -6.3191342,
+        "lon": 106.6812683
+      },
+      "nodes": [
+        11078607279,
+        11078588672,
+        11078588675,
+        11078588676,
+        11078588673,
+        11078588677,
+        11078588664,
+        11078588674,
+        11078588693,
+        11078588678,
+        11078588679,
+        11078588680,
+        11078588694,
+        11078588681,
+        11078588682,
+        11078588683,
+        11078588684,
+        11078588685,
+        11078588700,
+        11078588686,
+        11078588687,
+        11078588688,
+        11078588689
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "segregated": "yes",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193537792,
+      "timestamp": "2023-07-31T12:24:51Z",
+      "version": 2,
+      "changeset": 139252027,
+      "center": {
+        "lat": -6.3221799,
+        "lon": 106.6829981
+      },
+      "nodes": [
+        11078607222,
+        11078607223,
+        11078607225,
+        11078679767
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "segregated": "yes",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193537793,
+      "timestamp": "2023-08-01T10:47:56Z",
+      "version": 2,
+      "changeset": 139293842,
+      "center": {
+        "lat": -6.3207291,
+        "lon": 106.6833759
+      },
+      "nodes": [
+        11078588689,
+        11078588690,
+        11078607259,
+        11078588691,
+        11080750507,
+        11078588692,
+        11078607213,
+        11078607214,
+        11078607212,
+        11078607320
+      ],
+      "tags": {
+        "bicycle": "no",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "horse": "no",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193537800,
+      "timestamp": "2023-07-31T11:57:34Z",
+      "version": 2,
+      "changeset": 139250890,
+      "center": {
+        "lat": -6.3185731,
+        "lon": 106.6805959
+      },
+      "nodes": [
+        11078607262,
+        11078607261,
+        11078607260,
+        11078607267,
+        11078588661,
+        11078607271
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "segregated": "yes",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193537802,
+      "timestamp": "2023-07-31T11:50:07Z",
+      "version": 1,
+      "changeset": 139250597,
+      "center": {
+        "lat": -6.3197186,
+        "lon": 106.6815028
+      },
+      "nodes": [
+        11078607266,
+        11078607265
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "segregated": "yes",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193537805,
+      "timestamp": "2023-07-31T11:50:07Z",
+      "version": 1,
+      "changeset": 139250597,
+      "center": {
+        "lat": -6.3178596,
+        "lon": 106.6800487
+      },
+      "nodes": [
+        11078607270,
+        11078607272
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "segregated": "yes",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193537810,
+      "timestamp": "2023-07-31T11:50:07Z",
+      "version": 1,
+      "changeset": 139250597,
+      "center": {
+        "lat": -6.3173447,
+        "lon": 106.6799824
+      },
+      "nodes": [
+        239028556,
+        11078607279
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "segregated": "no",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193537814,
+      "timestamp": "2023-07-31T11:50:07Z",
+      "version": 1,
+      "changeset": 139250597,
+      "center": {
+        "lat": -6.3262343,
+        "lon": 106.6840979
+      },
+      "nodes": [
+        11078607319,
+        11078607310,
+        11078607318,
+        11078607317,
+        11078607316,
+        11078607315,
+        11078607309
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "segregated": "yes",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193537815,
+      "timestamp": "2023-07-31T11:50:07Z",
+      "version": 1,
+      "changeset": 139250597,
+      "center": {
+        "lat": -6.3222533,
+        "lon": 106.6826804
+      },
+      "nodes": [
+        11078607302,
+        11078607314,
+        11078607301,
+        11078607313,
+        11078607312,
+        11078607311,
+        11078607291,
+        11078607290,
+        11078607300
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "segregated": "yes",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193537817,
+      "timestamp": "2026-05-05T05:45:38Z",
+      "version": 2,
+      "changeset": 182232685,
+      "center": {
+        "lat": -6.3243956,
+        "lon": 106.6834445
+      },
+      "nodes": [
+        11078607306,
+        13797806420,
+        11078607305
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "segregated": "yes",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193543692,
+      "timestamp": "2023-07-31T12:16:15Z",
+      "version": 1,
+      "changeset": 139251697,
+      "center": {
+        "lat": -6.318062,
+        "lon": 106.6803712
+      },
+      "nodes": [
+        11078671021,
+        11078671022
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "no",
+        "segregated": "no",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193545269,
+      "timestamp": "2023-07-31T12:24:51Z",
+      "version": 1,
+      "changeset": 139252027,
+      "center": {
+        "lat": -6.3234498,
+        "lon": 106.683445
+      },
+      "nodes": [
+        11078679768,
+        11078679765,
+        11078607329
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "crossing": "unmarked",
+        "crossing:markings": "no",
+        "cycleway": "crossing",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "surface": "asphalt",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193545270,
+      "timestamp": "2023-07-31T12:24:51Z",
+      "version": 1,
+      "changeset": 139252027,
+      "center": {
+        "lat": -6.3253128,
+        "lon": 106.6840624
+      },
+      "nodes": [
+        11078607329,
+        11078679771,
+        11078679772,
+        11078679773,
+        11078679769,
+        11078679770
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "segregated": "yes",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193545271,
+      "timestamp": "2023-07-31T12:24:51Z",
+      "version": 1,
+      "changeset": 139252027,
+      "center": {
+        "lat": -6.3233444,
+        "lon": 106.6834096
+      },
+      "nodes": [
+        11078679766,
+        11078679768
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "segregated": "yes",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1193545272,
+      "timestamp": "2023-07-31T12:24:51Z",
+      "version": 1,
+      "changeset": 139252027,
+      "center": {
+        "lat": -6.3232397,
+        "lon": 106.6833744
+      },
+      "nodes": [
+        11078679767,
+        10777989137,
+        11078679766
+      ],
+      "tags": {
+        "bicycle": "designated",
+        "crossing": "unmarked",
+        "crossing:markings": "no",
+        "cycleway": "crossing",
+        "foot": "designated",
+        "footway": "sidewalk",
+        "highway": "cycleway",
+        "horse": "no",
+        "oneway": "yes",
+        "surface": "asphalt",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1208665705,
+      "timestamp": "2024-01-20T04:26:52Z",
+      "version": 2,
+      "changeset": 146465143,
+      "center": {
+        "lat": -6.2844454,
+        "lon": 107.2858917
+      },
+      "nodes": [
+        8027857404,
+        11198918798,
+        7291660084,
+        7291660076,
+        7291660088,
+        11198918799,
+        11198918800,
+        11198918801,
+        11198918802,
+        11198918803,
+        11198918804,
+        11198918805,
+        11198918806,
+        11198918807,
+        11198918808,
+        8253478215,
+        8027857404
+      ],
+      "tags": {
+        "addr:city": "Karawang, Jawa Barat",
+        "addr:housenumber": "Jl. Pangkal Perjuangan, RT.05/RW.04",
+        "addr:postcode": "41316",
+        "addr:street": "Tanjungpura, Kec. Karawang Bar",
+        "amenity": "school",
+        "capacity": "3008",
+        "grades": "10-12",
+        "name": "SMKN 1 Karawang",
+        "source": "local knowledge;pemda karawang",
+        "start_date": "1965-08-13",
+        "wheelchair": "yes",
+        "wikidata": "Q65212541",
+        "wikipedia": "id:SMK Negeri 1 Karawang"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1210658222,
+      "timestamp": "2026-06-22T07:44:36Z",
+      "version": 9,
+      "changeset": 184419030,
+      "center": {
+        "lat": -6.1131722,
+        "lon": 106.6895695
+      },
+      "nodes": [
+        11217149647,
+        11217149649,
+        11217021560,
+        388506673,
+        11217149650,
+        7335522098,
+        11217149655,
+        11217149651,
+        11217149654,
+        11217149646,
+        11217149652,
+        11217178797,
+        11217374373,
+        11217021569,
+        11217149647
+      ],
+      "tags": {
+        "addr:city": "Tangerang",
+        "addr:neighbourhood": "Cengkareng Business City",
+        "addr:street": "Jalan CBC Raya 2 No.1",
+        "air_conditioning": "yes",
+        "alt_name": "THE 1O1 Jakarta Airport CBC",
+        "bar": "yes",
+        "branch": "Jakarta Airport CBC",
+        "check_date": "2023-09-26",
+        "contact:phone": "+62 811 8286 101",
+        "contact:whatsapp": "+628118086101",
+        "internet_access": "wlan",
+        "internet_access:fee": "customers",
+        "name": "The101 Hotel",
+        "operator": "PT. Panorama Hospitality Management",
+        "payment:credit_cards": "yes",
+        "rooms": "128",
+        "smoking": "outside",
+        "source": "survey",
+        "stars": "4",
+        "tourism": "hotel",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1217866423,
+      "timestamp": "2026-06-22T18:50:00Z",
+      "version": 5,
+      "changeset": 184445372,
+      "center": {
+        "lat": -6.1227776,
+        "lon": 106.8604356
+      },
+      "nodes": [
+        9070696696,
+        11284504336,
+        11284504335,
+        13923399597,
+        11284504334,
+        11284504333,
+        13923399584,
+        11284504332
+      ],
+      "tags": {
+        "bridge": "yes",
+        "highway": "footway",
+        "layer": "1",
+        "name": "JPO Bersama BTN",
+        "surface": "concrete",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1220307917,
+      "timestamp": "2023-11-02T15:24:33Z",
+      "version": 1,
+      "changeset": 143537768,
+      "center": {
+        "lat": -6.127488,
+        "lon": 106.8305391
+      },
+      "nodes": [
+        11307787192,
+        11307787201,
+        11307787200,
+        11307787191
+      ],
+      "tags": {
+        "bridge": "yes",
+        "highway": "steps",
+        "layer": "1",
+        "ramp": "yes",
+        "ramp:wheelchair": "yes",
+        "surface": "metal"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1220307920,
+      "timestamp": "2023-11-02T15:24:33Z",
+      "version": 1,
+      "changeset": 143537768,
+      "center": {
+        "lat": -6.1274489,
+        "lon": 106.8307841
+      },
+      "nodes": [
+        11307787197,
+        11307787196,
+        11307787195,
+        11307787194
+      ],
+      "tags": {
+        "bridge": "yes",
+        "highway": "steps",
+        "layer": "1",
+        "ramp": "yes",
+        "ramp:wheelchair": "yes",
+        "surface": "metal"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1231693659,
+      "timestamp": "2023-12-17T22:19:26Z",
+      "version": 3,
+      "changeset": 145230917,
+      "center": {
+        "lat": -6.3066467,
+        "lon": 107.2797386
+      },
+      "nodes": [
+        11422921588,
+        11422921589,
+        11422921590,
+        11422921591,
+        11422921592,
+        11422921593,
+        11422921594,
+        11422921601,
+        11422921600,
+        11422921599,
+        11422921603,
+        11422921595,
+        11422921596,
+        11422921598,
+        11422921597,
+        11422921588
+      ],
+      "tags": {
+        "leisure": "water_park",
+        "name": "Taruma Leisure Waterpark",
+        "opening_hours": "08:00-18:00",
+        "sport": "swimming",
+        "website": "https://tarumaleisurewaterpark.com/",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1233296408,
+      "timestamp": "2024-08-05T13:08:17Z",
+      "version": 5,
+      "changeset": 154850315,
+      "center": {
+        "lat": -6.3571539,
+        "lon": 107.2423479
+      },
+      "nodes": [
+        11443498107,
+        11443498115,
+        6532230666,
+        6532230667,
+        11443498114,
+        11443498113,
+        11443498112,
+        11811682308,
+        11443498110,
+        11483388215,
+        11443498109,
+        11443498108,
+        12093490358,
+        11443515680,
+        11443498107
+      ],
+      "tags": {
+        "addr:city": "Karawang",
+        "addr:district": "Karawang",
+        "addr:postcode": "41361",
+        "addr:province": "Jawa Barat",
+        "addr:street": "Jalan Transheksa",
+        "addr:subdistrict": "Telukjambe Barat",
+        "landuse": "retail",
+        "name": "The Grand Outlet East Jakarta",
+        "opening_hours": "10:00-22:00",
+        "operator": "The Grand Outlet",
+        "payment:cash": "yes",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "payment:mastercard": "yes",
+        "payment:visa": "yes",
+        "phone": "+62 21 3970 8484",
+        "shop": "mall",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1242005032,
+      "timestamp": "2024-01-22T18:05:22Z",
+      "version": 1,
+      "changeset": 146564185,
+      "center": {
+        "lat": -6.3730742,
+        "lon": 106.8297733
+      },
+      "nodes": [
+        8682054597,
+        11540594438,
+        11540594437,
+        7357744985,
+        11540594436,
+        11540594435,
+        11540594434,
+        11540594433,
+        11540594432,
+        4043765376,
+        8682061226,
+        8682061227,
+        8682061229,
+        8682061228,
+        4043765377,
+        8682054580,
+        8682054597
+      ],
+      "tags": {
+        "addr:city": "Depok",
+        "addr:full": "Jl. Prof Bahder Djohan, Kampus UI, Depok",
+        "addr:postcode": "16424",
+        "addr:street": "Jalan Prof. Bahder Djohan, Kampus UI",
+        "amenity": "hospital",
+        "contact:phone": "+6221-50829292",
+        "emergency": "yes",
+        "health_amenity:type": "emergency_department;laboratory",
+        "healthcare": "birthing_centre;doctor;hospital;laboratory;pharmacy",
+        "healthcare:speciality": "anaesthetics;cardiology;community;dermatology;gynaecology;neurology;neurosurgery;occupational;ophthalmology;orthodontics;orthopaedics;otolaryngology;paediatrics;pharmacology;physiatry;psychiatry;pulmonology;radiology;surgery;urology;vaccination",
+        "insurance:health": "private",
+        "name": "Rumah Sakit Universitas Indonesia",
+        "name:en": "University of Indonesia Hospital",
+        "opening_hours": "24/7",
+        "operational_status": "operational",
+        "operator": "Universitas Indonesia",
+        "short_name": "RSUI",
+        "url": "http://rs.ui.ac.id/",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1282469318,
+      "timestamp": "2026-08-15T03:58:46Z",
+      "version": 3,
+      "changeset": 187470303,
+      "center": {
+        "lat": -6.2396539,
+        "lon": 106.8307884
+      },
+      "nodes": [
+        11901155666,
+        11901194872,
+        11439998571,
+        14095979492,
+        11901194871,
+        11901194870,
+        14095979483,
+        14095979486,
+        14095979484,
+        14095979485,
+        11901194869,
+        14095979487,
+        11901155668,
+        11901155667,
+        14095979491,
+        14095979488,
+        14095979489,
+        14095979490,
+        9732338150,
+        11901155666
+      ],
+      "tags": {
+        "branch": "Gatot Subroto",
+        "brand": "Mercure",
+        "brand:website": "https://mercure.accor.com/gb/city/hotels-jakarta-v5213.shtml",
+        "brand:wikidata": "Q1709809",
+        "building": "yes",
+        "building:levels": "31",
+        "check_date": "2023-10-07",
+        "contact:instagram": "mercuregatotsubroto",
+        "internet_access": "wlan",
+        "internet_access:fee": "customers",
+        "name": "Mercure Hotel",
+        "payment:credit_cards": "yes",
+        "start_date": "2019",
+        "tourism": "hotel",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1298591115,
+      "timestamp": "2024-07-04T12:46:08Z",
+      "version": 2,
+      "changeset": 153545633,
+      "center": {
+        "lat": -6.2431356,
+        "lon": 106.7987185
+      },
+      "nodes": [
+        12033397179,
+        12033397176,
+        12033397175,
+        12033397174,
+        12033397173,
+        12033397172,
+        12033397171,
+        12029431505,
+        12029431504,
+        12029431506,
+        12029431507,
+        12029431508,
+        12029431503,
+        12029431509,
+        12029431511,
+        12029431510
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299039812,
+      "timestamp": "2024-07-04T12:46:08Z",
+      "version": 1,
+      "changeset": 153545633,
+      "center": {
+        "lat": -6.23532,
+        "lon": 106.7989209
+      },
+      "nodes": [
+        12033396814,
+        12033396815,
+        12033396816,
+        12033396817,
+        12033396818,
+        12033396819,
+        12033396827,
+        12033396828,
+        12033396820,
+        12033396821,
+        12033396822,
+        11368754223,
+        12033396823,
+        12033396824,
+        12033396825,
+        12033396826
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299039814,
+      "timestamp": "2024-07-09T15:28:24Z",
+      "version": 2,
+      "changeset": 153749559,
+      "center": {
+        "lat": -6.2382749,
+        "lon": 106.7992885
+      },
+      "nodes": [
+        12033396839,
+        12033396832,
+        12033396829,
+        12033396833,
+        12033396834,
+        12033396835,
+        12033396845,
+        12033396846,
+        12033396836,
+        12033396840,
+        12033396841,
+        12043787954,
+        12033396847,
+        12033396853,
+        12033396842,
+        12033396848,
+        12033396844,
+        12033396843,
+        12033396837,
+        12033396838,
+        12033396854,
+        12033396855,
+        12033396863,
+        12033396856,
+        12033396857,
+        12033396858,
+        12033396861,
+        12033396859,
+        12033396862,
+        12033396860
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299039817,
+      "timestamp": "2024-07-04T12:46:08Z",
+      "version": 1,
+      "changeset": 153545633,
+      "center": {
+        "lat": -6.2383195,
+        "lon": 106.7981069
+      },
+      "nodes": [
+        12033397112,
+        12033397118,
+        12033397115,
+        12033397111,
+        12033397110,
+        12033397114,
+        12033397109,
+        12033397113,
+        12033397108,
+        12033397107,
+        12033397106,
+        12033397105,
+        12033397104,
+        12033397103,
+        12033397119,
+        12033397102,
+        12033397101,
+        12033397100,
+        12033397069,
+        12033397070,
+        12033397071,
+        12033397072,
+        12033397073,
+        12033397074,
+        12033397076,
+        12033397075
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299039819,
+      "timestamp": "2024-07-04T12:46:08Z",
+      "version": 1,
+      "changeset": 153545633,
+      "center": {
+        "lat": -6.2358013,
+        "lon": 106.7981816
+      },
+      "nodes": [
+        12033397082,
+        12033397077,
+        12033397083,
+        12033397084,
+        11368754222,
+        12033397085,
+        12033397086,
+        12033397087,
+        12033397088,
+        12033397089,
+        12033397090,
+        12033397091
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299039825,
+      "timestamp": "2024-07-04T12:46:08Z",
+      "version": 1,
+      "changeset": 153545633,
+      "center": {
+        "lat": -6.2417803,
+        "lon": 106.7975641
+      },
+      "nodes": [
+        12033397144,
+        12033397143,
+        12033397145,
+        12033397142,
+        12033397141,
+        12033397140,
+        12033397139,
+        12033397138,
+        12033397137,
+        12033397136,
+        12033397135,
+        12033397148,
+        12033397134,
+        12033397133,
+        12033397147,
+        12033397146,
+        12033397122,
+        12033397123,
+        12033397124,
+        12033397125,
+        12033397126,
+        12033397121,
+        12033397127,
+        12033397130,
+        12033397128,
+        12033397129
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299039826,
+      "timestamp": "2026-03-12T18:03:06Z",
+      "version": 2,
+      "changeset": 179770314,
+      "center": {
+        "lat": -6.241166,
+        "lon": 106.7990291
+      },
+      "nodes": [
+        12033397149,
+        12033397152,
+        12033397153,
+        12033397164,
+        12033397154,
+        12033397155,
+        12033397156,
+        13641883176,
+        12033397157,
+        12033397166,
+        12033397158,
+        12033397159,
+        12033397160,
+        12033397161,
+        12033397162,
+        12033397198,
+        12033397163
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299039829,
+      "timestamp": "2024-07-04T12:46:08Z",
+      "version": 1,
+      "changeset": 153545633,
+      "center": {
+        "lat": -6.2425799,
+        "lon": 106.7988613
+      },
+      "nodes": [
+        12033397183,
+        12033397199,
+        12033397184,
+        12033397185,
+        12033397186,
+        12033397187,
+        12033397180,
+        12033397188
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299042497,
+      "timestamp": "2024-07-04T12:58:11Z",
+      "version": 1,
+      "changeset": 153546360,
+      "center": {
+        "lat": -6.2309263,
+        "lon": 106.7983425
+      },
+      "nodes": [
+        12033422772,
+        12033375359,
+        12033422773,
+        12033375360,
+        12033422774,
+        12033422775,
+        12033422776,
+        12033422777,
+        12033422769,
+        12033422778,
+        12033422779,
+        12033422780,
+        12033422781,
+        12033422802,
+        12033422782,
+        12033422783,
+        12033422784,
+        12033422785,
+        12033422803,
+        12033422786,
+        12033422787,
+        12033422788,
+        12033422789,
+        12033422790,
+        12033422804,
+        12033422791,
+        12033422792,
+        12033422793,
+        12033422794,
+        12033422795,
+        12033422805,
+        12033422796,
+        12033422797,
+        12033422798,
+        12033422799,
+        12033422800
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299051674,
+      "timestamp": "2026-03-17T09:39:24Z",
+      "version": 2,
+      "changeset": 179994514,
+      "center": {
+        "lat": -6.2441241,
+        "lon": 106.7990999
+      },
+      "nodes": [
+        12033475898,
+        12033475892,
+        12033475897,
+        12033475893,
+        12033475886,
+        12033475896,
+        12033475894,
+        12033475895,
+        12033475904
+      ],
+      "tags": {
+        "foot": "yes",
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299051676,
+      "timestamp": "2024-07-04T13:24:58Z",
+      "version": 1,
+      "changeset": 153548102,
+      "center": {
+        "lat": -6.2451514,
+        "lon": 106.798471
+      },
+      "nodes": [
+        12033475905,
+        12033475903,
+        12033475899,
+        12033475900,
+        12033475906,
+        12033475907,
+        12033475908,
+        12033475909,
+        12033475910,
+        12033475913,
+        12033475914,
+        12033475911,
+        12033475912
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299051677,
+      "timestamp": "2024-07-04T13:24:58Z",
+      "version": 1,
+      "changeset": 153548102,
+      "center": {
+        "lat": -6.2444482,
+        "lon": 106.7982723
+      },
+      "nodes": [
+        12033475904,
+        12033475901,
+        12033475902,
+        12033475905
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "footway": "crossing",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299051687,
+      "timestamp": "2024-07-04T13:24:58Z",
+      "version": 1,
+      "changeset": 153548102,
+      "center": {
+        "lat": -6.2441527,
+        "lon": 106.7979385
+      },
+      "nodes": [
+        12033476980,
+        12033477005,
+        12033477000,
+        12033476981,
+        12033476994,
+        12033476993,
+        12033476983,
+        12033477015,
+        12033476982,
+        12033477006,
+        12033477007,
+        12033477008,
+        12033477009,
+        12033477010,
+        12033477011,
+        12033477012
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299089704,
+      "timestamp": "2024-07-04T17:10:17Z",
+      "version": 1,
+      "changeset": 153557136,
+      "center": {
+        "lat": -6.257128,
+        "lon": 106.7975203
+      },
+      "nodes": [
+        12033813702,
+        12033813703,
+        12033813729,
+        12033813722,
+        12033813723,
+        12033813724,
+        12033813725,
+        12033813726,
+        12033813727,
+        12033813728
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299995679,
+      "timestamp": "2024-07-08T13:21:44Z",
+      "version": 1,
+      "changeset": 153704102,
+      "center": {
+        "lat": -6.2666128,
+        "lon": 106.7974625
+      },
+      "nodes": [
+        12041655703,
+        12041655714,
+        12041655708,
+        12041655701,
+        12041655720,
+        12041655704,
+        12041655705,
+        12041655702,
+        12041655721,
+        12041655729,
+        12041655724,
+        12041655723,
+        12041655725,
+        12041655722
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299995680,
+      "timestamp": "2024-07-08T13:21:44Z",
+      "version": 1,
+      "changeset": 153704102,
+      "center": {
+        "lat": -6.2648068,
+        "lon": 106.797641
+      },
+      "nodes": [
+        12041657683,
+        12041657686,
+        12041657682,
+        12041657681,
+        12041657680,
+        12041657679,
+        12041657684,
+        12041657678,
+        12041657677,
+        12041657676,
+        12041657675,
+        12041657674,
+        12041657673,
+        9523386921,
+        12041657670,
+        12041657669,
+        12041655717
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299995681,
+      "timestamp": "2024-07-08T13:21:44Z",
+      "version": 1,
+      "changeset": 153704102,
+      "center": {
+        "lat": -6.2659587,
+        "lon": 106.7975139
+      },
+      "nodes": [
+        12041655709,
+        12041655715,
+        12041655703
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "footway": "crossing",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299995687,
+      "timestamp": "2024-07-08T13:21:44Z",
+      "version": 1,
+      "changeset": 153704102,
+      "center": {
+        "lat": -6.2695376,
+        "lon": 106.7975449
+      },
+      "nodes": [
+        12041655726,
+        12041655734,
+        12041655735,
+        12041655745,
+        12041655740,
+        12041655736,
+        12041655737,
+        12041655738,
+        12041655739,
+        12041655741,
+        12041655742,
+        12041655744,
+        12041655743,
+        12041655749,
+        12041655747,
+        12041655762,
+        12041655748,
+        12041655753,
+        12041655754,
+        12041655763,
+        12041655755,
+        12041655764,
+        12041655756,
+        12041655757,
+        12041655765,
+        12041655758,
+        12041655766,
+        12041655759,
+        12041655767,
+        12041655768,
+        12041655760,
+        12041655761
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299995689,
+      "timestamp": "2024-07-08T13:21:44Z",
+      "version": 1,
+      "changeset": 153704102,
+      "center": {
+        "lat": -6.2658698,
+        "lon": 106.7975218
+      },
+      "nodes": [
+        12041655716,
+        12041657716,
+        12041655713,
+        12041655712,
+        12041655711,
+        12041655710,
+        12041655709
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299995690,
+      "timestamp": "2024-07-08T13:21:44Z",
+      "version": 1,
+      "changeset": 153704102,
+      "center": {
+        "lat": -6.2657204,
+        "lon": 106.7975112
+      },
+      "nodes": [
+        12041655717,
+        12041657671,
+        12041655716
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "footway": "crossing",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299995692,
+      "timestamp": "2026-04-18T06:35:16Z",
+      "version": 2,
+      "changeset": 181485073,
+      "center": {
+        "lat": -6.2666024,
+        "lon": 106.7972142
+      },
+      "nodes": [
+        12041657707,
+        12041657706,
+        12041657705,
+        12041655687,
+        13739242082,
+        12041657693,
+        12041657692,
+        12041657694,
+        12041657695
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1299995694,
+      "timestamp": "2024-07-08T15:43:09Z",
+      "version": 2,
+      "changeset": 153709539,
+      "center": {
+        "lat": -6.2724038,
+        "lon": 106.7973956
+      },
+      "nodes": [
+        12041657696,
+        12041657698,
+        12041657699,
+        12041657700,
+        12041657701,
+        12041657702,
+        12041657703,
+        12041657704,
+        12041657741,
+        12041657742,
+        12041657731,
+        12041655750,
+        12041657732,
+        12041657733,
+        12041657734,
+        12041657743,
+        12041657735,
+        12041657736,
+        12041657737,
+        12041657744,
+        12041657738,
+        12041657745,
+        12041657739,
+        12041657746,
+        12041657740,
+        12041984739,
+        12041984744,
+        12041984745,
+        12041984746,
+        12041984738,
+        12041984747,
+        12041984740,
+        12041984748,
+        12041984749,
+        12041984741,
+        12041984750,
+        12041984742,
+        12041984845,
+        12041984743,
+        12041984802,
+        12041984733,
+        12041984736,
+        12041984732,
+        7488648188,
+        12041984731,
+        12041984730,
+        12041984737,
+        12041984727,
+        12041984734,
+        12041984726,
+        12041984725,
+        12041984735,
+        12041984724,
+        12041984723,
+        12041984728
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1300045447,
+      "timestamp": "2024-07-08T15:43:09Z",
+      "version": 1,
+      "changeset": 153709539,
+      "center": {
+        "lat": -6.2805194,
+        "lon": 106.7965076
+      },
+      "nodes": [
+        12041984763,
+        12041984762,
+        12041984761,
+        12041984760,
+        12041984765,
+        12041984764,
+        12041984759,
+        12041984854,
+        12041984766,
+        12041984769,
+        12041984758,
+        12041984768,
+        12041984767,
+        12041984757,
+        12041984756,
+        12041984755,
+        12041984770,
+        12041984754,
+        12041984771,
+        12041984753,
+        12041984752,
+        12041984751,
+        12041984692,
+        12041984693,
+        12041984694,
+        12041984695,
+        12041984699,
+        12041984696
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1300045448,
+      "timestamp": "2024-07-08T15:43:09Z",
+      "version": 1,
+      "changeset": 153709539,
+      "center": {
+        "lat": -6.2782022,
+        "lon": 106.797251
+      },
+      "nodes": [
+        12041984729,
+        12041984722,
+        12041984721,
+        12041984720,
+        12041984702,
+        12041984708,
+        12041984715,
+        12041984712,
+        12041984697,
+        12041984700,
+        12041984691
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1300045459,
+      "timestamp": "2024-07-08T15:43:09Z",
+      "version": 1,
+      "changeset": 153709539,
+      "center": {
+        "lat": -6.2775324,
+        "lon": 106.7974247
+      },
+      "nodes": [
+        12041984728,
+        12041984686,
+        12041984729
+      ],
+      "tags": {
+        "crossing": "uncontrolled",
+        "crossing:markings": "yes",
+        "footway": "crossing",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1300045462,
+      "timestamp": "2024-07-08T15:43:09Z",
+      "version": 1,
+      "changeset": 153709539,
+      "center": {
+        "lat": -6.2773893,
+        "lon": 106.7978255
+      },
+      "nodes": [
+        12041984775,
+        12041984822,
+        12041984776,
+        12041984777,
+        12041984778,
+        12041984779,
+        12041984780,
+        12041984804,
+        12041984781,
+        12041984782,
+        12041984783
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1300045464,
+      "timestamp": "2024-07-08T15:43:09Z",
+      "version": 1,
+      "changeset": 153709539,
+      "center": {
+        "lat": -6.2783694,
+        "lon": 106.7974611
+      },
+      "nodes": [
+        12041984784,
+        12041984786,
+        12041984787,
+        12041984820,
+        12041984821,
+        12041984812,
+        12041984810,
+        12041984788,
+        12041984789,
+        12041984790
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1300045466,
+      "timestamp": "2024-07-08T15:43:09Z",
+      "version": 1,
+      "changeset": 153709539,
+      "center": {
+        "lat": -6.2791962,
+        "lon": 106.7972714
+      },
+      "nodes": [
+        12041984791,
+        12041984792,
+        12041984795,
+        12041984793
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1300045468,
+      "timestamp": "2024-07-08T15:43:09Z",
+      "version": 1,
+      "changeset": 153709539,
+      "center": {
+        "lat": -6.2799225,
+        "lon": 106.79711
+      },
+      "nodes": [
+        12041984797,
+        12041984794,
+        12041984798,
+        12041984801,
+        12041984799,
+        12041984800,
+        12041984855,
+        12041984847,
+        12041984848
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1300045481,
+      "timestamp": "2024-07-08T15:43:09Z",
+      "version": 1,
+      "changeset": 153709539,
+      "center": {
+        "lat": -6.2744521,
+        "lon": 106.7978229
+      },
+      "nodes": [
+        12041984825,
+        12041984823,
+        12041984826,
+        12041984827,
+        12041984828,
+        12041984829,
+        12041984830,
+        12041984831,
+        12041984803,
+        12041984832,
+        12041984843,
+        12041984833,
+        12041984834,
+        12041984842,
+        12041984835,
+        12041984836,
+        12041984841,
+        12041984840,
+        12041984837,
+        12041984839,
+        12041984838,
+        12041655761
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1308095368,
+      "timestamp": "2024-08-16T07:06:47Z",
+      "version": 1,
+      "changeset": 155312623,
+      "center": {
+        "lat": -6.2427698,
+        "lon": 107.0017961
+      },
+      "nodes": [
+        12114143999,
+        12114182405,
+        12114182406,
+        12114144000,
+        12114182401,
+        12114182402,
+        12114182403,
+        12114182404,
+        12114143999
+      ],
+      "tags": {
+        "addr:city": "Kota Bekasi",
+        "addr:province": "Jawa Barat",
+        "addr:street": "Jalan Mayor Oking",
+        "building": "hospital",
+        "building:levels": "7",
+        "name": "Gedung F RSUD Kota Bekasi",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1314070488,
+      "timestamp": "2024-09-08T00:35:43Z",
+      "version": 1,
+      "changeset": 156332709,
+      "center": {
+        "lat": -6.2169672,
+        "lon": 106.8067573
+      },
+      "nodes": [
+        12162673950,
+        12162673954,
+        12162673948,
+        12162673959,
+        12162673950
+      ],
+      "tags": {
+        "amenity": "shelter",
+        "bench": "yes",
+        "bin": "yes",
+        "building": "yes",
+        "check_date": "2024-09-08",
+        "lit": "yes",
+        "shelter_type": "public_transport",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1318828528,
+      "timestamp": "2025-11-27T20:45:20Z",
+      "version": 8,
+      "changeset": 175214749,
+      "center": {
+        "lat": -6.3033703,
+        "lon": 107.2775166
+      },
+      "nodes": [
+        12205373753,
+        13161726934,
+        13161726935,
+        13161707481,
+        13161707480,
+        13161707477,
+        13161707478,
+        13161707479,
+        13161707476,
+        13161707475,
+        12205373754,
+        12205373755,
+        12205373756,
+        12205373753
+      ],
+      "tags": {
+        "building": "hotel",
+        "building:colour": "#47c8ff",
+        "height": "110",
+        "internet_access": "yes",
+        "name": "Resinda Hotel Karawang",
+        "phone": "+62 267 8622000",
+        "stars": "4",
+        "swimming_pool": "outdoor",
+        "tourism": "hotel",
+        "website": "https://resindahotel.com/",
+        "wheelchair": "designated"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1366780765,
+      "timestamp": "2025-03-13T10:18:32Z",
+      "version": 1,
+      "changeset": 163563241,
+      "center": {
+        "lat": -6.1778846,
+        "lon": 106.8255644
+      },
+      "nodes": [
+        10792535501,
+        10914199612,
+        10792535459
+      ],
+      "tags": {
+        "access": "yes",
+        "bicycle": "no",
+        "foot": "designated",
+        "highway": "footway",
+        "horse": "unknown",
+        "motor_vehicle": "no",
+        "source": "gps;07-04-2023 Monas Survey;osm notes",
+        "surface": "paving_stones",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1368999005,
+      "timestamp": "2025-05-19T09:38:10Z",
+      "version": 2,
+      "changeset": 166466458,
+      "center": {
+        "lat": -6.3444444,
+        "lon": 106.7357191
+      },
+      "nodes": [
+        12679532870,
+        12679532871,
+        12848523692,
+        12848523695,
+        12679532872,
+        12679532873,
+        12679532878,
+        12679532874,
+        12679532875,
+        12679532884,
+        12679532876,
+        12848523691,
+        12679532877,
+        12848523682,
+        12679532870
+      ],
+      "tags": {
+        "building": "yes",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1368999007,
+      "timestamp": "2025-05-19T09:38:10Z",
+      "version": 2,
+      "changeset": 166466458,
+      "center": {
+        "lat": -6.3443931,
+        "lon": 106.7359013
+      },
+      "nodes": [
+        12679532880,
+        12679532882,
+        12679532883,
+        12848523697,
+        12848523684,
+        12679532881,
+        12679532880
+      ],
+      "tags": {
+        "building": "yes",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1375152885,
+      "timestamp": "2025-05-07T09:02:38Z",
+      "version": 2,
+      "changeset": 165928098,
+      "center": {
+        "lat": -6.2610072,
+        "lon": 107.2745156
+      },
+      "nodes": [
+        12732370066,
+        12732370065
+      ],
+      "tags": {
+        "ferry": "unclassified",
+        "ferry:cable": "yes",
+        "foot": "yes",
+        "motor_vehicle": "no",
+        "route": "ferry",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1375152888,
+      "timestamp": "2025-05-07T09:01:52Z",
+      "version": 2,
+      "changeset": 165928038,
+      "center": {
+        "lat": -6.2464568,
+        "lon": 107.2753455
+      },
+      "nodes": [
+        12732370071,
+        12732370070
+      ],
+      "tags": {
+        "ferry": "unclassified",
+        "ferry:cable": "yes",
+        "foot": "yes",
+        "motor_vehicle": "no",
+        "route": "ferry",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1375152891,
+      "timestamp": "2025-05-07T09:01:29Z",
+      "version": 2,
+      "changeset": 165928023,
+      "center": {
+        "lat": -6.2491541,
+        "lon": 107.2763398
+      },
+      "nodes": [
+        12732370077,
+        12732370076
+      ],
+      "tags": {
+        "ferry": "unclassified",
+        "ferry:cable": "yes",
+        "foot": "yes",
+        "motor_vehicle": "no",
+        "route": "ferry",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1375152895,
+      "timestamp": "2025-05-07T09:00:56Z",
+      "version": 2,
+      "changeset": 165928007,
+      "center": {
+        "lat": -6.2549298,
+        "lon": 107.2774156
+      },
+      "nodes": [
+        12732370083,
+        12732370082
+      ],
+      "tags": {
+        "ferry": "unclassified",
+        "ferry:cable": "yes",
+        "foot": "yes",
+        "motor_vehicle": "no",
+        "route": "ferry",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1375152897,
+      "timestamp": "2025-05-07T09:00:09Z",
+      "version": 2,
+      "changeset": 165927979,
+      "center": {
+        "lat": -6.2567042,
+        "lon": 107.2749549
+      },
+      "nodes": [
+        12732370097,
+        12732370089
+      ],
+      "tags": {
+        "ferry": "unclassified",
+        "ferry:cable": "yes",
+        "foot": "yes",
+        "motor_vehicle": "no",
+        "route": "ferry",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1386035291,
+      "timestamp": "2025-05-13T06:26:53Z",
+      "version": 2,
+      "changeset": 166185015,
+      "center": {
+        "lat": -6.388603,
+        "lon": 106.7509192
+      },
+      "nodes": [
+        12832927164,
+        12832927165
+      ],
+      "tags": {
+        "bicycle": "no",
+        "bridge": "yes",
+        "highway": "footway",
+        "horse": "no",
+        "layer": "1",
+        "motor_vehicle": "no",
+        "name": "Jembatan Juara Situ 7 Muara",
+        "surface": "metal",
+        "wheelchair": "yes",
+        "width": "2"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1386035292,
+      "timestamp": "2025-05-13T06:26:53Z",
+      "version": 2,
+      "changeset": 166185015,
+      "center": {
+        "lat": -6.388224,
+        "lon": 106.7503205
+      },
+      "nodes": [
+        12832927164,
+        12832927166,
+        12832927167
+      ],
+      "tags": {
+        "highway": "footway",
+        "incline": "10%",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1386042923,
+      "timestamp": "2025-05-13T06:26:53Z",
+      "version": 1,
+      "changeset": 166185015,
+      "center": {
+        "lat": -6.3899839,
+        "lon": 106.7522293
+      },
+      "nodes": [
+        12832982904,
+        12832982905,
+        12832982906,
+        12832982907,
+        12832982908,
+        12832982909
+      ],
+      "tags": {
+        "highway": "footway",
+        "incline": "5%",
+        "surface": "concrete",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1388141204,
+      "timestamp": "2025-11-03T03:23:58Z",
+      "version": 3,
+      "changeset": 174129347,
+      "center": {
+        "lat": -6.3442357,
+        "lon": 106.7343185
+      },
+      "nodes": [
+        4243851096,
+        3057084885,
+        12832988095,
+        12832988096,
+        12832997301,
+        12850087249,
+        4243851096
+      ],
+      "tags": {
+        "air_conditioning": "yes",
+        "amenity": "place_of_worship",
+        "level": "2",
+        "name": "Masjid Agung Al-Mujahidin",
+        "parking": "surface",
+        "religion": "muslim",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1389275311,
+      "timestamp": "2025-05-27T13:35:15Z",
+      "version": 2,
+      "changeset": 166827667,
+      "center": {
+        "lat": -6.213266,
+        "lon": 106.8019261
+      },
+      "nodes": [
+        12860563567,
+        12866747881,
+        5388382805
+      ],
+      "tags": {
+        "bicycle": "yes",
+        "foot": "yes",
+        "highway": "service",
+        "motorcar": "no",
+        "motorcycle": "yes",
+        "service": "parking_aisle",
+        "surface": "asphalt",
+        "vehicle": "no",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1389275314,
+      "timestamp": "2025-05-27T13:35:15Z",
+      "version": 2,
+      "changeset": 166827667,
+      "center": {
+        "lat": -6.2132096,
+        "lon": 106.8022431
+      },
+      "nodes": [
+        5388382805,
+        12860563591
+      ],
+      "tags": {
+        "bicycle": "yes",
+        "foot": "yes",
+        "highway": "service",
+        "motorcar": "no",
+        "motorcycle": "yes",
+        "service": "parking_aisle",
+        "vehicle": "no",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1390073984,
+      "timestamp": "2025-05-27T13:35:15Z",
+      "version": 1,
+      "changeset": 166827667,
+      "center": {
+        "lat": -6.2132188,
+        "lon": 106.8020889
+      },
+      "nodes": [
+        5388382805,
+        12860563564
+      ],
+      "tags": {
+        "bicycle": "yes",
+        "foot": "yes",
+        "highway": "service",
+        "motorcar": "no",
+        "motorcycle": "yes",
+        "surface": "asphalt",
+        "vehicle": "no",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1390073985,
+      "timestamp": "2025-05-28T00:24:15Z",
+      "version": 2,
+      "changeset": 166847705,
+      "center": {
+        "lat": -6.2131885,
+        "lon": 106.802132
+      },
+      "nodes": [
+        12860563564,
+        12860563427,
+        12860563428
+      ],
+      "tags": {
+        "bicycle": "yes",
+        "foot": "yes",
+        "highway": "service",
+        "motorcar": "no",
+        "motorcycle": "yes",
+        "surface": "asphalt",
+        "vehicle": "no",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1394541620,
+      "timestamp": "2025-06-12T12:49:25Z",
+      "version": 1,
+      "changeset": 167532462,
+      "center": {
+        "lat": -6.1731,
+        "lon": 107.0555271
+      },
+      "nodes": [
+        12909399696,
+        12909399697,
+        12909399698,
+        12909399699,
+        12909399696
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "toilets",
+        "building": "yes",
+        "female": "yes",
+        "layer": "1",
+        "male": "yes",
+        "toilets:disposal": "flush",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1395012752,
+      "timestamp": "2025-06-13T15:25:12Z",
+      "version": 1,
+      "changeset": 167580456,
+      "center": {
+        "lat": -6.1685571,
+        "lon": 107.0565277
+      },
+      "nodes": [
+        12912817393,
+        12912817394,
+        12912817395,
+        12912817396,
+        12912817393
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "toilets",
+        "building": "yes",
+        "name": "Toilet Umum Danisa",
+        "operator": "Damai Putra Group",
+        "surface": "paved",
+        "toilets:disposal": "flush",
+        "unisex": "yes",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1396666331,
+      "timestamp": "2025-06-19T19:07:28Z",
+      "version": 1,
+      "changeset": 167841471,
+      "center": {
+        "lat": -6.2252857,
+        "lon": 106.9622674
+      },
+      "nodes": [
+        12926403479,
+        12926403480,
+        12926403481,
+        12926403482,
+        12926403483,
+        12926403484,
+        12926403485,
+        12926403486,
+        12926403479
+      ],
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "yes",
+        "name": "Masjid Jami Al-Hidayah",
+        "religion": "muslim",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1396666334,
+      "timestamp": "2025-06-19T19:07:28Z",
+      "version": 1,
+      "changeset": 167841471,
+      "center": {
+        "lat": -6.2306671,
+        "lon": 106.9598314
+      },
+      "nodes": [
+        12926403495,
+        12926403496,
+        12926403497,
+        12926403498,
+        12926403495
+      ],
+      "tags": {
+        "amenity": "police",
+        "building": "yes",
+        "name": "Kantor Polisi Subsektor Bintara",
+        "opening_hours": "24/7",
+        "operator": "Kepolisian Negara Republik Indonesia",
+        "operator:en": "Indonesian National Police",
+        "operator:id": "Kepolisian Negara Republik Indonesia",
+        "operator:short": "POLRI",
+        "operator:wikidata": "Q3103954",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1409678178,
+      "timestamp": "2025-06-26T07:20:59Z",
+      "version": 1,
+      "changeset": 168125076,
+      "center": {
+        "lat": -6.066331,
+        "lon": 106.6982842
+      },
+      "nodes": [
+        12953459468,
+        12953459471,
+        12953459470,
+        12953459469,
+        12953459468
+      ],
+      "tags": {
+        "access": "yes",
+        "amenity": "toilets",
+        "building": "yes",
+        "fee": "no",
+        "female": "yes",
+        "male": "yes",
+        "toilets:disposal": "flush",
+        "toilets:position": "seated;urinal",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1410823225,
+      "timestamp": "2025-06-30T04:29:27Z",
+      "version": 1,
+      "changeset": 168290597,
+      "center": {
+        "lat": -6.374556,
+        "lon": 106.7686808
+      },
+      "nodes": [
+        12963741617,
+        12963741618
+      ],
+      "tags": {
+        "access": "no",
+        "barrier": "gate",
+        "motor_vehicle": "no",
+        "motorcar": "no",
+        "motorcycle": "no",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1455973878,
+      "timestamp": "2025-12-06T12:16:22Z",
+      "version": 2,
+      "changeset": 175583293,
+      "center": {
+        "lat": -6.2465322,
+        "lon": 106.8695248
+      },
+      "nodes": [
+        13353056953,
+        13353056954,
+        13353056955,
+        13353056956,
+        13357407878,
+        13357407879,
+        13357407880,
+        13357407881,
+        13353056953
+      ],
+      "tags": {
+        "addr:city": "Jakarta Timur",
+        "addr:province": "DKI Jakarta",
+        "building": "hospital",
+        "check_date": "2025-12-04",
+        "layer": "2",
+        "name": "Gedung C Rumah Sakit Pusat Otak Nasional Prof. Dr. dr. Mahar Mardjono Jakarta",
+        "short_name": "RSPON",
+        "website": "http://www.rspon.co.id/",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1455973879,
+      "timestamp": "2026-02-18T20:18:31Z",
+      "version": 5,
+      "changeset": 178741928,
+      "center": {
+        "lat": -6.24607,
+        "lon": 106.8690479
+      },
+      "nodes": [
+        13577476358,
+        13353056959,
+        13380354674,
+        13353056961,
+        13353056962,
+        13577867027,
+        13577867031,
+        13577867030,
+        13577867028,
+        13577867029,
+        13353056963,
+        13577476358
+      ],
+      "tags": {
+        "addr:city": "Jakarta Timur",
+        "building": "hospital",
+        "building:levels": "11",
+        "check_date": "2025-12-04",
+        "name": "Gedung D Rumah Sakit Pusat Otak Nasional Prof. Dr. dr. Mahar Mardjono Jakarta",
+        "short_name": "RSPON",
+        "website": "http://www.rspon.co.id/",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1458983149,
+      "timestamp": "2025-12-16T10:13:08Z",
+      "version": 1,
+      "changeset": 175997513,
+      "center": {
+        "lat": -6.3327893,
+        "lon": 107.3096356
+      },
+      "nodes": [
+        13380726614,
+        13380726615
+      ],
+      "tags": {
+        "barrier": "gate",
+        "bicycle": "yes",
+        "foot": "yes",
+        "horse": "yes",
+        "material": "metal",
+        "maxspeed": "30",
+        "motor_vehicle": "yes",
+        "oneway": "no",
+        "opening_hours": "Mo-Su 07:00-23:00",
+        "surface": "asphalt",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1463849085,
+      "timestamp": "2026-06-22T07:38:40Z",
+      "version": 4,
+      "changeset": 184418874,
+      "center": {
+        "lat": -6.1268583,
+        "lon": 106.7049449
+      },
+      "nodes": [
+        5088118295,
+        5088118294,
+        13427916992,
+        13427916993,
+        13623545754,
+        5088118295
+      ],
+      "tags": {
+        "addr:city": "Jakarta Barat",
+        "addr:district": "Kalideres",
+        "addr:housenumber": "A1 No 9",
+        "addr:postcode": "11830",
+        "addr:province": "Jakarta",
+        "addr:street": "Jalan Palem Raja Utama",
+        "addr:subdistrict": "Pegadungan",
+        "air_conditioning": "yes",
+        "alt_name": "Unicare Aesthetic Clinic",
+        "amenity": "clinic",
+        "building": "yes",
+        "email": "marketing@unicareaesthetic.com",
+        "healthcare": "clinic",
+        "healthcare:counselling": "pyschiatrist",
+        "healthcare:speciality": "aesthetics;psychiatry;dermatology;nutritionist",
+        "healthcare:speciality:de": "dermatologist",
+        "instagram": "unicareaesthetic",
+        "name": "Unicare Aesthetic And Wellness Clinic",
+        "opening_hours": "Mo-Su 10:00-21:00",
+        "operator": "Unicare Global Medika",
+        "operator:type": "private",
+        "payment:app": "yes",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "payment:mastercard": "yes",
+        "payment:visa": "yes",
+        "phone": "+62 851 7315 5211",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1484489276,
+      "timestamp": "2026-03-02T08:45:46Z",
+      "version": 1,
+      "changeset": 179242721,
+      "center": {
+        "lat": -6.3642235,
+        "lon": 106.9592734
+      },
+      "nodes": [
+        13611239674,
+        13611239675,
+        13611239676,
+        13611239677,
+        13611239678,
+        13611239679,
+        13611239674
+      ],
+      "tags": {
+        "addr:city": "Ciangsana",
+        "addr:province": "Jawa Barat",
+        "brand": "Hero Supermarket",
+        "brand:wikidata": "Q12485604",
+        "building": "yes",
+        "name": "Hero Supermarket",
+        "opening_hours": "Mo-Su 07:00-22:00",
+        "payment:app": "yes",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "shop": "supermarket",
+        "toilets": "yes",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1498819883,
+      "timestamp": "2026-04-12T15:30:37Z",
+      "version": 1,
+      "changeset": 181236614,
+      "center": {
+        "lat": -6.2340761,
+        "lon": 106.9690814
+      },
+      "nodes": [
+        13725517400,
+        13725517401,
+        13725517402,
+        13725517403,
+        13725517400
+      ],
+      "tags": {
+        "addr:city": "bekasi",
+        "addr:district": "bekasi barat",
+        "addr:housename": "Optik Melawai",
+        "addr:neighbourhood": "009",
+        "addr:province": "jawa barat",
+        "addr:street": "Jalan Bintara Raya",
+        "addr:subdistrict": "jakasamourna",
+        "building": "yes",
+        "name": "Optik melawai",
+        "opening_hours": "Mo-Su 09:00-22:00",
+        "shop": "optician",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1512783506,
+      "timestamp": "2026-05-13T02:06:10Z",
+      "version": 1,
+      "changeset": 182578928,
+      "center": {
+        "lat": -6.329302,
+        "lon": 106.6823705
+      },
+      "nodes": [
+        13822963536,
+        13822963537,
+        13822963538,
+        13822963539,
+        13822963540,
+        13822963541
+      ],
+      "tags": {
+        "highway": "path",
+        "incline": "up",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1512783507,
+      "timestamp": "2026-05-13T02:06:10Z",
+      "version": 1,
+      "changeset": 182578928,
+      "center": {
+        "lat": -6.3293734,
+        "lon": 106.6822213
+      },
+      "nodes": [
+        13822963482,
+        13822963542,
+        13822963543,
+        13822963544,
+        13822963545,
+        13822963546
+      ],
+      "tags": {
+        "highway": "path",
+        "incline": "up",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1512783508,
+      "timestamp": "2026-05-13T02:06:10Z",
+      "version": 1,
+      "changeset": 182578928,
+      "center": {
+        "lat": -6.3292592,
+        "lon": 106.6821476
+      },
+      "nodes": [
+        13822963495,
+        13822963547,
+        13822963548,
+        13822963549,
+        13822963550,
+        13822963551,
+        13822963552
+      ],
+      "tags": {
+        "highway": "path",
+        "incline": "up",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1514024005,
+      "timestamp": "2026-05-15T16:41:44Z",
+      "version": 1,
+      "changeset": 182708558,
+      "center": {
+        "lat": -6.1877969,
+        "lon": 106.8241004
+      },
+      "nodes": [
+        13831167886,
+        13831167885,
+        13831167883,
+        13831167891,
+        13831167882,
+        13831167881,
+        13831167867,
+        13831167868,
+        13831167869,
+        13831167801,
+        13831167871,
+        13831167865,
+        13831167870,
+        13831167872,
+        13831167839,
+        13831167873,
+        13831167874,
+        13831167878,
+        13831167879,
+        13831167880,
+        13831167877,
+        13831167875
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1514024007,
+      "timestamp": "2026-05-15T16:41:44Z",
+      "version": 1,
+      "changeset": 182708558,
+      "center": {
+        "lat": -6.1871603,
+        "lon": 106.8233236
+      },
+      "nodes": [
+        7119730436,
+        13831167867
+      ],
+      "tags": {
+        "footway": "sidewalk",
+        "highway": "footway",
+        "surface": "concrete",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1524070505,
+      "timestamp": "2026-05-28T15:44:13Z",
+      "version": 1,
+      "changeset": 183312209,
+      "center": {
+        "lat": -6.2099873,
+        "lon": 106.8506744
+      },
+      "nodes": [
+        9398103340,
+        9398103224
+      ],
+      "tags": {
+        "highway": "path",
+        "surface": "asphalt",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1528471073,
+      "timestamp": "2026-06-22T18:50:00Z",
+      "version": 2,
+      "changeset": 184445372,
+      "center": {
+        "lat": -6.1212226,
+        "lon": 106.8616239
+      },
+      "nodes": [
+        13958465121,
+        13928697850,
+        13928697851
+      ],
+      "tags": {
+        "bridge": "yes",
+        "highway": "footway",
+        "layer": "1",
+        "name": "JPO Bersama BTN",
+        "surface": "concrete",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1528471074,
+      "timestamp": "2026-06-22T18:50:00Z",
+      "version": 2,
+      "changeset": 184445372,
+      "center": {
+        "lat": -6.1197147,
+        "lon": 106.8617921
+      },
+      "nodes": [
+        13928697852,
+        13928697853,
+        13928697854,
+        13928697855,
+        9471206457
+      ],
+      "tags": {
+        "highway": "footway",
+        "surface": "paving_stones",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1531485674,
+      "timestamp": "2026-06-22T18:50:00Z",
+      "version": 1,
+      "changeset": 184445372,
+      "center": {
+        "lat": -6.1206746,
+        "lon": 106.8614241
+      },
+      "nodes": [
+        13928697851,
+        13928697852
+      ],
+      "tags": {
+        "bridge": "yes",
+        "highway": "footway",
+        "incline": "down",
+        "layer": "1",
+        "name": "JPO Bersama BTN",
+        "surface": "concrete",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1531485675,
+      "timestamp": "2026-06-22T18:50:00Z",
+      "version": 1,
+      "changeset": 184445372,
+      "center": {
+        "lat": -6.1216228,
+        "lon": 106.8613812
+      },
+      "nodes": [
+        11284504332,
+        13958465120,
+        13928697849,
+        13958465121
+      ],
+      "tags": {
+        "bridge": "yes",
+        "highway": "footway",
+        "incline": "up",
+        "layer": "1",
+        "name": "JPO Bersama BTN",
+        "surface": "concrete",
+        "tactile_paving": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1537505502,
+      "timestamp": "2026-07-11T16:20:55Z",
+      "version": 2,
+      "changeset": 185546450,
+      "center": {
+        "lat": -6.1370522,
+        "lon": 106.814528
+      },
+      "nodes": [
+        14004828661,
+        14004876022,
+        14004876023,
+        14004876024,
+        14004876025,
+        14004876026,
+        14004876027
+      ],
+      "tags": {
+        "access": "yes",
+        "highway": "steps",
+        "wheelchair": "designated"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1554920270,
+      "timestamp": "2026-09-04T01:14:43Z",
+      "version": 1,
+      "changeset": 188502725,
+      "center": {
+        "lat": -6.1622017,
+        "lon": 107.160724
+      },
+      "nodes": [
+        14145934346,
+        14145934347
+      ],
+      "tags": {
+        "access": "permit",
+        "barrier": "gate",
+        "colour": "Merah",
+        "horse": "no",
+        "material": "metal",
+        "operator": "Perumahan Sukamulya Park Residence",
+        "wheelchair": "yes"
+      }
+    }
+  ]
+}
