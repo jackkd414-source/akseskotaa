@@ -747,7 +747,7 @@ const handler = async (req, res) => {
 
 module.exports = handler;
 
-// Local development: start HTTP server
+// Start server locally (not on Vercel)
 if (!process.env.VERCEL) {
   const server = http.createServer(handler);
   server.listen(PORT, () => {
