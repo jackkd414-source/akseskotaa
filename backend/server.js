@@ -27,10 +27,10 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const ROOT = __dirname;
+const ROOT = path.join(__dirname, '..');
 const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
 const isVercel = !!process.env.VERCEL;
-const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : (isVercel ? '/tmp/akseskota' : path.join(ROOT, 'server-data'));
+const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : (isVercel ? '/tmp/akseskota' : path.join(__dirname, 'server-data'));
 const UPLOAD_DIR = path.join(DATA_DIR, 'uploads');
 const DB_JSON = path.join(DATA_DIR, 'akseskota.json');
 const SESSION_COOKIE = 'akseskota_session';
