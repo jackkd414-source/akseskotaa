@@ -121,12 +121,16 @@
 .topbar .btn.a11y-btn { margin-left: auto; }
 
 @media (max-width: 900px) {
+  /* Brand memegang ruang kosong (margin-right:auto) sehingga tombol
+     Aksesibilitas + hamburger selalu menempel di tepi kanan — mekanisme ini
+     lebih tangguh daripada margin-left:auto di elemen tengah. */
+  .brand { margin-right: auto; }
   .menu-btn { display: inline-flex; order: 2; margin-left: 0; }
   /* Panel aksesibilitas tetap bisa dibuka di layar kecil (fitur inti WCAG) */
   .topbar .btn.a11y-btn {
     display: inline-flex;
     order: 1;
-    margin-left: auto;
+    margin-left: 0;
     padding: 8px 12px;
     font-size: var(--step--1);
   }
