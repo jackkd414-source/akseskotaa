@@ -382,10 +382,8 @@ function businessStats() {
     for (const f of features) fc[f] = mine.length ? Math.round(mine.filter(r => (r.features || []).includes(f)).length / mine.length * 100) : 0;
     const coverage = features.reduce((s, f) => s + fc[f], 0) / features.length;
     const score = mine.length ? Math.round((avg / 5) * 60 + (coverage / 100) * 40) : 0;
-    let badge = 'bronze';
-    if (score >= 85) badge = 'platinum'; else if (score >= 70) badge = 'gold'; else if (score >= 50) badge = 'silver';
     const services = Array.isArray(b.services) ? b.services : [];
-    return { id: b.id, name: b.name, address: b.address, category: b.category, locationId: b.location_id, verified: !!b.verified, services, accessible: services.length > 0, lat: b.lat ?? null, lng: b.lng ?? null, score, avgRating: Number(avg.toFixed(1)), reviewCount: mine.length, badgeLevel: badge };
+    return { id: b.id, name: b.name, address: b.address, category: b.category, locationId: b.location_id, verified: !!b.verified, services, accessible: services.length > 0, lat: b.lat ?? null, lng: b.lng ?? null, score, avgRating: Number(avg.toFixed(1)), reviewCount: mine.length };
   }).sort((a, b) => b.score - a.score || b.reviewCount - a.reviewCount);
 }
 

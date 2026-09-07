@@ -14,8 +14,6 @@ const bizNameById = (id) => SERVER_BUSINESSES.find(b => b.locationId === id)?.na
 const $ = (s) => document.querySelector(s);
 const esc = (s) => { const d = document.createElement('div'); d.textContent = s ?? ''; return d.innerHTML; };
 
-const badgeIcons = { platinum:'P', gold:'G', silver:'S', bronze:'B' };
-const badgeLabels = { platinum: 'Platinum', gold: 'Emas', silver: 'Perak', bronze: 'Perunggu' };
 const trendIcons = { improving: 'Naik', declining: 'Turun', stable: 'Stabil' };
 const trendLabels = { improving: 'Berkembang', declining: 'Menurun', stable: 'Stabil' };
 
@@ -78,19 +76,17 @@ function renderLeaderboard() {
     noMsg.style.display = 'none';
     tbody.innerHTML = data.map((b, i) => {
         const rank = i + 1;
-        const badge = badgeIcons[b.badgeLevel] || 'B';
         const improvementStr = !isBest && b.improvement > 0 ? `+${b.improvement}` : '';
         const trendStr = trendIcons[b.trend] || '';
         return `<tr>
-            <td class="rank">${rank}</td>
-            <td>
+            <td data-label="Peringkat" class="rank">${rank}</td>
+            <td data-label="Usaha">
                 <strong>${esc(b.name)}</strong>${b.accessible ? ` <span class="biz-accessible-badge">Aksesibel</span>` : ''}
                 <small style="display:block;color:var(--muted)">${esc(categoryLabels[b.category] || b.category)}${b.services && b.services.length ? ' · ' + b.services.map(x => serviceLabels[x] || x).join(', ') : ''}</small>
             </td>
-            <td><span class="business-badge badge-${b.badgeLevel}">${badge} ${badgeLabels[b.badgeLevel]}</span></td>
-            <td><strong>${b.score}</strong> ${improvementStr ? `<small style="color:var(--green)">${improvementStr}</small>` : ''}</td>
-            <td><span style="color:var(--amber)">${renderStars(b.avgRating)}</span></td>
-            <td>${b.reviewCount} <small style="color:var(--muted)">${trendStr}</small></td>
+            <td data-label="Skor"><strong>${b.score}</strong> ${improvementStr ? `<small style="color:var(--green)">${improvementStr}</small>` : ''}</td>
+            <td data-label="Rating"><span style="color:var(--amber)">${renderStars(b.avgRating)}</span></td>
+            <td data-label="Review">${b.reviewCount} <small style="color:var(--muted)">${trendStr}</small></td>
         </tr>`;
     }).join('');
 }
@@ -127,7 +123,6 @@ function renderReviews() {
                     <strong>${esc(biz.name)}</strong>
                     <small style="display:block;color:var(--muted)">${biz.reviewCount} review · Rating rata-rata ${Number(biz.avgRating || 0).toFixed(1)}/5</small>
                 </div>
-                <span class="business-badge badge-${biz.badgeLevel || 'bronze'}">${badgeIcons[biz.badgeLevel || 'bronze']} ${badgeLabels[biz.badgeLevel || 'bronze']}</span>
             </div>
             <div class="review-card-features">
                 <p style="color:var(--muted);font-size:.9rem;margin:0">Skor aksesibilitas ${biz.score}/100 dari audit komunitas yang disetujui.</p>

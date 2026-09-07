@@ -13,7 +13,6 @@ try{rows=await fetchLeaderboard()}catch{}
 $('#leaderboard').innerHTML=rows.length?rows.map((x,i)=>`<tr><td class="rank">${i+1}</td><td><strong>${esc(x.name)}</strong></td><td>${x.count}</td><td>${x.points}</td></tr>`).join(''):'<tr><td colspan="4" class="empty">Belum ada kontribusi yang disetujui. Audit dengan nama Anda akan tampil di sini setelah lolos moderasi.</td></tr>';
 
 // Business mini leaderboard
-const bizBadge={platinum:'P',gold:'G',silver:'S',bronze:'B'};
 let bizLeaderboard=[];try{bizLeaderboard=(await fetchBusinesses())||[]}catch{}
 const bizBox=$('#business-mini-leaderboard');
-if(bizLeaderboard.length===0){bizBox.innerHTML='<p class="empty">Belum ada usaha terdaftar. <a href="business.html">Daftarkan usaha pertama</a></p>'}else{bizBox.innerHTML=`<table class="leader-table"><thead><tr><th>#</th><th>Usaha</th><th>Badge</th><th>Skor</th></tr></thead><tbody>${bizLeaderboard.slice(0,5).map((b,i)=>`<tr><td class="rank">${i+1}</td><td><strong>${b.name}</strong></td><td><span class="business-badge badge-${b.badgeLevel}">${bizBadge[b.badgeLevel]||'B'} ${b.badgeLevel==='platinum'?'Platinum':b.badgeLevel==='gold'?'Emas':b.badgeLevel==='silver'?'Perak':'Perunggu'}</span></td><td><strong>${b.score}</strong></td></tr>`).join('')}</tbody></table>`}
+if(bizLeaderboard.length===0){bizBox.innerHTML='<p class="empty">Belum ada usaha terdaftar. <a href="business.html">Daftarkan usaha pertama</a></p>'}else{bizBox.innerHTML=`<table class="leader-table"><thead><tr><th>#</th><th>Usaha</th><th>Skor</th></tr></thead><tbody>${bizLeaderboard.slice(0,5).map((b,i)=>`<tr><td data-label="#" class="rank">${i+1}</td><td data-label="Usaha"><strong>${b.name}</strong></td><td data-label="Skor"><strong>${b.score}</strong></td></tr>`).join('')}</tbody></table>`}

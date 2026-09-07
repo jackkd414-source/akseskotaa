@@ -53,7 +53,7 @@ AksesKota (gabungan kata *Akses* + *Kota*) menjawab masalah ini lewat tiga pende
 
 | SDG | Hubungan dengan AksesKota |
 |-----|--------------------------|
-| **SDG 8 — Pekerjaan Layak dan Pertumbuhan Ekonomi** | Fitur usaha aksesibel: pendaftaran usaha, badge aksesibilitas, leaderboard, dan review komunitas untuk mendorong inklusivitas ekonomi lokal. Usaha kecil yang ramah akses mendapat visibilitas lebih. |
+| **SDG 8 — Pekerjaan Layak dan Pertumbuhan Ekonomi** | Fitur usaha aksesibel: pendaftaran usaha, leaderboard skor aksesibilitas, dan review komunitas untuk mendorong inklusivitas ekonomi lokal. Usaha kecil yang ramah akses mendapat visibilitas lebih. |
 | **SDG 9 — Industri, Inovasi, dan Infrastruktur** | Pemanfaatan data terbuka OpenStreetMap, Overpass API, dan Valhalla routing untuk memetakan infrastruktur aksesibel secara otomatis. Arsitektur web ringan (tanpa framework berat) yang bisa jalan di smartphone murah. |
 | **SDG 11 — Kota dan Komunitas Berkelanjutan** | Memetakan infrastruktur mobilitas bebas hambatan di hub transit dan ruang komersial Jakarta–Bekasi. Membantu warga merencanakan rute yang bisa diakses dan mengidentifikasi kesenjangan infrastruktur. |
 
@@ -190,16 +190,9 @@ Platform untuk usaha kecil mendapat visibilitas dan bersaing berdasarkan aksesib
 4. **Koordinat lokasi (opsional)** — isi latitude/longitude manual atau tekan **"Pakai lokasi saya"** untuk mengisi otomatis dari GPS. Keduanya boleh dikosongkan.
 5. Submit. Usaha muncul di peta dan leaderboard.
 
-**Sistem skor & badge:**
+**Sistem skor:**
 
-| Badge | Skor minimum | Keterangan |
-|-------|-------------|------------|
-| Platinum | 85+ | Aksesibilitas kelas dunia |
-| Emas | 70+ | Sangat aksesibel |
-| Perak | 50+ | Cukup aksesibel |
-| Perunggu | <50 | Mulai meningkatkan akses |
-
-Skor dihitung dari: rating rata-rata review (60%) + ketersediaan fasilitas (40%). Badge diperbarui otomatis setiap kali usaha menerima review baru.
+Skor dihitung dari: rating rata-rata review (60%) + ketersediaan fasilitas (40%). Usaha dengan layanan disabilitas ditandai **Aksesibel** dan masuk leaderboard.
 
 **Leaderboard usaha:**
 - **Skor Tertinggi** — Usaha dengan aksesibilitas terbaik.
@@ -455,7 +448,7 @@ User submit audit → Server simpan (status: pending) → Admin review
 ```
 Pengusaha daftar → Usaha muncul di peta + leaderboard
   → Komunitas audit lokasi usaha → Admin approve
-  → Review masuk ke usaha → Skor & badge diperbarui otomatis
+  → Review masuk ke usaha → Skor diperbarui otomatis
 ```
 
 ---
