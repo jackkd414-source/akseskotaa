@@ -152,9 +152,14 @@ Warga bisa melaporkan kondisi fasilitas aksesibel.
 
 Dashboard untuk mengelola seluruh data aplikasi.
 
+**Kredensial admin (demo/kompetisi):**
+- Email: `channkeiko916@gmail.com`
+- Kata sandi: `Nainggolan`
+- Kode akses: `AKSES2026`
+
 **Cara akses:**
 1. Buka `admin.html` atau klik **Admin** di navigasi (hanya muncul kalau sudah login sebagai admin).
-2. Login dengan email, kata sandi, dan kode akses admin.
+2. Login dengan email, kata sandi, dan kode akses admin di atas.
 
 **Yang bisa dilakukan admin:**
 

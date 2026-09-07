@@ -439,3 +439,61 @@
   }
   .activity-row { grid-template-columns: 1fr; gap: 2px; }
 }
+
+/* ============================================================
+   ADMIN — responsif layar kecil (konsol jadi kartu)
+   Tabel padat di desktop bertransformasi menjadi kartu per-record
+   di ponsel, dengan label tiap kolom di atas isinya.
+   ============================================================ */
+@media (max-width: 720px) {
+  /* Tabel → kartu: sembunyikan header, jadikan tiap baris kartu */
+  .admin-table { display: block; min-width: 0; }
+  .admin-table thead { display: none; }
+  .admin-table tbody, .admin-table tr, .admin-table td { display: block; width: 100%; }
+  .admin-table tr {
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--surface);
+    padding: var(--sp-3) var(--sp-4);
+    margin-bottom: var(--sp-3);
+    box-shadow: 0 1px 0 rgba(26, 33, 27, 0.04);
+  }
+  .admin-table tr:last-child { margin-bottom: 0; }
+  .admin-table td {
+    border: none;
+    padding: var(--sp-1) 0;
+    vertical-align: top;
+  }
+  .admin-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.66rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .admin-table td.empty::before { content: none; }
+  .admin-table td.empty { padding: var(--sp-4); text-align: center; }
+  .admin-table td .row-actions { justify-content: flex-start; }
+  .admin-table td .row-actions button,
+  .admin-table td .row-actions a { min-height: 44px; }
+  .admin-table td code { white-space: normal; }
+  .table-card { overflow: visible; }
+
+  /* Toolbar filter: kolom penuh, tidak meluber */
+  .admin-toolbar { flex-direction: column; align-items: stretch; }
+  .admin-toolbar input[type="search"],
+  .admin-toolbar select { width: 100%; min-width: 0; }
+
+  /* Judul halaman + tombol aksi utuh satu baris bila muat */
+  .admin-heading { align-items: center; }
+  .admin-heading h2 { font-size: var(--step-1); }
+}
+
+/* Kartu di ponsel: kuatkan pemisah antar record */
+@media (max-width: 720px) {
+  .admin-nav { gap: var(--sp-1); }
+  .admin-nav-item { padding: 9px 12px; }
+}
