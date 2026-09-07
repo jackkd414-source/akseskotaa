@@ -1,4 +1,4 @@
-import { shell, footer, initShell, initLogout, loadVenues, categories, initAnimations } from './core.js?v=24';
+import { shell, footer, initShell, initLogout, loadVenues, categories, initAnimations } from './core.js?v=25';
 import { fetchBusinesses, registerBusiness as apiRegisterBusiness, fetchMe } from './api.js?v=6';
 
 /* ---------- Shell ---------- */

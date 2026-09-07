@@ -1,4 +1,4 @@
-import { shell, footer, initShell, initLogout, initAnimations } from './core.js?v=24';
+import { shell, footer, initShell, initLogout, initAnimations } from './core.js?v=25';
 import {
   registerUser,
   loginUser,
@@ -36,6 +36,16 @@ function showError(msg) {
 
 function hideError() {
   errorBox.hidden = true;
+}
+
+// Tampilkan pesan error asli dari server (mis. "Email atau kata sandi salah.",
+// "Kesalahan server.") daripada pesan generik yang menyesatkan.
+function describeError(err) {
+  if (!err) return 'Terjadi kesalahan. Silakan coba lagi.';
+  if (err instanceof TypeError && /fetch|network/i.test(err.message)) {
+    return 'Tidak dapat terhubung ke server. Periksa koneksi internet.';
+  }
+  return err.message || 'Terjadi kesalahan. Silakan coba lagi.';
 }
 
 function showRedirecting(text = 'Mengalihkan...') {
@@ -148,7 +158,7 @@ userForm.addEventListener('submit', async (e) => {
       showError(result.error);
     }
   } catch (err) {
-    showError('Terjadi kesalahan. Silakan coba lagi.');
+    showError(describeError(err));
   } finally {
     btn.disabled = false;
     btn.textContent = 'Masuk sebagai Pengguna';
@@ -190,7 +200,7 @@ adminForm.addEventListener('submit', async (e) => {
       showError(result.error);
     }
   } catch (err) {
-    showError('Terjadi kesalahan. Silakan coba lagi.');
+    showError(describeError(err));
   } finally {
     btn.disabled = false;
     btn.textContent = 'Masuk sebagai Admin';
@@ -244,7 +254,7 @@ registerForm.addEventListener('submit', async (e) => {
       showError(result.error);
     }
   } catch (err) {
-    showError('Terjadi kesalahan. Silakan coba lagi.');
+    showError(describeError(err));
   } finally {
     btn.disabled = false;
     btn.textContent = 'Buat Akun';

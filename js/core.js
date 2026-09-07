@@ -81,6 +81,11 @@ export function initA11y() {
     }
   });
 
+  // Tombol tutup panel aksesibilitas (×)
+  if (panel) {
+    panel.querySelectorAll('.a11y-close').forEach(b => b.addEventListener('click', closePanel));
+  }
+
   // --- Kontras tinggi ---
   const contrast = $('#contrast-toggle');
   const contrastOn = localStorage.getItem(KEY_CONTRAST) === 'true';
@@ -235,6 +240,7 @@ export function shell(active = '') {
 
 <aside class="a11y-panel" id="a11y-panel" hidden>
   <h2 class="a11y-title">Pengaturan tampilan</h2>
+  <button type="button" class="a11y-close" aria-label="Tutup pengaturan tampilan">×</button>
 
   <div class="a11y-row">
     <label class="check-row" for="contrast-toggle">

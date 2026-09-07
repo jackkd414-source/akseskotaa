@@ -169,7 +169,28 @@
   padding: var(--sp-5);
   box-shadow: 0 var(--sp-6) var(--sp-7) rgba(26,33,27,0.12);
 }
-.a11y-title { font-size: var(--step-1); }
+.a11y-title {
+  font-size: var(--step-1);
+  padding-right: var(--sp-6);
+  margin: 0;
+}
+.a11y-close {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.a11y-close:hover { background: var(--surface-2); }
 .a11y-row { margin-bottom: var(--sp-4); }
 .a11y-row label { display: block; margin-bottom: var(--sp-1); }
 .a11y-hint { color: var(--faint); font-size: var(--step--1); margin: 0; }

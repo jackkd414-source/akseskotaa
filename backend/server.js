@@ -38,6 +38,13 @@ const SESSION_TTL = 1000 * 60 * 60 * 24 * 7; // 7 days
 const MAX_BODY = 8 * 1024 * 1024; // 8 MB (covers base64 photo ~5MB)
 const ADMIN_CODE = process.env.ADMIN_CODE || 'AKSES2026';
 
+/* Penyimpanan permanen di Vercel Blob — data tidak hilang saat redeploy/cold start.
+   Aktif hanya di Vercel dan ketika BLOB_READ_WRITE_TOKEN di-set (lihat README).
+   Tanpa token, fallback ke /tmp (data sementara) untuk pengujian lokal. */
+const useBlob = !!process.env.VERCEL && !!process.env.BLOB_READ_WRITE_TOKEN;
+const BLOB_STORE = 'akseskota-data.json';
+let blobState = { dirty: false, queue: Promise.resolve() };
+
 try { for (const d of [DATA_DIR, UPLOAD_DIR]) fs.mkdirSync(d, { recursive: true }); } catch (e) { console.warn('[db] Cannot create data dir:', e.message); }
 
 /* ---------------- Database (node:sqlite with JSON fallback) ---------------- */
@@ -104,18 +111,22 @@ function openSqlite() {
   }
 }
 
-// ---- JSON fallback store ----
+// ---- JSON fallback store (file lokal / Vercel Blob) ----
 let jdata = null;
-function loadJson() {
-  if (jdata) return jdata;
-  try { jdata = JSON.parse(fs.readFileSync(DB_JSON, 'utf8')); } catch { jdata = {}; }
+function initJsonShape() {
   for (const k of ['users', 'sessions', 'audits', 'businesses', 'business_reviews', 'custom_locations', 'location_overrides']) {
     if (!Array.isArray(jdata[k])) jdata[k] = [];
   }
+}
+function loadJson() {
+  if (jdata) return jdata;
+  try { jdata = JSON.parse(fs.readFileSync(DB_JSON, 'utf8')); } catch { jdata = {}; }
+  initJsonShape();
   return jdata;
 }
 let jsonTimer = null;
 function saveJson() {
+  if (useBlob) { blobState.dirty = true; return; } // ditulis ke Blob di akhir request
   if (jsonTimer) return;
   jsonTimer = setTimeout(() => {
     jsonTimer = null;
@@ -123,8 +134,40 @@ function saveJson() {
   }, 120);
 }
 
+/* ---- Vercel Blob: muat data saat request API pertama, tulis setelah mutasi ---- */
+async function blobRead() {
+  const { head } = require('@vercel/blob');
+  const info = await head(BLOB_STORE);
+  if (!info || !info.url) return null;
+  const r = await fetch(info.url);
+  if (!r.ok) return null;
+  return r.text();
+}
+async function blobWrite(text) {
+  const { put } = require('@vercel/blob');
+  await put(BLOB_STORE, text, { access: 'public', addRandomSuffix: false, contentType: 'application/json' });
+}
+async function ensureBlobLoaded() {
+  if (jdata || !useBlob) return;
+  try {
+    const text = await blobRead();
+    try { jdata = text ? JSON.parse(text) : {}; } catch { jdata = {}; }
+  } catch (e) { console.error('[blob] load failed:', e.message); jdata = {}; }
+  initJsonShape();
+}
+async function flushBlob() {
+  if (!useBlob || !blobState.dirty) return;
+  blobState.dirty = false;
+  const snap = JSON.stringify(jdata, null, 1);
+  blobState.queue = blobState.queue.then(async () => {
+    try { await blobWrite(snap); } catch (e) { console.error('[blob] write failed:', e.message); }
+  });
+  await blobState.queue;
+}
+
 db = openSqlite();
-if (!db) { useJson = true; loadJson(); console.log('[db] node:sqlite unavailable — using JSON store (server-data/akseskota.json)'); }
+if (useBlob) { useJson = true; console.log('[db] Vercel Blob persistent store aktif — data aman saat redeploy/cold start.'); }
+else if (!db) { useJson = true; loadJson(); console.log('[db] node:sqlite unavailable — using JSON store (server-data/akseskota.json)'); }
 else console.log('[db] SQLite ready (server-data/akseskota.sqlite)');
 
 /* ---------------- Data access layer ---------------- */
@@ -742,7 +785,12 @@ function serveStatic(req, res, url) {
 const handler = async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   try {
-    if (url.pathname.startsWith('/api/')) return await handleApi(req, res, url);
+    if (url.pathname.startsWith('/api/')) {
+      if (useBlob) await ensureBlobLoaded();
+      const r = await handleApi(req, res, url);
+      if (useBlob) await flushBlob();
+      return r;
+    }
     if (req.method !== 'GET' && req.method !== 'HEAD') return send(res, 405, { ok: false, error: 'Method not allowed' });
     return serveStatic(req, res, url);
   } catch (e) {

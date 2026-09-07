@@ -1,10 +1,10 @@
-import{shell,initShell,initLogout,loadVenues,categories,featureLabels,initAnimations}from'./core.js?v=24';
+import{shell,initShell,initLogout,loadVenues,categories,featureLabels,initAnimations}from'./core.js?v=25';
 import{routeProfileLabel}from'./accessible-routing.js?v=3';
 import{planFacilityRoutes}from'./facility-routing.js?v=4';
 import{debounce,reverseGeocode,searchPlaces}from'./map-network.js?v=2';
 import{fetchBusinesses}from'./api.js?v=6';
 import{getAuth}from'./user-store.js';
-import{deleteLocation,suggestLocation,updateLocation}from'./api.js?v=6';import{clearAdminLocationsCache}from'./core.js';
+import{deleteLocation,suggestLocation,updateLocation}from'./api.js?v=6';import{clearAdminLocationsCache}from'./core.js?v=25';
 let MAP_BUSINESSES=[];fetchBusinesses().then(b=>{MAP_BUSINESSES=b}).catch(()=>{});
 const isBusinessLocation=id=>MAP_BUSINESSES.some(b=>b.locationId===id);
 const getBusinessForLocation=id=>MAP_BUSINESSES.find(b=>b.locationId===id)||null;

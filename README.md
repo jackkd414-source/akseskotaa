@@ -280,9 +280,11 @@ Repositori ini sudah dikonfigurasi dual-mode: file statis (HTML/CSS/JS) dilayani
 1. Push repository ini ke GitHub.
 2. Di https://vercel.com/new → **Import** repository → **Deploy**.
 3. (Opsional) Tambah Environment Variable `ADMIN_CODE` untuk mengganti kode admin.
-4. Selesai. URL seperti `https://akseskota-xxx.vercel.app` langsung jalan, termasuk login, audit, dan panel admin.
-
-> Catatan penyimpanan: Vercel memakai penyimpanan sementara per-instance fungsi. Cocok untuk demo/juri, tetapi data bisa hilang saat instance dingin (idle). Untuk data yang benar-benar permanen, gunakan Mode 1 (lokal) atau sambungkan database cloud (mis. Neon/Postgres).
+4. **Aktifkan penyimpanan permanen (Vercel Blob)** supaya akun, audit, dan usaha tidak hilang saat redeploy/cold start:
+   - Buka dashboard project di vercel.com → tab **Storage** → **Create Database** → pilih **Blob**.
+   - Pilih project ini → **Connect**. Vercel otomatis menambahkan env variable `BLOB_READ_WRITE_TOKEN`.
+   - Deploy ulang sekali (atau buka **Settings → Environment Variables** → pastikan `BLOB_READ_WRITE_TOKEN` ada → **Redeploy**).
+   - Setelah itu seluruh data tersimpan di Blob dan bertahan selamanya. Tanpa token ini, backend otomatis memakai penyimpanan sementara `/tmp` (data hilang saat instance dingin — hanya untuk uji coba).
 
 ---
 

@@ -1,4 +1,4 @@
-import{shell,footer,initShell,initLogout,initAnimations}from'./core.js?v=24';
+import{shell,footer,initShell,initLogout,initAnimations}from'./core.js?v=25';
 const $=s=>document.querySelector(s);$('#shell').innerHTML=shell('community');$('#footer').innerHTML=footer();initShell();initLogout();initAnimations();
 import{fetchAudits,fetchLeaderboard,fetchBusinesses}from'./api.js?v=6';
 let approved=[],score=0;
