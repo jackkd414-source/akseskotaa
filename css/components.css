@@ -387,6 +387,10 @@
 }
 @media (max-width: 900px) {
   .map-page { grid-template-columns: 1fr; height: auto; }
+  /* Kanvas peta butuh tinggi eksplisit agar Leaflet tidak kolaps di ponsel */
+  .map-canvas { height: calc(100dvh - 60px); min-height: 420px; }
+  /* Sidebar hasil pencarian dibatasi agar peta tetap terlihat */
+  .map-sidebar.open { max-height: 62dvh; overflow-y: auto; }
 }
 
 /* Sidebar */
@@ -1344,3 +1348,46 @@ details#trip-options, .trip-form details {
 /* Auth tabs & error (gate audit/login) */
 .auth-tab[aria-selected="true"],.auth-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .auth-error{margin:var(--sp-2) 0;padding:8px 12px;background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger);border-radius:var(--r-sm);font-size:var(--step--1);font-weight:600}
+
+/* ============================================================
+   RESPONSIF — penyempurnaan layar kecil & perangkat sentuh
+   ============================================================ */
+
+.audit-review-head,
+.review-card-header { flex-wrap: wrap; }
+
+@media (max-width: 640px) {
+  /* Detail lokasi & panel rute menjadi bottom sheet ala aplikasi peta */
+  .detail-sheet,
+  .route-panel {
+    top: auto;
+    left: 0; right: 0; bottom: 0;
+    width: 100%;
+    max-height: 74dvh;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    box-shadow: 0 -8px 24px rgba(26, 33, 27, 0.22);
+  }
+  .detail-close { width: 40px; height: 40px; }
+  /* Tombol mengambang pindah ke kanan atas agar tak tertutup bottom sheet */
+  .map-fab-group {
+    top: var(--sp-3);
+    right: var(--sp-3);
+    bottom: auto;
+    left: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .login-card { padding: var(--sp-5); }
+  .about-cta { padding: var(--sp-5); }
+  .business-stats { gap: var(--sp-2); }
+  .stat-item strong { font-size: var(--step-1); }
+  .impact-item { padding: var(--sp-3); }
+}
+
+/* Target sentuh minimal 44px pada perangkat layar sentuh */
+@media (pointer: coarse) {
+  .chip { min-height: 44px; }
+  .search-btn { min-height: 44px; }
+  .data-refresh { min-height: 44px; }
+}

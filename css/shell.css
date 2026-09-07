@@ -121,8 +121,15 @@
 .topbar .btn.a11y-btn { margin-left: auto; }
 
 @media (max-width: 900px) {
-  .menu-btn { display: inline-flex; }
-  .topbar .btn.a11y-btn { display: none; }
+  .menu-btn { display: inline-flex; order: 2; margin-left: 0; }
+  /* Panel aksesibilitas tetap bisa dibuka di layar kecil (fitur inti WCAG) */
+  .topbar .btn.a11y-btn {
+    display: inline-flex;
+    order: 1;
+    margin-left: auto;
+    padding: 8px 12px;
+    font-size: var(--step--1);
+  }
   .navlinks {
     display: none;
     position: absolute;
@@ -238,3 +245,10 @@ main.page, main#main.page { padding: var(--sp-6) 0 var(--sp-7); }
 .anim-stagger-4 { transition-delay: 0.20s; }
 .anim-stagger-5 { transition-delay: 0.25s; }
 .anim-stagger-6 { transition-delay: 0.30s; }
+
+/* Layar sangat kecil: hamburger ikon saja, nav lebih rapat */
+@media (max-width: 430px) {
+  .nav { gap: var(--sp-3); }
+  .menu-btn { padding: 8px 10px; }
+  .menu-btn .menu-btn-text { display: none; }
+}

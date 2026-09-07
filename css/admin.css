@@ -46,6 +46,26 @@
 }
 @media (max-width: 860px) {
   .admin-shell { grid-template-columns: 1fr; }
+  /* Nav samping menjadi strip pil yang bisa digeser horizontal */
+  .admin-nav {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sp-2);
+    overflow-x: auto;
+    padding-bottom: var(--sp-2);
+    -webkit-overflow-scrolling: touch;
+  }
+  .admin-nav-item {
+    width: auto;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 999px;
+    padding: 8px 14px;
+  }
+  .admin-warning { display: none; }
 }
 
 .admin-nav {
@@ -391,4 +411,21 @@
 }
 .user-manage .row-actions {
   margin-top: var(--sp-4);
+}
+
+/* Layar sempit: topbar ringkas, log aktivitas ditumpuk */
+@media (max-width: 560px) {
+  .admin-top { padding: 0 var(--sp-4); }
+  .admin-top-actions { gap: var(--sp-2); }
+  .admin-top-actions .btn {
+    padding: 8px 12px;
+    font-size: var(--step--1);
+    min-height: 40px;
+  }
+  .admin-shell {
+    width: calc(100% - 2 * var(--sp-4));
+    margin: var(--sp-4) auto;
+    gap: var(--sp-4);
+  }
+  .activity-row { grid-template-columns: 1fr; gap: 2px; }
 }
