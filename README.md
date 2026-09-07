@@ -240,19 +240,19 @@ AksesKota sendiri harus bisa diakses oleh pengguna yang dilayaninya.
 
 ### Prasyarat
 
-- **Node.js 18+** — Download dari https://nodejs.org
+- **Node.js 20+** — Download dari https://nodejs.org (Node 22+ memakai SQLite bawaan; versi lebih lama otomatis memakai penyimpanan JSON)
 - **Browser modern** — Chrome, Edge, Firefox, atau Safari
 - **Koneksi internet** — Untuk tile peta, Overpass, Valhalla, dan Street View
 
-### Langkah Setup
+### Mode 1 — Menjalankan di Lokal (data permanen)
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/jackkd414-source/AksesKota.git
-cd AksesKota
+git clone https://github.com/jackkd414-source/akseskotaa.git
+cd akseskotaa
 
-# 2. Jalankan server
-node server.js
+# 2. Jalankan server (backend + file statis)
+node backend/server.js
 
 # 3. Buka browser
 # http://localhost:8080
@@ -262,16 +262,27 @@ node server.js
 
 **Port lain:**
 ```bash
-PORT=3000 node server.js
+PORT=3000 node backend/server.js
 ```
 
 **Kode admin default:** `AKSES2026`
 Ganti lewat environment variable:
 ```bash
-ADMIN_CODE=rahasia123 node server.js
+ADMIN_CODE=rahasia123 node backend/server.js
 ```
 
-Server akan membuat folder `server-data/` secara otomatis untuk menyimpan database SQLite dan file upload.
+Server akan membuat folder `server-data/` secara otomatis untuk menyimpan database SQLite dan file upload. Data di mode ini tersimpan permanen di komputer/VM Anda.
+
+### Mode 2 — Deploy ke Vercel (hosting online)
+
+Repositori ini sudah dikonfigurasi dual-mode: file statis (HTML/CSS/JS) dilayani CDN Vercel, sedangkan API dipindah ke fungsi serverless lewat folder `api/` + `vercel.json`. Satu kode backend (`backend/server.js`) dipakai bersama oleh server lokal dan Vercel — tidak perlu menulis ulang apa pun.
+
+1. Push repository ini ke GitHub.
+2. Di https://vercel.com/new → **Import** repository → **Deploy**.
+3. (Opsional) Tambah Environment Variable `ADMIN_CODE` untuk mengganti kode admin.
+4. Selesai. URL seperti `https://akseskota-xxx.vercel.app` langsung jalan, termasuk login, audit, dan panel admin.
+
+> Catatan penyimpanan: Vercel memakai penyimpanan sementara per-instance fungsi. Cocok untuk demo/juri, tetapi data bisa hilang saat instance dingin (idle). Untuk data yang benar-benar permanen, gunakan Mode 1 (lokal) atau sambungkan database cloud (mis. Neon/Postgres).
 
 ---
 
@@ -350,8 +361,11 @@ AksesKota/
 ├── about.html                 # Tentang AksesKota
 ├── admin.html                 # Panel admin
 ├── login.html                 # Login dan registrasi
-├── server.js                  # Server Node.js (zero-dependency)
-├── start.bat / start.sh       # Launcher (Python/Node fallback)
+├── api/index.js               # Entry serverless Vercel (memanggil backend/server.js)
+├── backend/server.js          # Server Node.js zero-dependency (dipakai lokal + Vercel)
+├── package.json               # Metadata + engines Node untuk Vercel
+├── vercel.json                # Rewrites /api/* → fungsi serverless
+├── start.bat / start.sh       # Launcher (Node.js, Windows/Unix)
 ├── start-server.bat / .sh     # Launcher (Node.js only, rekomendasi)
 ├── css/
 │   ├── tokens.css             # Design tokens (warna, tipografi, spasi)

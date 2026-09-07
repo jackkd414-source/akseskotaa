@@ -5,8 +5,7 @@ import {
   loginAdmin,
   saveAuth,
   getAuth,
-  logout,
-  findUserByEmail
+  logout
 } from './user-store.js?v=2';
 import { fetchMe } from './api.js?v=3';
 
@@ -261,30 +260,15 @@ forgotForm.addEventListener('submit', (e) => {
   if (!email) { showError('Masukkan alamat email Anda.'); $('#forgot-email').focus(); return; }
   if (!email.includes('@') || !email.includes('.')) { showError('Format email tidak valid.'); $('#forgot-email').focus(); return; }
 
-  const user = findUserByEmail(email);
+  // Privasi: server tidak membocorkan apakah email terdaftar.
+  // Tampilkan instruksi netral kepada semua orang (anti email enumeration).
   const resultEl = $('#forgot-result');
-
-  if (user) {
-    resultEl.innerHTML = `Akun ditemukan! Silakan hubungi admin di <strong>admin@akseskota.id</strong> untuk reset password.`;
-    resultEl.style.color = 'var(--green)';
-    resultEl.style.background = 'var(--mint)';
-    resultEl.style.padding = '12px 14px';
-    resultEl.style.borderRadius = '10px';
-    resultEl.style.marginTop = '12px';
-    resultEl.style.fontSize = '.88rem';
-    resultEl.style.fontWeight = '600';
-  } else {
-    resultEl.innerHTML = 'Email tidak ditemukan di sistem kami.';
-    resultEl.style.color = 'var(--danger)';
-    resultEl.style.background = '#fdf2f1';
-    resultEl.style.padding = '12px 14px';
-    resultEl.style.borderRadius = '10px';
-    resultEl.style.marginTop = '12px';
-    resultEl.style.fontSize = '.88rem';
-    resultEl.style.fontWeight = '600';
-  }
+  resultEl.innerHTML = 'Permintaan reset kata sandi dikirim. Jika tidak menerima balasan, hubungi <strong>admin@akseskota.id</strong>.';
+  resultEl.style.color = 'var(--green)';
+  resultEl.style.background = 'var(--mint)';
+  resultEl.style.padding = '12px 14px';
+  resultEl.style.borderRadius = '10px';
+  resultEl.style.marginTop = '12px';
+  resultEl.style.fontSize = '.88rem';
+  resultEl.style.fontWeight = '600';
 });
-
-
-/* ---------- Seed users: auto-load on first visit ---------- */
-loadSeedUsers();
