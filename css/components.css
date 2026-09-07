@@ -704,6 +704,17 @@ details#trip-options, .trip-form details {
   margin-bottom: var(--sp-3);
 }
 .route-head strong { font-size: var(--step-1); }
+.route-head-actions { display: flex; gap: var(--sp-2); flex-shrink: 0; }
+.route-head-actions .detail-close { position: static; }
+/* Tombol minimize: panel menyusut hanya menjadi bilah judul agar peta terlihat */
+.route-panel.minimized {
+  max-height: 56px;
+  overflow: hidden;
+  padding-bottom: var(--sp-3);
+  cursor: pointer;
+}
+.route-panel.minimized .route-head { margin-bottom: 0; }
+.route-panel.minimized > :not(.route-head) { display: none; }
 .route-mode { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-3); }
 .route-mode button {
   flex: 1;
@@ -930,6 +941,9 @@ details#trip-options, .trip-form details {
 .stat-item strong { display: block; font-size: var(--step-2); color: var(--accent-deep); }
 .stat-item span { color: var(--muted); font-size: var(--step--1); }
 .biz-select { margin-bottom: var(--sp-4); }
+.biz-coords { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 4px; }
+.biz-coords > div { flex: 1; min-width: 130px; }
+.biz-coords #biz-geolocate { min-height: var(--field-h); }
 
 /* ============================================================
    LOGIN (Command — fokus, tanpa dekorasi)
@@ -1383,6 +1397,28 @@ details#trip-options, .trip-form details {
   .business-stats { gap: var(--sp-2); }
   .stat-item strong { font-size: var(--step-1); }
   .impact-item { padding: var(--sp-3); }
+}
+
+/* ============================================================
+   BUSINESS — responsif layar kecil
+   ============================================================ */
+/* Tabel leaderboard usaha: biarkan kolom utuh, geser horizontal */
+.leader-table { min-width: 620px; }
+.business-tabs .chip { text-align: center; }
+@media (max-width: 640px) {
+  .business-tabs .chip { flex: 1 1 auto; min-height: 44px; padding: 10px 14px; }
+  .business-leaderboard-tabs .chip { min-height: 44px; }
+  .badge-info-item { flex-wrap: wrap; }
+}
+@media (max-width: 460px) {
+  .business-stats { grid-template-columns: 1fr; gap: var(--sp-2); }
+  .stat-item { padding: var(--sp-3) var(--sp-2); }
+  .review-card-header { flex-direction: column; align-items: flex-start; }
+  .biz-coords > div { min-width: 100%; }
+  .biz-coords #biz-geolocate { width: 100%; }
+  #business-register-form .form-label, #business-register-form input, #business-register-form textarea, #business-register-form select {
+    font-size: 1rem; /* cegah zoom otomatis iOS saat input difokus */
+  }
 }
 
 /* Target sentuh minimal 44px pada perangkat layar sentuh */

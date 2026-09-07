@@ -78,6 +78,7 @@ function openSqlite() {
         id TEXT PRIMARY KEY, name TEXT NOT NULL, address TEXT NOT NULL,
         category TEXT DEFAULT 'general', owner_name TEXT DEFAULT '', owner_email TEXT NOT NULL,
         description TEXT DEFAULT '', location_id TEXT, verified INTEGER DEFAULT 0,
+        lat REAL, lng REAL,
         services TEXT DEFAULT '[]',
         created_at TEXT NOT NULL
       );
@@ -105,6 +106,8 @@ function openSqlite() {
       try { d.exec('ALTER TABLE custom_locations ADD COLUMN ' + col); } catch (e) { /* sudah ada */ }
     }
     try { d.exec("ALTER TABLE businesses ADD COLUMN services TEXT DEFAULT '[]'"); } catch (e) { /* sudah ada */ }
+    try { d.exec('ALTER TABLE businesses ADD COLUMN lat REAL'); } catch (e) { /* sudah ada */ }
+    try { d.exec('ALTER TABLE businesses ADD COLUMN lng REAL'); } catch (e) { /* sudah ada */ }
     return d;
   } catch (e) {
     return null;
@@ -253,8 +256,8 @@ const DB = {
 
   insertBusiness(b) {
     if (useJson) { loadJson().businesses.push(b); saveJson(); }
-    else db.prepare('INSERT INTO businesses (id,name,address,category,owner_name,owner_email,description,location_id,verified,services,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)')
-      .run(b.id, b.name, b.address, b.category, b.owner_name, b.owner_email, b.description, b.location_id, b.verified ? 1 : 0, JSON.stringify(b.services || []), b.created_at);
+    else db.prepare('INSERT INTO businesses (id,name,address,category,owner_name,owner_email,description,location_id,lat,lng,verified,services,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)')
+      .run(b.id, b.name, b.address, b.category, b.owner_name, b.owner_email, b.description, b.location_id, b.lat ?? null, b.lng ?? null, b.verified ? 1 : 0, JSON.stringify(b.services || []), b.created_at);
     return b;
   },
   listBusinesses() {
@@ -382,7 +385,7 @@ function businessStats() {
     let badge = 'bronze';
     if (score >= 85) badge = 'platinum'; else if (score >= 70) badge = 'gold'; else if (score >= 50) badge = 'silver';
     const services = Array.isArray(b.services) ? b.services : [];
-    return { id: b.id, name: b.name, address: b.address, category: b.category, locationId: b.location_id, verified: !!b.verified, services, accessible: services.length > 0, score, avgRating: Number(avg.toFixed(1)), reviewCount: mine.length, badgeLevel: badge };
+    return { id: b.id, name: b.name, address: b.address, category: b.category, locationId: b.location_id, verified: !!b.verified, services, accessible: services.length > 0, lat: b.lat ?? null, lng: b.lng ?? null, score, avgRating: Number(avg.toFixed(1)), reviewCount: mine.length, badgeLevel: badge };
   }).sort((a, b) => b.score - a.score || b.reviewCount - a.reviewCount);
 }
 
@@ -625,10 +628,18 @@ async function handleApi(req, res, url) {
     }
     const SERVICE_KEYS = ['kursi_roda', 'tuna_netra', 'bahasa_isyarat', 'lansia'];
     const services = Array.isArray(b.services) ? [...new Set(b.services.map(String))].filter(k => SERVICE_KEYS.includes(k)).slice(0, 4) : [];
+    // Koordinat geografi opsional
+    let lat = null, lng = null;
+    if (b.lat !== undefined && b.lat !== null && b.lat !== '' && b.lng !== undefined && b.lng !== null && b.lng !== '') {
+      lat = Number(b.lat); lng = Number(b.lng);
+      if (!Number.isFinite(lat) || lat < -90 || lat > 90) return send(res, 400, { ok: false, error: 'Latitude tidak valid (rentang -90 s.d. 90).' });
+      if (!Number.isFinite(lng) || lng < -180 || lng > 180) return send(res, 400, { ok: false, error: 'Longitude tidak valid (rentang -180 s.d. 180).' });
+    }
     const biz = {
       id: DB.uid('business'), name, address, category: String(b.category || 'general').slice(0, 40),
       owner_name: String(b.ownerName || '').trim().slice(0, 80), owner_email: ownerEmail,
       description: String(b.description || '').slice(0, 500), location_id: locationId,
+      lat, lng,
       verified: false, services, accessible: services.length > 0, created_at: new Date().toISOString()
     };
     DB.insertBusiness(biz);

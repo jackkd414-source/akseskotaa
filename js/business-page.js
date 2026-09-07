@@ -213,6 +213,29 @@ const wantedName = pageParams.get('name');
     }
 })();
 
+/* ---------- Tombol "Pakai lokasi saya" (GPS opsional) ---------- */
+const geoBtn = $('#biz-geolocate');
+geoBtn?.addEventListener('click', () => {
+    const hint = $('#biz-coords-hint');
+    if (!navigator.geolocation) {
+        if (hint) { hint.textContent = 'Perangkat tidak mendukung GPS. Isi koordinat secara manual.'; hint.style.color = 'var(--danger)'; }
+        return;
+    }
+    geoBtn.disabled = true;
+    geoBtn.textContent = 'Mencari…';
+    navigator.geolocation.getCurrentPosition((pos) => {
+        $('#biz-lat').value = pos.coords.latitude.toFixed(6);
+        $('#biz-lng').value = pos.coords.longitude.toFixed(6);
+        geoBtn.disabled = false;
+        geoBtn.textContent = 'Pakai lokasi saya';
+        if (hint) { hint.textContent = 'Koordinat terisi dari lokasi Anda.'; hint.style.color = 'var(--green)'; }
+    }, () => {
+        geoBtn.disabled = false;
+        geoBtn.textContent = 'Pakai lokasi saya';
+        if (hint) { hint.textContent = 'Gagal mendapat lokasi. Periksa izin GPS, atau isi manual.'; hint.style.color = 'var(--danger)'; }
+    }, { enableHighAccuracy: false, timeout: 10000 });
+});
+
 /* ---------- Form pendaftaran usaha (server API) ---------- */
 const bizForm = $('#business-register-form');
 if (bizForm) {
@@ -221,6 +244,13 @@ if (bizForm) {
         const msg = $('#biz-form-message');
         const btn = $('#biz-submit-btn');
         const services = [...document.querySelectorAll('input[name="biz-service"]:checked')].map(x => x.value);
+        const latRaw = $('#biz-lat').value.trim();
+        const lngRaw = $('#biz-lng').value.trim();
+        if (!!latRaw !== !!lngRaw) {
+            msg.style.color = 'var(--danger)';
+            msg.textContent = 'Isi latitude dan longitude sekaligus, atau kosongkan keduanya.';
+            return;
+        }
         const payload = {
             name: $('#biz-name').value.trim(),
             address: $('#biz-address').value.trim(),
@@ -229,6 +259,8 @@ if (bizForm) {
             ownerEmail: $('#biz-email').value.trim(),
             description: $('#biz-desc').value.trim(),
             locationId: $('#biz-location').value || null,
+            lat: latRaw ? Number(latRaw) : null,
+            lng: lngRaw ? Number(lngRaw) : null,
             services
         };
         btn.disabled = true; btn.textContent = 'Mendaftarkan…';

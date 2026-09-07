@@ -182,7 +182,8 @@ Platform untuk usaha kecil mendapat visibilitas dan bersaing berdasarkan aksesib
 1. Buka halaman **Usaha** dari navigasi.
 2. Pilih tab **Daftarkan Usaha**.
 3. Isi: nama usaha, alamat lengkap, kategori, nama pemilik, email, deskripsi, lokasi di peta, dan layanan yang tersedia (kursi roda, tuna netra, bahasa isyarat, lansia).
-4. Submit. Usaha muncul di peta dan leaderboard.
+4. **Koordinat lokasi (opsional)** — isi latitude/longitude manual atau tekan **"Pakai lokasi saya"** untuk mengisi otomatis dari GPS. Keduanya boleh dikosongkan.
+5. Submit. Usaha muncul di peta dan leaderboard.
 
 **Sistem skor & badge:**
 

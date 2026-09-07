@@ -243,7 +243,7 @@ async function calculateRoute(){
  if(run!==routeRun)return;
  if(Math.abs(origin[0]-routeDestination.lat)<0.00001&&Math.abs(origin[1]-routeDestination.lng)<0.00001){$('#trip-status').textContent='Asal dan tujuan harus berbeda.';return;}
  $('#route-destination').textContent=routeDestination.name;$('#route-from').value=$('#trip-origin').selectedOptions[0].textContent;
- $('#route-panel').classList.add('open');$('#detail').classList.remove('open');$('#route-loading').hidden=false;$('#route-options').replaceChildren();$('#route-quality').replaceChildren();$('#route-steps').replaceChildren();
+ $('#route-panel').classList.add('open');$('#route-panel').classList.remove('minimized');setMinimizeBtn(true);$('#detail').classList.remove('open');$('#route-loading').hidden=false;$('#route-options').replaceChildren();$('#route-quality').replaceChildren();$('#route-steps').replaceChildren();
  if(routeLayer){map.removeLayer(routeLayer);routeLayer=null}
  $('#trip-status').textContent='Menghitung rute dan rute fasilitas pilihan…';
  if(innerWidth<861)$('#map-sidebar').classList.remove('open');
@@ -290,7 +290,11 @@ $('#trip-origin').onchange=updateTripHint;$('#trip-profile').onchange=updateTrip
 $('#trip-form').onsubmit=async e=>{e.preventDefault();const ok=await resolveDestination();if(ok)calculateRoute();else $('#destination-search').reportValidity()};
 function routeTo(v){$('#trip-target').value=v.id;$('#destination-search').value=v.name;$('#destination-search').setCustomValidity('');calculateRoute()}
 document.querySelectorAll('[data-route-profile]').forEach(btn=>btn.onclick=()=>{routeProfile=btn.dataset.routeProfile;$('#trip-profile').value=routeProfile;document.querySelectorAll('[data-route-profile]').forEach(b=>{const active=b===btn;b.classList.toggle('active',active);b.setAttribute('aria-checked',String(active))});calculateRoute()});
-$('#route-close').onclick=()=>{routeRun++;$('#route-loading').hidden=true;$('#route-panel').classList.remove('open');if(routeLayer){map.removeLayer(routeLayer);routeLayer=null}};
+function setMinimizeBtn(expanded){const b=$('#route-minimize');if(!b)return;b.textContent=expanded?'−':'+';b.setAttribute('aria-expanded',String(expanded))}
+$('#route-close').onclick=()=>{routeRun++;$('#route-loading').hidden=true;$('#route-panel').classList.remove('open');$('#route-panel').classList.remove('minimized');setMinimizeBtn(true);if(routeLayer){map.removeLayer(routeLayer);routeLayer=null}};
+$('#route-minimize').onclick=(e)=>{e.stopPropagation();const min=$('#route-panel').classList.toggle('minimized');setMinimizeBtn(!min)};
+// Ketika disusutkan, ketuk bilah judul untuk membuka lagi
+$('#route-panel').addEventListener('click',e=>{if(e.target.closest('button'))return;const p=$('#route-panel');if(p.classList.contains('minimized')){p.classList.remove('minimized');setMinimizeBtn(true)}});
 async function loadRealData(fresh=false){const status=$('#data-status'),refresh=$('#refresh-data');refresh.disabled=true;status.querySelector('strong').textContent=fresh?'Memperbarui OpenStreetMap…':'Mengambil data OpenStreetMap…';try{venues=await loadVenues({fresh});fillTripPlaces();applyFilters();if(!initialBoundsSet){const bounds=L.latLngBounds(venues.map(v=>[v.lat,v.lng]));if(bounds.isValid())map.fitBounds(bounds,{padding:[30,30],maxZoom:13});initialBoundsSet=true;}if(!map.hasLayer(tiles))tiles.addTo(map);const when=venues.updatedAt?new Date(venues.updatedAt).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'}):'baru saja';status.querySelector('strong').textContent=`Data peta aktif · ${venues.length} lokasi`;status.querySelector('span').textContent=`Data ${when}${venues.dataSource==='live'?' · langsung':venues.dataSource==='cache'?' · cache 1 jam':venues.dataSource==='stale-cache'?' · cache lama':' · tersimpan'}. Kondisi fisik dapat berubah.`}catch(e){status.querySelector('strong').textContent='Data real gagal dimuat';status.querySelector('span').textContent=e.message;$('#result-meta').textContent='Tidak ada data demo yang ditampilkan'}finally{refresh.disabled=false;if(!map.hasLayer(tiles))tiles.addTo(map)}}
 $('#refresh-data').onclick=()=>loadRealData(true);
 await loadRealData();

@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/tokens.css?v=2">
   <link rel="stylesheet" href="css/base.css?v=3">
   <link rel="stylesheet" href="css/shell.css?v=8">
-  <link rel="stylesheet" href="css/components.css?v=14">
+  <link rel="stylesheet" href="css/components.css?v=15">
 </head>
 <body>
 
@@ -89,6 +89,20 @@
             <label class="form-label" for="biz-address">Alamat Usaha *</label>
             <input type="text" id="biz-address" required maxlength="200" placeholder="Contoh: Jl. Sudirman No. 123, Senayan, Jakarta Pusat">
             <small class="form-hint" style="display:block;margin-top:4px">Tuliskan alamat lengkap usaha Anda agar komunitas dapat menemukan lokasi Anda.</small>
+
+            <label class="form-label" for="biz-lat">Koordinat Lokasi <small class="optional">Opsional — titik pada peta untuk usaha Anda</small></label>
+            <div class="biz-coords">
+              <div>
+                <label class="form-label" for="biz-lat">Latitude</label>
+                <input type="number" step="any" id="biz-lat" placeholder="Contoh: -6.2088">
+              </div>
+              <div>
+                <label class="form-label" for="biz-lng">Longitude</label>
+                <input type="number" step="any" id="biz-lng" placeholder="Contoh: 106.8456">
+              </div>
+              <button type="button" class="btn btn-outline" id="biz-geolocate">Pakai lokasi saya</button>
+            </div>
+            <small class="form-hint" style="display:block;margin-top:4px;margin-bottom:16px" id="biz-coords-hint">Latitude/Longitude opsional. Kosongkan jika tidak tahu, atau kaitkan ke lokasi peta di bawah.</small>
 
             <label class="form-label" for="biz-category">Kategori Usaha</label>
             <select id="biz-category" class="biz-select">
@@ -203,7 +217,7 @@
 
   <div id="footer"></div>
 
-  <script type="module" src="js/business-page.js?v=26"></script>
+  <script type="module" src="js/business-page.js?v=27"></script>
 
 </body>
 </html>
