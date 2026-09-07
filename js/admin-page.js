@@ -1,5 +1,5 @@
 import{loadVenues,categories,featureLabels,initA11y,clearAdminLocationsCache}from'./core.js?v=24';
-import{fetchAdminAudits,moderateAudit as apiModerateAudit,fetchBusinesses,fetchAdminLocations,saveCustomLocation,updateLocation as apiUpdateLocation,deleteLocation as apiDeleteLocation,approveLocationSuggestion,rejectLocationSuggestion,fetchAdminLeaderboard,removeContributor,fetchAdminBusinesses,verifyBusiness,deleteBusiness,registerBusiness}from'./api.js?v=5';
+import{fetchAdminAudits,moderateAudit as apiModerateAudit,fetchBusinesses,fetchAdminLocations,saveCustomLocation,updateLocation as apiUpdateLocation,deleteLocation as apiDeleteLocation,approveLocationSuggestion,rejectLocationSuggestion,fetchAdminLeaderboard,removeContributor,fetchAdminBusinesses,verifyBusiness,deleteBusiness,registerBusiness}from'./api.js?v=6';
 import{clearCache}from'./osm-api.js';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];let venues=[],auditFilter='pending',deleteTarget=null;
 const esc=s=>{const d=document.createElement('div');d.textContent=s??'';return d.innerHTML};

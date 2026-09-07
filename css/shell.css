@@ -13,7 +13,7 @@
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1200; /* di atas kontrol Leaflet/FAB (1000) agar dropdown menu terlihat di halaman peta */
   background: var(--paper);
   border-bottom: 1px solid var(--line);
 }

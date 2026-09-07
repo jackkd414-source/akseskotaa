@@ -1,5 +1,5 @@
 import{shell,footer,initShell,initLogout,loadVenues,initAnimations}from'./core.js?v=24';
-import{registerUser as apiRegister,loginUser as apiLogin,logout as apiLogout,me as apiMe,fetchAudits,submitAudit}from'./api.js?v=3';
+import{registerUser as apiRegister,loginUser as apiLogin,logout as apiLogout,me as apiMe,fetchAudits,submitAudit}from'./api.js?v=6';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 $('#shell').innerHTML=shell('audit');$('#footer').innerHTML=footer();initShell();initLogout();initAnimations();
 

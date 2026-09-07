@@ -6,8 +6,8 @@ import {
   saveAuth,
   getAuth,
   logout
-} from './user-store.js?v=2';
-import { fetchMe } from './api.js?v=3';
+} from './user-store.js?v=3';
+import { fetchMe } from './api.js?v=6';
 
 const $ = (s) => document.querySelector(s);
 

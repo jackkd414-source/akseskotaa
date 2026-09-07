@@ -1,5 +1,5 @@
 import { shell, footer, initShell, initLogout, loadVenues, categories, initAnimations } from './core.js?v=24';
-import { fetchBusinesses, registerBusiness as apiRegisterBusiness } from './api.js?v=3';
+import { fetchBusinesses, registerBusiness as apiRegisterBusiness, fetchMe } from './api.js?v=6';
 
 /* ---------- Shell ---------- */
 document.querySelector('#shell').innerHTML = shell('business');
@@ -159,10 +159,31 @@ async function renderAll() {
 /* ---------- Init ---------- */
 renderAll();
 
+/* ---------- Gerbang akun untuk pendaftaran via peta (?location=...) ---------- */
+const pageParams = new URLSearchParams(window.location.search);
+const wantedLocation = pageParams.get('location');
+const wantedName = pageParams.get('name');
+
 /* ---------- Isi dropdown lokasi peta ---------- */
 (async () => {
     const sel = $('#biz-location');
     if (!sel) return;
+
+    // Datang dari peta dengan lokasi terpilih -> wajib punya akun dulu.
+    if (wantedLocation) {
+        let me = null;
+        try { me = await fetchMe(); } catch { me = null; }
+        if (!me) {
+            const back = 'business.html?location=' + encodeURIComponent(wantedLocation) +
+                (wantedName ? '&name=' + encodeURIComponent(wantedName) : '');
+            window.location.href = 'login.html?return=' + encodeURIComponent(back);
+            return;
+        }
+        const registerTab = document.querySelector('#business-tabs .chip[data-tab="register"]');
+        if (registerTab) registerTab.click();
+        $('#tab-register')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     try {
         const venues = await loadVenues();
         const taken = new Set(SERVER_BUSINESSES.filter(b => b.locationId).map(b => b.locationId));
@@ -173,6 +194,22 @@ renderAll();
                 .join('');
     } catch {
         sel.innerHTML = '<option value="">Data lokasi gagal dimuat</option>';
+    }
+
+    // Prefill lokasi hasil klik "Daftar usaha di sini" pada peta
+    if (wantedLocation) {
+        let opt = [...sel.options].find(o => o.value === wantedLocation);
+        if (!opt) {
+            opt = document.createElement('option');
+            opt.value = wantedLocation;
+            opt.textContent = wantedName || wantedLocation;
+            sel.appendChild(opt);
+        }
+        sel.value = wantedLocation;
+        const note = document.createElement('small');
+        note.style.cssText = 'display:block;margin-top:6px;color:var(--accent-deep);font-weight:600';
+        note.textContent = 'Dari peta: ' + (wantedName || wantedLocation) + ' — lengkapi data usaha lalu kirim.';
+        sel.after(note);
     }
 })();
 
@@ -208,6 +245,10 @@ if (bizForm) {
                 msg.textContent = (r && r.error) || 'Gagal mendaftar.';
             }
         } catch (err) {
+            if (err.requireAuth || err.status === 401) {
+                window.location.href = 'login.html?return=' + encodeURIComponent('business.html');
+                return;
+            }
             msg.style.color = 'var(--danger)';
             msg.textContent = err.message || 'Gagal menghubungi server.';
         } finally {

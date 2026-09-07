@@ -50,10 +50,6 @@ function openSqlite() {
     const { DatabaseSync } = require('node:sqlite');
     const file = path.join(DATA_DIR, 'akseskota.sqlite');
     const d = new DatabaseSync(file);
-    for (const col of ["pending INTEGER DEFAULT 0", "contributor_name TEXT DEFAULT ''"]) {
-      try { d.exec('ALTER TABLE custom_locations ADD COLUMN ' + col); } catch (e) { /* kolom sudah ada */ }
-    }
-    try { d.exec("ALTER TABLE businesses ADD COLUMN services TEXT DEFAULT '[]'"); } catch (e) { /* kolom sudah ada */ }
     d.exec(`
       CREATE TABLE IF NOT EXISTS users (
         id TEXT PRIMARY KEY, name TEXT NOT NULL, email TEXT UNIQUE NOT NULL,
@@ -75,6 +71,7 @@ function openSqlite() {
         id TEXT PRIMARY KEY, name TEXT NOT NULL, address TEXT NOT NULL,
         category TEXT DEFAULT 'general', owner_name TEXT DEFAULT '', owner_email TEXT NOT NULL,
         description TEXT DEFAULT '', location_id TEXT, verified INTEGER DEFAULT 0,
+        services TEXT DEFAULT '[]',
         created_at TEXT NOT NULL
       );
       CREATE TABLE IF NOT EXISTS business_reviews (
@@ -95,6 +92,12 @@ function openSqlite() {
         deleted INTEGER DEFAULT 0, updated_at TEXT NOT NULL
       );
     `);
+    // Patch kolom untuk database lama — SETELAH CREATE TABLE supaya database
+    // baru langsung lengkap dan database lama tetap ikut dimutasi.
+    for (const col of ["pending INTEGER DEFAULT 0", "contributor_name TEXT DEFAULT ''"]) {
+      try { d.exec('ALTER TABLE custom_locations ADD COLUMN ' + col); } catch (e) { /* sudah ada */ }
+    }
+    try { d.exec("ALTER TABLE businesses ADD COLUMN services TEXT DEFAULT '[]'"); } catch (e) { /* sudah ada */ }
     return d;
   } catch (e) {
     return null;
@@ -565,6 +568,8 @@ async function handleApi(req, res, url) {
 
   if (p === '/api/businesses' && method === 'POST') {
     const b = await readBody(req);
+    const sessBiz = DB.getSession(parseCookies(req)[SESSION_COOKIE]);
+    if (!sessBiz) return send(res, 401, { ok: false, error: 'Masuk dulu untuk mendaftarkan usaha.', requireAuth: true });
     const name = String(b.name || '').trim();
     const address = String(b.address || '').trim();
     const ownerEmail = String(b.ownerEmail || '').trim().toLowerCase();

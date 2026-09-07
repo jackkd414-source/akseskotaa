@@ -1,6 +1,6 @@
 import{shell,footer,initShell,initLogout,initAnimations}from'./core.js?v=24';
 const $=s=>document.querySelector(s);$('#shell').innerHTML=shell('community');$('#footer').innerHTML=footer();initShell();initLogout();initAnimations();
-import{fetchAudits,fetchLeaderboard,fetchBusinesses}from'./api.js?v=3';
+import{fetchAudits,fetchLeaderboard,fetchBusinesses}from'./api.js?v=6';
 let approved=[],score=0;
 try{
  const audits=await fetchAudits();approved=audits.filter(a=>a.status==='approved');score=approved.length*10;

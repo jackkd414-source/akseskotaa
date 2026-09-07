@@ -13,7 +13,12 @@ async function call(path, options = {}) {
   });
   let data = null;
   try { data = await res.json(); } catch { /* non-JSON */ }
-  if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
+  if (!res.ok) {
+    const err = new Error(data?.error || `HTTP ${res.status}`);
+    err.status = res.status;
+    if (data?.requireAuth) err.requireAuth = true;
+    throw err;
+  }
   return data;
 }
 
